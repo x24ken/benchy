@@ -1,0 +1,20 @@
+[project]
+name = "server"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "anthropic>=0.39.0",
+    "flask>=3.0.3",
+    "llm>=0.17.1",
+    "llm-claude-3>=0.8",
+    "llm-gemini>=0.3",
+    "openai>=1.54.3",
+    "pydantic>=2.9.2",
+    "pytest>=8.3.3",
+    "python-dotenv>=1.0.1",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
