@@ -1,8 +1,19 @@
 # Multi Autocomplete LLM Benchmark
-> A tool to benchmark and compare the performance of multiple LLM models for a given prompt.
+> A tool to benchmark and compare the speed, price, and performance of multiple LLM models for a given prompt in a reactive autocomplete UI.
 > Watch the walk through [video here](https://youtu.be/1ObiaSiA8BQ)
 
-<img src="./images/llm-speed-price-performance-pick-two.png" alt="pick-two" style="max-width: 800px;">
+<img src="./images/pick-two.png" alt="pick-two" style="max-width: 800px;">
+
+## Important Files
+- `.env` - Environment variables for API keys
+- `server/.env` - Environment variables for API keys
+- `package.json` - Front end dependencies
+- `server/pyproject.toml` - Server dependencies
+- `src/store.ts` - Stores all front end state and prompt
+- `src/api.ts` - Parallel Autocomplete API requests
+- `server/server.py` - Server routes
+- `server/llm_models.py` - All LLM models
+- `src/components/UserInput.vue` - User input with 2s debounce and autocomplete trigger
 
 ## Setup
 
@@ -43,7 +54,7 @@ GEMINI_API_KEY=
 ```
 
 # Start server
-uv run python server/server.py
+uv run python server.py
 
 # Run tests
 uv run pytest (**beware will hit APIs and cost money**)
