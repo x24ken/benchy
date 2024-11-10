@@ -20,6 +20,11 @@
 
 ## Setup
 
+### Get API Keys
+- [Anthropic](https://docs.anthropic.com/en/api/getting-started)
+- [Google Cloud](https://ai.google.dev/gemini-api/docs/api-key)
+- [OpenAI](https://help.openai.com/en/articles/4936850-where-do-i-find-my-openai-api-key)
+
 ### Client Setup
 ```bash
 # Install dependencies using bun (recommended)
@@ -60,6 +65,9 @@ uv run python server.py
 # Run tests
 uv run pytest (**beware will hit APIs and cost money**)
 ```
+
+## Dev Notes & Caveats
+- See `src/components/DevNotes.vue` for limitations
 
 ## Resources
 - https://github.com/simonw/llm?tab=readme-ov-file

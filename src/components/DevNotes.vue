@@ -11,25 +11,27 @@
           <li>
             Claude Models:
             <ul>
-              <li>haiku</li>
-              <li>sonnet</li>
+              <li>Claude 3.5 Haiku (claude-3-5-haiku-20241022)</li>
+              <li>Claude 3.5 Sonnet (claude-3-5-sonnet-20241022)</li>
             </ul>
           </li>
           <li>
             Gemini Models:
             <ul>
-              <li>gemini_pro_2</li>
-              <li>gemini_flash_2</li>
-              <li>gemini_flash_8b</li>
+              <li>Gemini 1.5 Pro (gemini-1.5-pro-002)</li>
+              <li>Gemini 1.5 Flash (gemini-1.5-flash-002)</li>
+              <li>Gemini 1.5 Flash 8B (gemini-1.5-flash-8b-latest)</li>
             </ul>
           </li>
           <li>
             GPT Models:
             <ul>
-              <li>gpt_4o</li>
-              <li>gpt_4o_mini</li>
-              <li>gpt_4o_predictive</li>
-              <li>gpt_4o_mini_predictive</li>
+              <li>GPT-4o (gpt-4o)</li>
+              <li>GPT-4o Mini (gpt-4o-mini)</li>
+              <li>GPT-4o Predictive (gpt-4o with predictive output)</li>
+              <li>
+                GPT-4o Mini Predictive (gpt-4o-mini with predictive output)
+              </li>
             </ul>
           </li>
         </ul>
@@ -37,7 +39,6 @@
       <li>
         Features:
         <ul>
-          <li>Real-time code input with syntax highlighting</li>
           <li>Customizable prompt template</li>
           <li>Response time measurements</li>
           <li>Execution cost tracking</li>
@@ -73,6 +74,10 @@
             >
             libraries with streaming disabled - not utilizing response token
             limits or other performance optimization techniques
+          </li>
+          <li>
+            Models are not dynamically loaded - must manually update and setup
+            every API key (see `.env.sample`)
           </li>
         </ul>
       </li>
