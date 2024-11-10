@@ -1,6 +1,9 @@
 # Multi Autocomplete LLM Benchmark
 > A tool to benchmark and compare the speed, price, and performance of multiple LLM models for a given prompt in a reactive autocomplete UI.
+> 
 > Watch the walk through [video here](https://youtu.be/1ObiaSiA8BQ)
+>
+> Original goal: Understand [claude 3.5 haiku](https://www.anthropic.com/claude/haiku) & GPT-4o [predictive outputs](https://platform.openai.com/docs/guides/predicted-outputs) compared to existing models. 
 
 <img src="./images/pick-two.png" alt="pick-two" style="max-width: 800px;">
 
@@ -46,12 +49,10 @@ uv pip sync
 # Set up environment variables
 cp .env.sample .env
 
-# Edit every .env key with your API keys and settings
-```
+# Set EVERY .env key with your API keys and settings
 ANTHROPIC_API_KEY=
 OPENAI_API_KEY=
 GEMINI_API_KEY=
-```
 
 # Start server
 uv run python server.py
