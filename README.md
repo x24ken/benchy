@@ -5,7 +5,7 @@
 >
 > Original goal: Understand [claude 3.5 haiku](https://www.anthropic.com/claude/haiku) & GPT-4o [predictive outputs](https://platform.openai.com/docs/guides/predicted-outputs) compared to existing models. 
 
-<img src="./images/pick-two.png" alt="pick-two" style="max-width: 800px;">
+<img src="./images/perf-price-speed-pick-two.png" alt="pick-two" style="max-width: 800px;">
 
 ## Important Files
 - `.env` - Environment variables for API keys
