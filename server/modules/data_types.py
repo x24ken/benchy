@@ -24,3 +24,9 @@ class PromptResponse(BaseModel):
     response: str
     runTimeMs: int
     inputAndOutputCost: float
+
+
+class ToolCallResponse(BaseModel):
+    tools: list[str]
+    runTimeMs: int
+    inputAndOutputCost: float

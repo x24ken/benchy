@@ -1,5 +1,6 @@
 import pytest
-from modules.llm_models import predictive_prompt, prompt
+from modules.openai_llm import predictive_prompt
+from modules.llm_models import prompt
 from modules.data_types import ModelAlias, PromptResponse
 
 

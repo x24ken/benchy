@@ -1,50 +1,12 @@
-import openai
 import llm
 from dotenv import load_dotenv
 import os
 from modules.data_types import ModelAlias, PromptResponse
+from modules.openai_llm import predictive_prompt
+from utils import MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS
 
 # Load environment variables from .env file
 load_dotenv()
-
-MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS = {
-    ModelAlias.gpt_4o_mini: {
-        "input": 0.15,
-        "output": 0.60,
-    },
-    ModelAlias.gpt_4o: {
-        "input": 2.50,
-        "output": 10.00,
-    },
-    ModelAlias.gpt_4o_predictive: {
-        "input": 2.50,
-        "output": 10.00,
-    },
-    ModelAlias.gpt_4o_mini_predictive: {
-        "input": 0.15,
-        "output": 0.60,
-    },
-    ModelAlias.haiku: {
-        "input": 1.00,
-        "output": 5.00,
-    },
-    ModelAlias.sonnet: {
-        "input": 3.00,
-        "output": 15.00,
-    },
-    ModelAlias.gemini_pro_2: {
-        "input": 1.25,
-        "output": 5.00,
-    },
-    ModelAlias.gemini_flash_2: {
-        "input": 0.075,
-        "output": 0.300,
-    },
-    ModelAlias.gemini_flash_8b: {
-        "input": 0.0375,
-        "output": 0.15,
-    },
-}
 
 
 def parse_input_and_output_tokens_from_completion(
@@ -121,43 +83,6 @@ def build_model_map() -> dict[ModelAlias, llm.Model]:
     return model_map
 
 
-def predictive_prompt(prompt: str, prediction: str, model: str) -> PromptResponse:
-    """
-    Run a chat model with a predicted output to reduce latency.
-
-    Args:
-        prompt (str): The prompt to send to the OpenAI API.
-        prediction (str): The predicted output text.
-        model (str): The model ID to use for the API call.
-
-    Returns:
-        PromptResponse: The response including text, runtime, and cost.
-    """
-    # Map the OpenAI model name to our ModelAlias
-    model_alias = ModelAlias.gpt_4o if model == "gpt-4o" else ModelAlias.gpt_4o_mini
-
-    completion = openai_client.chat.completions.create(
-        model=model,
-        messages=[
-            {"role": "user", "content": prompt},
-        ],
-        prediction={"type": "content", "content": prediction},
-    )
-
-    # Extract token counts from the completion
-    input_tokens = completion.usage.prompt_tokens
-    output_tokens = completion.usage.completion_tokens
-
-    # Calculate cost using the same cost function
-    cost = get_cost(model_alias, input_tokens, output_tokens)
-
-    response = PromptResponse(
-        response=completion.choices[0].message.content,
-        runTimeMs=0,  # OpenAI doesn't provide runtime info
-        inputAndOutputCost=cost,
-    )
-
-    return response
 
 
 def llm_prompt(
@@ -203,4 +128,3 @@ def prompt(prompt: str, model_alias: ModelAlias) -> PromptResponse:
 
 
 model_map: dict[ModelAlias, llm.Model] = build_model_map()
-openai_client: openai.OpenAI = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
