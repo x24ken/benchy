@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from time import time
-from data_types import ModelAlias, PromptResponse
-import llm_models
+from modules.data_types import ModelAlias, PromptResponse
+import modules.llm_models as llm_models
 
 app = Flask(__name__)
 
@@ -15,15 +15,17 @@ def handle_prompt():
     start_time = time()
     prompt_response = llm_models.prompt(prompt, model)
     run_time_ms = int((time() - start_time) * 1000)
-    
+
     # Update the runtime in the response
     prompt_response.runTimeMs = run_time_ms
 
-    return jsonify({
-        "response": prompt_response.response,
-        "runTimeMs": prompt_response.runTimeMs,
-        "inputAndOutputCost": prompt_response.inputAndOutputCost
-    })
+    return jsonify(
+        {
+            "response": prompt_response.response,
+            "runTimeMs": prompt_response.runTimeMs,
+            "inputAndOutputCost": prompt_response.inputAndOutputCost,
+        }
+    )
 
 
 def main():

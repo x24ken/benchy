@@ -1,6 +1,6 @@
 import pytest
 from server import app
-from data_types import ModelAlias
+from modules.data_types import ModelAlias
 
 
 @pytest.fixture

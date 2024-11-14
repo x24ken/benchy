@@ -2,7 +2,7 @@ import openai
 import llm
 from dotenv import load_dotenv
 import os
-from data_types import ModelAlias, PromptResponse
+from modules.data_types import ModelAlias, PromptResponse
 
 # Load environment variables from .env file
 load_dotenv()
@@ -147,7 +147,7 @@ def predictive_prompt(prompt: str, prediction: str, model: str) -> PromptRespons
     # Extract token counts from the completion
     input_tokens = completion.usage.prompt_tokens
     output_tokens = completion.usage.completion_tokens
-    
+
     # Calculate cost using the same cost function
     cost = get_cost(model_alias, input_tokens, output_tokens)
 

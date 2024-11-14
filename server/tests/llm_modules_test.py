@@ -1,6 +1,6 @@
 import pytest
-from llm_models import predictive_prompt, prompt
-from data_types import ModelAlias, PromptResponse
+from modules.llm_models import predictive_prompt, prompt
+from modules.data_types import ModelAlias, PromptResponse
 
 
 def test_predictive_prompt():

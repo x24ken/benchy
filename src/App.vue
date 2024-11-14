@@ -1,131 +1,70 @@
 <script setup lang="ts">
-import AutocompleteTab from "./components/multi_tool_call/AutocompleteTab.vue";
-import PromptTab from "./components/multi_tool_call/PromptTab.vue";
-import DevNotes from "./components/multi_tool_call/DevNotes.vue";
-import { store, resetState } from "./store";
+import { ref, computed } from "vue";
+import AppMultiAutocomplete from "./pages/AppMultiAutocomplete.vue";
+import AppMultiToolCall from "./pages/AppMultiToolCall.vue";
+import Home from "./pages/Home.vue";
 
-function saveState() {
-  localStorage.setItem("appState", JSON.stringify(store));
-}
+const routes = {
+  "/": Home,
+  "/autocomplete": AppMultiAutocomplete,
+  "/tool-call": AppMultiToolCall,
+};
 
-document.title = "Multi Autocomplete LLM Benchmark";
+const currentPath = ref(window.location.hash);
+
+window.addEventListener("hashchange", () => {
+  currentPath.value = window.location.hash;
+});
+
+const currentView = computed(() => {
+  // @ts-ignore
+  return routes[currentPath.value.slice(1) || "/"] || Home;
+});
 </script>
 
 <template>
-  <div class="container">
-    <h1>Multi Autocomplete LLM Benchmark</h1>
-    <div class="tabs-container">
-      <div class="tabs">
-        <button
-          :class="{ active: store.activeTab === 'benchmark' }"
-          @click="store.activeTab = 'benchmark'"
-        >
-          Benchmark
-        </button>
-        <button
-          :class="{ active: store.activeTab === 'prompt' }"
-          @click="store.activeTab = 'prompt'"
-        >
-          Prompt
-        </button>
-        <button
-          :class="{ active: store.activeTab === 'notes' }"
-          @click="store.activeTab = 'notes'"
-        >
-          Notes
-        </button>
-      </div>
-      <div class="state-controls">
-        <button class="state-button save" @click="saveState">Save</button>
-        <button class="state-button reset" @click="resetState">Reset</button>
-      </div>
-    </div>
-
-    <div class="tab-content !w-1200px">
-      <AutocompleteTab v-if="store.activeTab === 'benchmark'" />
-      <PromptTab
-        v-else-if="store.activeTab === 'prompt'"
-        :prompt="store.basePrompt"
-      />
-      <DevNotes v-else />
-    </div>
+  <div class="app-container">
+    <nav class="nav-buttons" v-if="currentPath == '/'">
+      <a href="#/autocomplete" class="nav-button">Multi Autocomplete</a>
+      <a href="#/tool-call" class="nav-button">Tool Call Demo</a>
+    </nav>
+    <component :is="currentView" />
   </div>
 </template>
 
 <style scoped>
-.container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+.app-container {
   height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-h1 {
-  margin-bottom: 20px;
-  color: rgb(14, 68, 145);
-}
-
-.tabs-container {
+.nav-buttons {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
-  border-bottom: 1px solid #e0e0e0;
+  gap: 1rem;
+  padding: 2rem;
+  background-color: #f5f5f5;
 }
 
-.tabs {
-  display: flex;
-}
-
-.tabs button {
-  padding: 10px 20px;
-  margin-right: 10px;
-  border: none;
-  background: none;
-  cursor: pointer;
-  font-size: 16px;
-  color: #666;
-}
-
-.tabs button.active {
+.nav-button {
+  padding: 1rem 2rem;
+  border: 2px solid rgb(14, 68, 145);
+  border-radius: 8px;
   color: rgb(14, 68, 145);
-  border-bottom: 2px solid rgb(14, 68, 145);
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
 }
 
-.state-controls {
-  display: flex;
-  gap: 10px;
-}
-
-.state-button {
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s;
+.nav-button:hover {
+  background-color: rgb(14, 68, 145);
   color: white;
 }
 
-.state-button.save {
+.router-link-active {
   background-color: rgb(14, 68, 145);
-}
-
-.state-button.save:hover {
-  background-color: rgb(11, 54, 116);
-}
-
-.state-button.reset {
-  background-color: rgb(145, 14, 14);
-}
-
-.state-button.reset:hover {
-  background-color: rgb(116, 11, 11);
-}
-
-.tab-content {
-  flex: 1;
-  min-height: 0;
+  color: white;
 }
 </style>
