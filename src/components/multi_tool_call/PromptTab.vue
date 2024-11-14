@@ -11,7 +11,7 @@
 
 <script lang="ts" setup>
 import CodeMirror from "vue-codemirror6";
-import { store } from "../store";
+import { store } from "../../store";
 </script>
 
 <style scoped>

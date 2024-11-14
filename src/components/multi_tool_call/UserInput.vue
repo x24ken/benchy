@@ -11,9 +11,9 @@
 
 <script lang="ts" setup>
 import CodeMirror from "vue-codemirror6";
-import { store } from "../store";
+import { store } from "../../store";
 import { useDebounceFn } from "@vueuse/core";
-import { runAutocomplete } from "../api";
+import { runAutocomplete } from "../../api";
 import { watch } from "vue";
 
 const debouncedAutocomplete = useDebounceFn(() => {
