@@ -119,11 +119,11 @@ Use Claude 3 Haiku for straightforward tools, but note it may infer missing para
 
 Tools are specified in the `tools` top-level parameter of the API request. Each tool definition includes:
 
-| Parameter | Description |
-| :-- | :-- |
-| `name` | The name of the tool. Must match the regex `^[a-zA-Z0-9_-]{1,64}$`. |
-| `description` | A detailed plaintext description of what the tool does, when it should be used, and how it behaves. |
-| `input_schema` | A [JSON Schema](https://json-schema.org/) object defining the expected parameters for the tool. |
+| Parameter      | Description                                                                                         |
+| :------------- | :-------------------------------------------------------------------------------------------------- |
+| `name`         | The name of the tool. Must match the regex `^[a-zA-Z0-9_-]{1,64}$`.                                 |
+| `description`  | A detailed plaintext description of what the tool does, when it should be used, and how it behaves. |
+| `input_schema` | A [JSON Schema](https://json-schema.org/) object defining the expected parameters for the tool.     |
 
 Example simple tool definition
 
@@ -813,14 +813,14 @@ In this case, Claude would first call the `get_location` tool to get the user’
 
 The full conversation might look like:
 
-| Role | Content |
-| --- | --- |
-| User | What’s the weather like where I am? |
+| Role      | Content                                                                                                                                                                                                                                  |
+| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| User      | What’s the weather like where I am?                                                                                                                                                                                                      |
 | Assistant | <thinking>To answer this, I first need to determine the user’s location using the get\_location tool. Then I can pass that location to the get\_weather tool to find the current weather there.</thinking>\[Tool use for get\_location\] |
-| User | \[Tool result for get\_location with matching id and result of San Francisco, CA\] |
-| Assistant | \[Tool use for get\_weather with the following input\]{ “location”: “San Francisco, CA”, “unit”: “fahrenheit” } |
-| User | \[Tool result for get\_weather with matching id and result of “59°F (15°C), mostly cloudy”\] |
-| Assistant | Based on your current location in San Francisco, CA, the weather right now is 59°F (15°C) and mostly cloudy. It’s a fairly cool and overcast day in the city. You may want to bring a light jacket if you’re heading outside. |
+| User      | \[Tool result for get\_location with matching id and result of San Francisco, CA\]                                                                                                                                                       |
+| Assistant | \[Tool use for get\_weather with the following input\]{ “location”: “San Francisco, CA”, “unit”: “fahrenheit” }                                                                                                                          |
+| User      | \[Tool result for get\_weather with matching id and result of “59°F (15°C), mostly cloudy”\]                                                                                                                                             |
+| Assistant | Based on your current location in San Francisco, CA, the weather right now is 59°F (15°C) and mostly cloudy. It’s a fairly cool and overcast day in the city. You may want to bring a light jacket if you’re heading outside.            |
 
 This example demonstrates how Claude can chain together multiple tool calls to answer a question that requires gathering data from different sources. The key steps are:
 
@@ -931,13 +931,13 @@ The additional tokens from tool use come from:
 
 When you use `tools`, we also automatically include a special system prompt for the model which enables tool use. The number of tool use tokens required for each model are listed below (excluding the additional tokens listed above):
 
-| Model | Tool choice | Tool use system prompt token count |
-| --- | --- | --- |
-| Claude 3.5 Sonnet (Oct) | `auto`<br>* * *<br> `any`, `tool` | 346 tokens<br>* * *<br>313 tokens |
-| Claude 3 Opus | `auto`<br>* * *<br> `any`, `tool` | 530 tokens<br>* * *<br>281 tokens |
-| Claude 3 Sonnet | `auto`<br>* * *<br> `any`, `tool` | 159 tokens<br>* * *<br>235 tokens |
-| Claude 3 Haiku | `auto`<br>* * *<br> `any`, `tool` | 264 tokens<br>* * *<br>340 tokens |
-| Claude 3.5 Sonnet (June) | `auto`<br>* * *<br> `any`, `tool` | 294 tokens<br>* * *<br>261 tokens |
+| Model                    | Tool choice                       | Tool use system prompt token count |
+| ------------------------ | --------------------------------- | ---------------------------------- |
+| Claude 3.5 Sonnet (Oct)  | `auto`<br>* * *<br> `any`, `tool` | 346 tokens<br>* * *<br>313 tokens  |
+| Claude 3 Opus            | `auto`<br>* * *<br> `any`, `tool` | 530 tokens<br>* * *<br>281 tokens  |
+| Claude 3 Sonnet          | `auto`<br>* * *<br> `any`, `tool` | 159 tokens<br>* * *<br>235 tokens  |
+| Claude 3 Haiku           | `auto`<br>* * *<br> `any`, `tool` | 264 tokens<br>* * *<br>340 tokens  |
+| Claude 3.5 Sonnet (June) | `auto`<br>* * *<br> `any`, `tool` | 294 tokens<br>* * *<br>261 tokens  |
 
 These token counts are added to your normal input and output tokens to calculate the total cost of a request. Refer to our [models overview table](/en/docs/models-overview#model-comparison) for current per-model prices.
 
@@ -961,21 +961,77 @@ See how Claude and tool use can extract structured data from unstructured text.]
 
 On this page
 
-- [How tool use works](#how-tool-use-works)
-- [How to implement tool use](#how-to-implement-tool-use)
-- [Choosing a model](#choosing-a-model)
-- [Specifying tools](#specifying-tools)
-- [Tool use system prompt](#tool-use-system-prompt)
-- [Best practices for tool definitions](#best-practices-for-tool-definitions)
-- [Controlling Claude’s output](#controlling-claudes-output)
-- [Forcing tool use](#forcing-tool-use)
-- [JSON output](#json-output)
-- [Chain of thought](#chain-of-thought)
-- [Disabling parallel tool use](#disabling-parallel-tool-use)
-- [Handling tool use and tool result content blocks](#handling-tool-use-and-tool-result-content-blocks)
-- [Troubleshooting errors](#troubleshooting-errors)
-- [Tool use examples](#tool-use-examples)
-- [Pricing](#pricing)
-- [Next Steps](#next-steps)
+- [​  How tool use works](#--how-tool-use-works)
+- [​  How to implement tool use](#--how-to-implement-tool-use)
+  - [​  Choosing a model](#--choosing-a-model)
+  - [​  Specifying tools](#--specifying-tools)
+    - [​  Tool use system prompt](#--tool-use-system-prompt)
+    - [​  Best practices for tool definitions](#--best-practices-for-tool-definitions)
+  - [​  Controlling Claude’s output](#--controlling-claudes-output)
+    - [​  Forcing tool use](#--forcing-tool-use)
+    - [​  JSON output](#--json-output)
+    - [​  Chain of thought](#--chain-of-thought)
+    - [​  Disabling parallel tool use](#--disabling-parallel-tool-use)
+  - [​  Handling tool use and tool result content blocks](#--handling-tool-use-and-tool-result-content-blocks)
+  - [​  Troubleshooting errors](#--troubleshooting-errors)
+- [​  Tool use examples](#--tool-use-examples)
+- [​  Pricing](#--pricing)
+- [​  Next Steps](#--next-steps)
+- [Example tool use using typescript](#example-tool-use-using-typescript)
 
 ![](https://mintlify.s3-us-west-1.amazonaws.com/anthropic/images/tool_choice.png)
+
+
+## Example tool use using typescript
+```typescript
+import { Anthropic } from '@anthropic-ai/sdk';
+import dotenv from 'dotenv';
+
+
+// Load environment variables from .env file
+dotenv.config();
+
+
+// Initialize Anthropic client
+const anthropic = new Anthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY
+});
+
+
+export async function base_prompt(prompt: string) {
+  try {
+    const response = await anthropic.messages.create({
+      model: "claude-3-sonnet-20240229",
+      max_tokens: 1024,
+      messages: [{ role: "user", content: prompt }]
+    });
+    if (response.content[0].type === "text") {
+      return response.content[0].text;
+    }
+    return "";
+  } catch (error) {
+    console.error("Error in base_prompt:", error);
+    throw error;
+  }
+}
+
+export async function tool_prompt(prompt: string, force_tool: Anthropic.Messages.Tool) {
+  try {
+    const response = await anthropic.messages.create({
+      model: "claude-3-sonnet-20240229",
+      max_tokens: 1024,
+      messages: [{ role: "user", content: prompt }],
+      tools: [force_tool],
+      tool_choice: { name: force_tool.name, type: "tool" }
+    });
+    if (response.content[0].type === "tool_use") {
+      return response.content[0]
+    }
+    return "";
+  } catch (error) {
+    console.error("Error in base_prompt:", error);
+    throw error;
+  }
+}
+
+```
