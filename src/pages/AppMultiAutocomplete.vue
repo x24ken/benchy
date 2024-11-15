@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import AutocompleteTab from "../components/multi_tool_call/AutocompleteTab.vue";
-import PromptTab from "../components/multi_tool_call/PromptTab.vue";
-import DevNotes from "../components/multi_tool_call/DevNotes.vue";
+import AutocompleteTab from "../components/multi_autocomplete/AutocompleteTab.vue";
+import PromptTab from "../components/multi_autocomplete/PromptTab.vue";
+import DevNotes from "../components/multi_autocomplete/DevNotes.vue";
 import { store, resetState } from "../stores/autocompleteStore";
 
 function saveState() {
