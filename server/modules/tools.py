@@ -42,13 +42,13 @@ openai_tools_list = [
         "type": "function",
         "function": {
             "name": "run_coder_agent",
-            "description": "Run the coder agent with the given prompt",
+            "description": "Run the coding agent with the given prompt",
             "parameters": {
                 "type": "object",
                 "properties": {
                     "prompt": {
                         "type": "string",
-                        "description": "The input prompt for the coder agent",
+                        "description": "The input prompt that describes what to code for the coder agent",
                     }
                 },
                 "required": ["prompt"],
@@ -65,7 +65,7 @@ openai_tools_list = [
                 "properties": {
                     "prompt": {
                         "type": "string",
-                        "description": "The input prompt for the git agent",
+                        "description": "The input prompt that describes what to commit for the git agent",
                     }
                 },
                 "required": ["prompt"],
@@ -76,13 +76,13 @@ openai_tools_list = [
         "type": "function",
         "function": {
             "name": "run_docs_agent",
-            "description": "Run the docs agent with the given prompt",
+            "description": "Run the documentation agent with the given prompt",
             "parameters": {
                 "type": "object",
                 "properties": {
                     "prompt": {
                         "type": "string",
-                        "description": "The input prompt for the docs agent",
+                        "description": "The input prompt that describes what to document for the documentation agent",
                     }
                 },
                 "required": ["prompt"],
