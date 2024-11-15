@@ -10,10 +10,21 @@ def client():
         yield client
 
 
-def test_prompt_haiku(client):
-    response = client.post(
-        "/prompt", json={"prompt": "ping", "model": ModelAlias.haiku}
-    )
+@pytest.mark.parametrize(
+    "model",
+    [
+        ModelAlias.haiku,
+        ModelAlias.sonnet,
+        ModelAlias.gemini_pro_2,
+        ModelAlias.gemini_flash_2,
+        ModelAlias.gemini_flash_8b,
+        ModelAlias.gpt_4o_mini,
+        ModelAlias.gpt_4o,
+        ModelAlias.gpt_4o_predictive,
+    ],
+)
+def test_prompt(client, model):
+    response = client.post("/prompt", json={"prompt": "ping", "model": model})
     assert response.status_code == 200
     data = response.get_json()
     assert isinstance(data["response"], str)
@@ -23,91 +34,50 @@ def test_prompt_haiku(client):
     assert data["inputAndOutputCost"] >= 0
 
 
-def test_prompt_sonnet(client):
+@pytest.mark.parametrize(
+    "prompt,expected_tool_calls,model",
+    [
+        (
+            "Write code in main.py. Next, git commit that change.",
+            ["run_coder_agent", "run_git_agent"],
+            ModelAlias.gpt_4o,
+        ),
+        ("Write some code", ["run_coder_agent"], ModelAlias.gpt_4o_mini),
+        ("Document this feature", ["run_docs_agent"], ModelAlias.gpt_4o),
+    ],
+)
+def test_tool_prompt(client, prompt, expected_tool_calls, model):
     response = client.post(
-        "/prompt", json={"prompt": "ping", "model": ModelAlias.sonnet}
+        "/tool-prompt",
+        json={
+            "prompt": prompt,
+            "expected_tool_calls": expected_tool_calls,
+            "model": model,
+        },
     )
+
     assert response.status_code == 200
     data = response.get_json()
-    assert isinstance(data["response"], str)
-    assert isinstance(data["runTimeMs"], int)
-    assert isinstance(data["inputAndOutputCost"], (int, float))
-    assert data["runTimeMs"] > 0
-    assert data["inputAndOutputCost"] >= 0
 
+    # Verify response structure
+    assert "tool_calls" in data
+    assert "runTimeMs" in data
+    assert "inputAndOutputCost" in data
 
-def test_prompt_gemini_pro_2(client):
-    response = client.post(
-        "/prompt", json={"prompt": "ping", "model": ModelAlias.gemini_pro_2}
-    )
-    assert response.status_code == 200
-    data = response.get_json()
-    assert isinstance(data["response"], str)
-    assert isinstance(data["runTimeMs"], int)
-    assert isinstance(data["inputAndOutputCost"], (int, float))
-    assert data["runTimeMs"] > 0
-    assert data["inputAndOutputCost"] >= 0
+    # Verify tool calls
+    assert isinstance(data["tool_calls"], list)
+    assert len(data["tool_calls"]) == len(expected_tool_calls)
 
+    # Verify each tool call
+    for tool_call in data["tool_calls"]:
+        assert isinstance(tool_call, dict)
+        assert "tool_name" in tool_call
+        assert "params" in tool_call
+        assert tool_call["tool_name"] in expected_tool_calls
+        assert isinstance(tool_call["params"], dict)
+        assert len(tool_call["params"]) > 0
 
-def test_prompt_gemini_flash_2(client):
-    response = client.post(
-        "/prompt", json={"prompt": "ping", "model": ModelAlias.gemini_flash_2}
-    )
-    assert response.status_code == 200
-    data = response.get_json()
-    assert isinstance(data["response"], str)
-    assert isinstance(data["runTimeMs"], int)
-    assert isinstance(data["inputAndOutputCost"], (int, float))
-    assert data["runTimeMs"] > 0
-    assert data["inputAndOutputCost"] >= 0
-
-
-def test_prompt_gemini_flash_8b(client):
-    response = client.post(
-        "/prompt", json={"prompt": "ping", "model": ModelAlias.gemini_flash_8b}
-    )
-    assert response.status_code == 200
-    data = response.get_json()
-    assert isinstance(data["response"], str)
-    assert isinstance(data["runTimeMs"], int)
-    assert isinstance(data["inputAndOutputCost"], (int, float))
-    assert data["runTimeMs"] > 0
-    assert data["inputAndOutputCost"] >= 0
-
-
-def test_prompt_gpt_4o_mini(client):
-    response = client.post(
-        "/prompt", json={"prompt": "ping", "model": ModelAlias.gpt_4o_mini}
-    )
-    assert response.status_code == 200
-    data = response.get_json()
-    assert isinstance(data["response"], str)
-    assert isinstance(data["runTimeMs"], int)
-    assert isinstance(data["inputAndOutputCost"], (int, float))
-    assert data["runTimeMs"] > 0
-    assert data["inputAndOutputCost"] >= 0
-
-
-def test_prompt_gpt_4o(client):
-    response = client.post(
-        "/prompt", json={"prompt": "ping", "model": ModelAlias.gpt_4o}
-    )
-    assert response.status_code == 200
-    data = response.get_json()
-    assert isinstance(data["response"], str)
-    assert isinstance(data["runTimeMs"], int)
-    assert isinstance(data["inputAndOutputCost"], (int, float))
-    assert data["runTimeMs"] > 0
-    assert data["inputAndOutputCost"] >= 0
-
-
-def test_prompt_gpt_4o_predictive(client):
-    response = client.post(
-        "/prompt", json={"prompt": "ping", "model": ModelAlias.gpt_4o_predictive}
-    )
-    assert response.status_code == 200
-    data = response.get_json()
-    assert isinstance(data["response"], str)
+    # Verify timing and cost
     assert isinstance(data["runTimeMs"], int)
     assert isinstance(data["inputAndOutputCost"], (int, float))
     assert data["runTimeMs"] > 0
