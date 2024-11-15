@@ -29,7 +29,7 @@ function loadDefaultState() {
                 total_cost: 0,
                 total_execution_time: 0,
                 relativePricePercent: 100,
-            },
+            }
         ] as ToolCallRowData[],
     };
 }
