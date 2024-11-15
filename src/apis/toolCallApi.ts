@@ -29,7 +29,7 @@ export async function runToolCall() {
     toolCallStore.total_executions += 1;
 
     toolCallStore.rowData.forEach(async (row: ToolCallRowData) => {
-        const rowIndex = toolCallStore.rowData.findIndex((r) => r.model === row.model);
+        const rowIndex = toolCallStore.rowData.findIndex((r: ToolCallRowData) => r.model === row.model);
         if (rowIndex === -1) return;
 
         // Set status to loading
@@ -51,11 +51,6 @@ export async function runToolCall() {
             updatedRow.total_cost = Number(((updatedRow.total_cost || 0) + response.inputAndOutputCost).toFixed(6));
             updatedRow.total_execution_time = (updatedRow.total_execution_time || 0) + response.runTimeMs;
 
-            console.log(`toolCallStore.expectedToolCalls`, toolCallStore.expectedToolCalls)
-            console.log(`toolCallStore.expectedToolCalls.length`, toolCallStore.expectedToolCalls.length)
-            console.log(`response.tool_calls`, response.tool_calls)
-            console.log(`response.tool_calls.length`, response.tool_calls.length)
-
             // Check if tool calls match expected calls
             const isCorrect = toolCallStore.expectedToolCalls.length > 0 &&
                 response.tool_calls.length === toolCallStore.expectedToolCalls.length &&
@@ -74,7 +69,6 @@ export async function runToolCall() {
 
             toolCallStore.promptResponses.push(response);
 
-            console.log(`Success: '${row.model}':`, response.tool_calls);
             toolCallStore.rowData.splice(rowIndex, 1, updatedRow);
 
             // After all rows complete, calculate relative percentages
