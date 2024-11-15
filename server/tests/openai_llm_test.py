@@ -8,7 +8,7 @@ from modules.data_types import ToolCallResponse, SimpleToolCall
     "prompt,expected_tool_calls,model",
     [
         (
-            "Write code in main.py, git commit it, and then document it in README.md",
+            "Write code in main.py. Git commit it. Then document changes in README.md",
             [
                 SimpleToolCall(tool_name="run_coder_agent", params={}),
                 SimpleToolCall(tool_name="run_git_agent", params={}),
@@ -25,7 +25,7 @@ from modules.data_types import ToolCallResponse, SimpleToolCall
             "gpt-4o",
         ),
         (
-            "Document this feature",
+            "Document our latest feature",
             [SimpleToolCall(tool_name="run_docs_agent", params={})],
             "gpt-4o-mini",
         ),
