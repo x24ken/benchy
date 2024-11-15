@@ -1,9 +1,15 @@
 import llm
 from dotenv import load_dotenv
 import os
-from modules.data_types import ModelAlias, PromptResponse
-from modules.openai_llm import predictive_prompt
+from modules.data_types import (
+    ModelAlias,
+    PromptResponse,
+    PromptWithToolCalls,
+    ToolCallResponse,
+)
+from modules import openai_llm
 from utils import MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS
+from modules.tools import all_tools_list
 
 # Load environment variables from .env file
 load_dotenv()
@@ -83,8 +89,6 @@ def build_model_map() -> dict[ModelAlias, llm.Model]:
     return model_map
 
 
-
-
 def llm_prompt(
     prompt: str, model_alias: ModelAlias, model: llm.Model
 ) -> PromptResponse:
@@ -118,13 +122,24 @@ def prompt(prompt: str, model_alias: ModelAlias) -> PromptResponse:
     model: llm.Model = model_map.get(model_alias)
 
     if model_alias == ModelAlias.gpt_4o_predictive:
-        return predictive_prompt(prompt, prompt, "gpt-4o")
+        return openai_llm.predictive_prompt(prompt, prompt, "gpt-4o")
     elif model_alias == ModelAlias.gpt_4o_mini_predictive:
-        return predictive_prompt(prompt, prompt, "gpt-4o-mini")
+        return openai_llm.predictive_prompt(prompt, prompt, "gpt-4o-mini")
     elif model is not None:
         return llm_prompt(prompt, model_alias, model)
     else:
         raise ValueError(f"Model {model_alias} not found")
+
+
+def tool_prompt(prompt: PromptWithToolCalls) -> ToolCallResponse:
+    model: llm.Model = model_map.get(prompt.model)
+    if model is None:
+        raise ValueError(f"Model {prompt.model} not found")
+
+    if prompt.model in [ModelAlias.gpt_4o, ModelAlias.gpt_4o_mini]:
+        return openai_llm.tool_prompt(prompt.prompt, prompt.model, all_tools_list)
+
+    raise ValueError(f"Model {prompt.model} not supported for tool calls")
 
 
 model_map: dict[ModelAlias, llm.Model] = build_model_map()

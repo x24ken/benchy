@@ -20,6 +20,12 @@ class Prompt(BaseModel):
     model: ModelAlias
 
 
+class PromptWithToolCalls(BaseModel):
+    prompt: str
+    expected_tool_calls: list[str]
+    model: ModelAlias
+
+
 class PromptResponse(BaseModel):
     response: str
     runTimeMs: int
@@ -29,6 +35,7 @@ class PromptResponse(BaseModel):
 class SimpleToolCall(BaseModel):
     tool_name: str
     params: dict
+
 
 class ToolCallResponse(BaseModel):
     tool_calls: list[SimpleToolCall]
