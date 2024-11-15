@@ -10,11 +10,8 @@ const routes = {
 
 const currentPath = ref(window.location.hash);
 
-console.log(`currentPath`, currentPath);
-
 const currentView = computed(() => {
-  // @ts-ignore
-  return routes[currentPath.value.slice(1) || "/"];
+  return routes[currentPath.value.slice(1)] || null;
 });
 
 onMounted(() => {
@@ -26,14 +23,14 @@ onMounted(() => {
 
 <template>
   <div class="app-container">
-    <div class="home-container" v-if="currentPath == ''">
+    <div class="home-container" v-if="!currentView">
       <h1>Benchy</h1>
       <p>Benchmarks you can feel.</p>
+      <nav class="nav-buttons">
+        <a href="#/autocomplete" class="nav-button">Multi Autocomplete</a>
+        <a href="#/tool-call" class="nav-button">Tool Call Demo</a>
+      </nav>
     </div>
-    <nav class="nav-buttons" v-if="currentPath == ''">
-      <a href="#/autocomplete" class="nav-button">Multi Autocomplete</a>
-      <a href="#/tool-call" class="nav-button">Tool Call Demo</a>
-    </nav>
     <component :is="currentView" v-else />
   </div>
 </template>

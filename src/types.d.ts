@@ -1,6 +1,28 @@
 global {
     export type RowStatus = 'idle' | 'loading' | 'success' | 'error';
 
+    export interface SimpleToolCall {
+        tool_name: string;
+        params: any;
+    }
+
+    export interface ToolCallResponse {
+        tool_calls: SimpleToolCall[];
+        runTimeMs: number;
+        inputAndOutputCost: number;
+    }
+
+    export interface ToolCallRowData {
+        model: ModelAlias;
+        status: RowStatus;
+        toolCalls: SimpleToolCall[] | null;
+        execution_time: number | null;
+        execution_cost: number | null;
+        total_cost: number;
+        total_execution_time: number;
+        relativePricePercent: number;
+    }
+
     export interface RowData {
         completion: string;
         model: ModelAlias;
@@ -13,6 +35,28 @@ global {
         number_correct: number;
         percent_correct: number;
         status: RowStatus;
+    }
+
+    export interface SimpleToolCall {
+        tool_name: string;
+        params: any;
+    }
+
+    export interface ToolCallResponse {
+        tool_calls: SimpleToolCall[];
+        runTimeMs: number;
+        inputAndOutputCost: number;
+    }
+
+    export interface ToolCallRowData {
+        model: ModelAlias;
+        status: RowStatus;
+        toolCalls: SimpleToolCall[] | null;
+        execution_time: number | null;
+        execution_cost: number | null;
+        total_cost: number;
+        total_execution_time: number;
+        relativePricePercent: number;
     }
 
     export type ModelAlias =
@@ -37,6 +81,5 @@ global {
         inputAndOutputCost: number;
     }
 }
-
 
 export { };
