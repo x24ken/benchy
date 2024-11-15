@@ -1,7 +1,9 @@
 <template>
   <div class="toolcalltab-w">
     <ToolCallInputField />
-    <ToolCallExpectationList />
+    <div style="display: flex; gap: 1rem; align-items: flex-start;">
+      <ToolCallExpectationList />
+    </div>
     <button 
       @click="runToolCall" 
       class="run-button"
