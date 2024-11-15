@@ -1,6 +1,8 @@
 import openai
 import os
+import json
 from modules.tools import openai_tools_list
+from modules.data_types import SimpleToolCall
 from utils import timeit
 from modules.data_types import PromptResponse, ModelAlias, ToolCallResponse
 from utils import MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS
@@ -63,15 +65,18 @@ def tool_prompt(prompt: str, model: str, force_tools: list[str]) -> ToolCallResp
     output_tokens = completion.usage.completion_tokens
     cost = get_openai_cost(model, input_tokens, output_tokens)
 
-    # Extract called tools
-    called_tools = []
+    # Extract tool calls with parameters
+    tool_calls = []
     if completion.choices[0].message.tool_calls:
-        called_tools = [
-            tool_call.function.name
+        tool_calls = [
+            SimpleToolCall(
+                tool_name=tool_call.function.name,
+                params=json.loads(tool_call.function.arguments)
+            )
             for tool_call in completion.choices[0].message.tool_calls
         ]
 
-    return ToolCallResponse(tools=called_tools, runTimeMs=t(), inputAndOutputCost=cost)
+    return ToolCallResponse(tool_calls=tool_calls, runTimeMs=t(), inputAndOutputCost=cost)
 
 
 def predictive_prompt(prompt: str, prediction: str, model: str) -> PromptResponse:

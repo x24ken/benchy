@@ -26,7 +26,11 @@ class PromptResponse(BaseModel):
     inputAndOutputCost: float
 
 
+class SimpleToolCall(BaseModel):
+    tool_name: str
+    params: dict
+
 class ToolCallResponse(BaseModel):
-    tools: list[str]
+    tool_calls: list[SimpleToolCall]
     runTimeMs: int
     inputAndOutputCost: float
