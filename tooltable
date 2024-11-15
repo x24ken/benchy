@@ -1,0 +1,6 @@
+/drop
+/add       src/components/multi_tool_call/ToolCallTab.vue
+/add       src/components/multi_tool_call/ToolCallTable.vue
+/add       src/stores/toolCallStore.ts
+/read-only src/components/multi_autocomplete/MultiAutocompleteLLMTable.vue
+/read-only src/stores/autocompleteStore.ts

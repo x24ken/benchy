@@ -19,6 +19,8 @@ function loadDefaultState() {
                 total_cost: 0,
                 total_execution_time: 0,
                 relativePricePercent: 100,
+                number_correct: 0,
+                percent_correct: 0,
             },
             {
                 model: "gpt-4o",
@@ -29,10 +31,13 @@ function loadDefaultState() {
                 total_cost: 0,
                 total_execution_time: 0,
                 relativePricePercent: 100,
+                number_correct: 0,
+                percent_correct: 0,
             }
         ] as ToolCallRowData[],
     };
 }
+
 
 function loadState() {
     const savedState = localStorage.getItem('toolCallState');

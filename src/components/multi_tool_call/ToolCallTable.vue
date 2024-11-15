@@ -1,11 +1,13 @@
 <template>
-  <div class="ag-theme-alpine" style="height: 450px; width: 100%">
+  <div class="ag-theme-quartz" style="height: 450px; width: 100%">
     <ag-grid-vue
       :columnDefs="columnDefs"
       :rowData="rowData"
       :pagination="false"
       :rowClassRules="rowClassRules"
       :components="components"
+      :autoSizeStrategy="fitStrategy"
+      style="width: 100%; height: 100%"
     />
   </div>
 </template>
@@ -24,14 +26,15 @@ const components = {
 };
 
 const columnDefs = ref([
-  { field: "model", headerName: "Model", minWidth: 240 },
+  { field: "model", headerName: "Model", minWidth: 140 },
   {
     field: "toolCalls",
     headerName: "Tool Calls",
-    cellRenderer: params => {
+    cellRenderer: (params) => {
       if (!params.value) return "";
-      return params.value.map(tc => tc.tool_name).join(", ");
+      return params.value.map((tc) => tc.tool_name).join(", ");
     },
+    minWidth: 340,
   },
   {
     field: "execution_time",
@@ -58,6 +61,12 @@ const columnDefs = ref([
     headerName: "Relative Cost (%)",
     valueFormatter: formatPercent,
   },
+  { field: "number_correct", headerName: "# Correct", maxWidth: 75 },
+  {
+    field: "percent_correct",
+    headerName: "% Correct",
+    valueFormatter: formatPercent,
+  },
 ]);
 
 function formatPercent(params: any) {
@@ -75,6 +84,10 @@ function formatMoney(params: any) {
   return `$${params.value.toFixed(6)}`;
 }
 
+const fitStrategy = ref({
+  type: "fitGridWidth",
+});
+
 const rowClassRules = {
   "status-idle": (params: any) => params.data.status === "idle",
   "status-loading": (params: any) => params.data.status === "loading",
@@ -84,7 +97,7 @@ const rowClassRules = {
 </script>
 
 <style scoped>
-.ag-theme-alpine {
+.ag-theme-quartz {
   --ag-foreground-color: rgb(14, 68, 145);
   --ag-background-color: rgb(241, 247, 255);
   --ag-header-background-color: rgb(228, 237, 250);

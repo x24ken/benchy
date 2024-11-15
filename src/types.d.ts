@@ -21,6 +21,8 @@ global {
         total_cost: number;
         total_execution_time: number;
         relativePricePercent: number;
+        number_correct: number;
+        percent_correct: number;
     }
 
     export interface RowData {

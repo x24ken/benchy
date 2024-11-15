@@ -1,23 +1,30 @@
 <template>
-  <div class="toolcallexpectationlist-w">
-    <div class="tool-selector">
-      <select v-model="selectedTool" @change="addToolCall">
-        <option value="">Select a tool</option>
-        <option v-for="tool in allTools" :key="tool" :value="tool">
+  <div class="expectation-section">
+    <h2 class="expectation-header" style="margin: 5px 0 4px 0">Expectations</h2>
+    <div class="toolcallexpectationlist-w">
+      <div class="tool-selector">
+        <select
+          v-model="selectedTool"
+          @change="addToolCall"
+          class="styled-select"
+        >
+          <option value="">Select a tool</option>
+          <option v-for="tool in allTools" :key="tool" :value="tool">
+            {{ tool }}
+          </option>
+        </select>
+        <ToolCallExpectationRandomizer />
+      </div>
+      <div class="tool-tags">
+        <div
+          v-for="(tool, index) in store.expectedToolCalls"
+          :key="index"
+          class="tool-tag"
+          :style="{ backgroundColor: stringToColor(tool) }"
+        >
           {{ tool }}
-        </option>
-      </select>
-      <ToolCallExpectationRandomizer />
-    </div>
-    <div class="tool-tags">
-      <div
-        v-for="(tool, index) in store.expectedToolCalls"
-        :key="index"
-        class="tool-tag"
-        :style="{ backgroundColor: stringToColor(tool) }"
-      >
-        {{ tool }}
-        <button @click="removeToolCall(index)" class="remove-tag">×</button>
+          <button @click="removeToolCall(index)" class="remove-tag">×</button>
+        </div>
       </div>
     </div>
   </div>
@@ -62,6 +69,20 @@ function removeToolCall(index: number) {
 </script>
 
 <style scoped>
+.expectation-section {
+  background-color: #f5f5f5;
+  padding: 1rem;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.expectation-header {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
 .toolcallexpectationlist-w {
   display: flex;
   flex-direction: column;
@@ -72,11 +93,34 @@ function removeToolCall(index: number) {
   gap: 1rem;
   align-items: flex-start;
 }
-.tool-selector select {
-  width: 200px;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
+.styled-select {
+  appearance: none;
+  background-color: white;
+  border: 1px solid #ddd;
   border-radius: 4px;
+  padding: 8px 32px 8px 12px;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  min-width: 200px;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 16px;
+}
+
+.styled-select:hover {
+  border-color: #bbb;
+}
+
+.styled-select:focus {
+  outline: none;
+  border-color: rgb(14, 68, 145);
+  box-shadow: 0 0 0 2px rgba(14, 68, 145, 0.1);
+}
+
+.styled-select option {
+  padding: 8px;
 }
 
 .tool-tags {

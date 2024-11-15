@@ -1,6 +1,11 @@
 from flask import Flask, request, jsonify
 from time import time
-from modules.data_types import ModelAlias, PromptResponse, PromptWithToolCalls, ToolCallResponse
+from modules.data_types import (
+    ModelAlias,
+    PromptResponse,
+    PromptWithToolCalls,
+    ToolCallResponse,
+)
 import modules.llm_models as llm_models
 
 app = Flask(__name__)
@@ -32,9 +37,7 @@ def handle_prompt():
 def handle_tool_prompt():
     data = request.get_json()
     prompt_with_tools = PromptWithToolCalls(
-        prompt=data["prompt"],
-        expected_tool_calls=data["expected_tool_calls"],
-        model=ModelAlias(data["model"])
+        prompt=data["prompt"], model=ModelAlias(data["model"])
     )
 
     start_time = time()
@@ -43,6 +46,8 @@ def handle_tool_prompt():
 
     # Update the runtime in the response
     tool_response.runTimeMs = run_time_ms
+
+    print(f"tool_response.tool_calls: {tool_response.tool_calls}")
 
     return jsonify(
         {

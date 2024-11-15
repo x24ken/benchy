@@ -22,7 +22,6 @@ class Prompt(BaseModel):
 
 class PromptWithToolCalls(BaseModel):
     prompt: str
-    expected_tool_calls: list[str]
     model: ModelAlias
 
 

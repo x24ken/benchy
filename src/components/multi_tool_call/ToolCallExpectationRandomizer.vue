@@ -1,6 +1,10 @@
 <template>
   <div class="tool-randomizer">
-    <select v-model="selectedCount" @change="handleSelection">
+    <select
+      v-model="selectedCount"
+      @change="handleSelection"
+      class="styled-select"
+    >
       <option value="">Randomize tool count...</option>
       <option value="reset">Clear list</option>
       <option v-for="count in toolCounts" :key="count" :value="count">
@@ -43,10 +47,33 @@ function handleSelection() {
 </script>
 
 <style scoped>
-.tool-randomizer select {
-  width: 200px;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
+.styled-select {
+  appearance: none;
+  background-color: white;
+  border: 1px solid #ddd;
   border-radius: 4px;
+  padding: 8px 32px 8px 12px;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  min-width: 200px;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 16px;
+}
+
+.styled-select:hover {
+  border-color: #bbb;
+}
+
+.styled-select:focus {
+  outline: none;
+  border-color: rgb(14, 68, 145);
+  box-shadow: 0 0 0 2px rgba(14, 68, 145, 0.1);
+}
+
+.styled-select option {
+  padding: 8px;
 }
 </style>

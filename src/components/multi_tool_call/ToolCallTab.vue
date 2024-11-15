@@ -1,16 +1,23 @@
 <template>
   <div class="toolcalltab-w">
-    <ToolCallInputField />
-    <div style="display: flex; gap: 1rem; align-items: flex-start;">
+    <div style="display: flex; gap: 1rem; align-items: flex-start">
       <ToolCallExpectationList />
     </div>
-    <button 
-      @click="runToolCall" 
-      class="run-button"
-      :disabled="store.isLoading"
-    >
-      {{ store.isLoading ? 'Running...' : 'Run Tool Calls' }}
-    </button>
+
+    <div class="prompt-section">
+      <h2 class="prompt-header">Tool Call Prompt</h2>
+      <div class="prompt-content">
+        <ToolCallInputField />
+        <button
+          @click="runToolCall"
+          class="run-button"
+          :disabled="store.isLoading"
+        >
+          {{ store.isLoading ? "Running..." : "Run Tool Calls" }}
+        </button>
+      </div>
+    </div>
+
     <ToolCallTable />
   </div>
 </template>
@@ -18,12 +25,32 @@
 <script lang="ts" setup>
 import ToolCallInputField from "./ToolCallInputField.vue";
 import ToolCallExpectationList from "./ToolCallExpectationList.vue";
-import ToolCallTable from "./ToolCallTable.vue";
+import ToolCallTable from "../multi_tool_call/ToolCallTable.vue";
 import { store } from "../../stores/toolCallStore";
 import { runToolCall } from "../../apis/toolCallApi";
 </script>
 
 <style scoped>
+.prompt-section {
+  background-color: #f5f5f5;
+  padding: 1rem 0 1rem 1rem;
+  border-radius: 4px;
+  width: auto;
+}
+
+.prompt-header {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin: 5px 0 4px 0;
+}
+
+.prompt-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 .toolcalltab-w {
   display: flex;
   flex-direction: column;
