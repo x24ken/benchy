@@ -24,7 +24,7 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import { AgGridVue } from "ag-grid-vue3";
 import { computed, ref } from "vue";
-import { store } from "../../store";
+import { store } from "../../autocompleteStore";
 
 const rowData = computed(() => [...store.rowData]);
 

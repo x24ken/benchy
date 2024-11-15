@@ -2,7 +2,7 @@
 import AutocompleteTab from "../components/multi_tool_call/AutocompleteTab.vue";
 import PromptTab from "../components/multi_tool_call/PromptTab.vue";
 import DevNotes from "../components/multi_tool_call/DevNotes.vue";
-import { store, resetState } from "../store";
+import { store, resetState } from "../autocompleteStore";
 
 function saveState() {
   localStorage.setItem("appState", JSON.stringify(store));

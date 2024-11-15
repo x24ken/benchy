@@ -1,38 +1,49 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import AppMultiAutocomplete from "./pages/AppMultiAutocomplete.vue";
 import AppMultiToolCall from "./pages/AppMultiToolCall.vue";
-import Home from "./pages/Home.vue";
 
 const routes = {
-  "/": Home,
   "/autocomplete": AppMultiAutocomplete,
   "/tool-call": AppMultiToolCall,
 };
 
 const currentPath = ref(window.location.hash);
 
-window.addEventListener("hashchange", () => {
-  currentPath.value = window.location.hash;
-});
+console.log(`currentPath`, currentPath);
 
 const currentView = computed(() => {
   // @ts-ignore
-  return routes[currentPath.value.slice(1) || "/"] || Home;
+  return routes[currentPath.value.slice(1) || "/"];
+});
+
+onMounted(() => {
+  window.addEventListener("hashchange", () => {
+    currentPath.value = window.location.hash;
+  });
 });
 </script>
 
 <template>
   <div class="app-container">
-    <nav class="nav-buttons" v-if="currentPath == '/'">
+    <div class="home-container" v-if="currentPath == ''">
+      <h1>Benchy</h1>
+      <p>Benchmarks you can feel.</p>
+    </div>
+    <nav class="nav-buttons" v-if="currentPath == ''">
       <a href="#/autocomplete" class="nav-button">Multi Autocomplete</a>
       <a href="#/tool-call" class="nav-button">Tool Call Demo</a>
     </nav>
-    <component :is="currentView" />
+    <component :is="currentView" v-else />
   </div>
 </template>
 
 <style scoped>
+.home-container {
+  text-align: center;
+  padding: 2rem;
+}
+
 .app-container {
   height: 100vh;
   display: flex;
@@ -41,7 +52,6 @@ const currentView = computed(() => {
 
 .nav-buttons {
   display: flex;
-  flex-direction: column;
   align-items: center;
   gap: 1rem;
   padding: 2rem;
@@ -56,6 +66,8 @@ const currentView = computed(() => {
   text-decoration: none;
   font-weight: bold;
   transition: all 0.3s ease;
+  width: 300px;
+  height: 300px;
 }
 
 .nav-button:hover {

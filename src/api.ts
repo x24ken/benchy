@@ -1,4 +1,4 @@
-import { calculatePercentCorrect, store } from "./store";
+import { calculatePercentCorrect, store } from "./autocompleteStore";
 
 async function sendPrompt(prompt: string, model: ModelAlias): Promise<PromptResponse> {
     const response = await fetch('/prompt', {
@@ -63,18 +63,18 @@ export async function runAutocomplete() {
             store.rowData.splice(rowIndex, 1, updatedRow);
 
             // After all rows complete, calculate relative percentages
-            const allComplete = store.rowData.every(row => 
+            const allComplete = store.rowData.every(row =>
                 row.status === 'success' || row.status === 'error'
             );
-            
+
             if (allComplete) {
                 const lowestCost = Math.min(...store.rowData
                     .filter(row => row.total_cost > 0)
                     .map(row => row.total_cost));
-                
+
                 store.rowData.forEach((row, idx) => {
                     const updatedRow = { ...row };
-                    updatedRow.relativePricePercent = row.total_cost > 0 
+                    updatedRow.relativePricePercent = row.total_cost > 0
                         ? Math.round((row.total_cost / lowestCost) * 100)
                         : 0;
                     store.rowData.splice(idx, 1, updatedRow);
