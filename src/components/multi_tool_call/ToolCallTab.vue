@@ -7,7 +7,7 @@
       class="run-button"
       :disabled="store.isLoading"
     >
-      Run Tool Calls
+      {{ store.isLoading ? 'Running...' : 'Run Tool Calls' }}
     </button>
     <ToolCallTable />
   </div>
