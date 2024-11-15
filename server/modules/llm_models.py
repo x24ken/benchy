@@ -10,6 +10,7 @@ from modules.data_types import (
 from modules import openai_llm
 from utils import MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS
 from modules.tools import all_tools_list
+from modules import anthropic_llm
 
 # Load environment variables from .env file
 load_dotenv()
@@ -138,6 +139,8 @@ def tool_prompt(prompt: PromptWithToolCalls) -> ToolCallResponse:
 
     if prompt.model in [ModelAlias.gpt_4o, ModelAlias.gpt_4o_mini]:
         return openai_llm.tool_prompt(prompt.prompt, prompt.model, all_tools_list)
+    elif prompt.model == ModelAlias.sonnet:
+        return anthropic_llm.tool_prompt(prompt.prompt)
 
     raise ValueError(f"Model {prompt.model} not supported for tool calls")
 

@@ -91,4 +91,49 @@ openai_tools_list = [
     },
 ]
 
+anthropic_tools_list = [
+    {
+        "name": "run_coder_agent",
+        "description": "Run the coding agent with the given prompt",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "prompt": {
+                    "type": "string",
+                    "description": "The input prompt that describes what to code for the coder agent",
+                }
+            },
+            "required": ["prompt"]
+        }
+    },
+    {
+        "name": "run_git_agent", 
+        "description": "Run the git agent with the given prompt",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "prompt": {
+                    "type": "string",
+                    "description": "The input prompt that describes what to commit for the git agent",
+                }
+            },
+            "required": ["prompt"]
+        }
+    },
+    {
+        "name": "run_docs_agent",
+        "description": "Run the documentation agent with the given prompt",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "prompt": {
+                    "type": "string",
+                    "description": "The input prompt that describes what to document for the documentation agent",
+                }
+            },
+            "required": ["prompt"]
+        }
+    }
+]
+
 all_tools_list = [d["function"]["name"] for d in openai_tools_list]

@@ -78,16 +78,16 @@ export async function runToolCall() {
             toolCallStore.rowData.splice(rowIndex, 1, updatedRow);
 
             // After all rows complete, calculate relative percentages
-            const allComplete = toolCallStore.rowData.every(row =>
+            const allComplete = toolCallStore.rowData.every((row: ToolCallRowData) =>
                 row.status === 'success' || row.status === 'error'
             );
 
             if (allComplete) {
                 const lowestCost = Math.min(...toolCallStore.rowData
-                    .filter(row => row.total_cost > 0)
-                    .map(row => row.total_cost));
+                    .filter((row: ToolCallRowData) => row.total_cost > 0)
+                    .map((row: ToolCallRowData) => row.total_cost));
 
-                toolCallStore.rowData.forEach((row, idx) => {
+                toolCallStore.rowData.forEach((row: ToolCallRowData, idx: number) => {
                     const updatedRow = { ...row };
                     updatedRow.relativePricePercent = row.total_cost > 0
                         ? Math.round((row.total_cost / lowestCost) * 100)
