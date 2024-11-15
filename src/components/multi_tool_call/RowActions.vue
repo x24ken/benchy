@@ -12,7 +12,7 @@ const props = defineProps<{
   };
 }>();
 
-import { handleCorrect } from "../../autocompleteStore";
+import { handleCorrect } from "../../stores/autocompleteStore";
 
 function onCorrect(isCorrect: boolean) {
   handleCorrect(props.params.data.model, isCorrect);
