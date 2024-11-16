@@ -19,13 +19,15 @@ onMounted(() => {
     currentPath.value = window.location.hash;
   });
 });
+
+document.title = "BENCHY";
 </script>
 
 <template>
   <div class="app-container">
     <div class="home-container" v-if="!currentView">
       <h1 class="title">BENCHY</h1>
-      <p class="subtitle">Benchmarks you can feel.</p>
+      <p class="subtitle">Interactive benchmarks you can <b>feel</b></p>
       <nav class="nav-buttons">
         <a href="#/autocomplete" class="nav-button">Multi Autocomplete</a>
         <a href="#/tool-call" class="nav-button">Long Tool Call</a>

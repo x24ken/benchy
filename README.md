@@ -83,3 +83,7 @@ uv run pytest (**beware will hit APIs and cost money**)
 - https://cloud.google.com/vertex-ai/generative-ai/docs/multimodal/get-token-count
 - https://ai.google.dev/gemini-api/docs/tokens?lang=python
 - https://ai.google.dev/pricing#1_5flash
+- https://ai.google.dev/gemini-api/docs/structured-output?lang=python
+- https://platform.openai.com/docs/guides/structured-outputs
+- https://docs.anthropic.com/en/docs/build-with-claude/tool-use
+- https://ai.google.dev/gemini-api/docs/models/experimental-models
