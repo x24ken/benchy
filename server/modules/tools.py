@@ -37,6 +37,57 @@ def run_docs_agent(prompt: str) -> str:
     return "run_docs_agent"
 
 
+# Gemini tools list
+gemini_tools_list = [
+    {
+        "function_declarations": [
+            {
+                "name": "run_coder_agent",
+                "description": "Run the coding agent with the given prompt. Use this when the user needs help writing, reviewing, or modifying code.",
+                "parameters": {
+                    "type_": "OBJECT",
+                    "properties": {
+                        "prompt": {
+                            "type_": "STRING",
+                            "description": "The input prompt that describes what to code for the coder agent"
+                        }
+                    },
+                    "required": ["prompt"]
+                }
+            },
+            {
+                "name": "run_git_agent",
+                "description": "Run the git agent with the given prompt. Use this when the user needs help with git operations, commits, or repository management.",
+                "parameters": {
+                    "type_": "OBJECT", 
+                    "properties": {
+                        "prompt": {
+                            "type_": "STRING",
+                            "description": "The input prompt that describes what to commit for the git agent"
+                        }
+                    },
+                    "required": ["prompt"]
+                }
+            },
+            {
+                "name": "run_docs_agent",
+                "description": "Run the documentation agent with the given prompt. Use this when the user needs help creating, updating, or reviewing documentation.",
+                "parameters": {
+                    "type_": "OBJECT",
+                    "properties": {
+                        "prompt": {
+                            "type_": "STRING",
+                            "description": "The input prompt that describes what to document for the documentation agent"
+                        }
+                    },
+                    "required": ["prompt"]
+                }
+            }
+        ]
+    }
+]
+
+# OpenAI tools list
 openai_tools_list = [
     {
         "type": "function",

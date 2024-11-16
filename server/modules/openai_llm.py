@@ -6,6 +6,7 @@ from modules.data_types import SimpleToolCall
 from utils import timeit
 from modules.data_types import PromptResponse, ModelAlias, ToolCallResponse
 from utils import MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS
+from modules.tools import all_tools_list
 
 openai_client: openai.OpenAI = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
@@ -48,15 +49,12 @@ def tool_prompt(prompt: str, model: str, force_tools: list[str]) -> ToolCallResp
         ToolCallResponse: The response including tools called, runtime, and cost.
     """
     # Filter tools to only include forced ones
-    filtered_tools = [
-        t for t in openai_tools_list if t["function"]["name"] in force_tools
-    ]
 
     with timeit() as t:
         completion = openai_client.chat.completions.create(
             model=model,
             messages=[{"role": "user", "content": prompt}],
-            tools=filtered_tools,
+            tools=openai_tools_list,
             tool_choice="required",
         )
 
@@ -71,12 +69,14 @@ def tool_prompt(prompt: str, model: str, force_tools: list[str]) -> ToolCallResp
         tool_calls = [
             SimpleToolCall(
                 tool_name=tool_call.function.name,
-                params=json.loads(tool_call.function.arguments)
+                params=json.loads(tool_call.function.arguments),
             )
             for tool_call in completion.choices[0].message.tool_calls
         ]
 
-    return ToolCallResponse(tool_calls=tool_calls, runTimeMs=t(), inputAndOutputCost=cost)
+    return ToolCallResponse(
+        tool_calls=tool_calls, runTimeMs=t(), inputAndOutputCost=cost
+    )
 
 
 def predictive_prompt(prompt: str, prediction: str, model: str) -> PromptResponse:

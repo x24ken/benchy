@@ -26,7 +26,7 @@ const components = {
 };
 
 const columnDefs = ref([
-  { field: "model", headerName: "Model", minWidth: 140 },
+  { field: "model", headerName: "Model", minWidth: 240 },
   {
     field: "toolCalls",
     headerName: "Tool Calls",

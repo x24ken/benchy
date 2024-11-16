@@ -7,7 +7,7 @@ from modules.data_types import (
     PromptWithToolCalls,
     ToolCallResponse,
 )
-from modules import openai_llm
+from modules import openai_llm, gemini_llm
 from utils import MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS
 from modules.tools import all_tools_list
 from modules import anthropic_llm
@@ -141,6 +141,8 @@ def tool_prompt(prompt: PromptWithToolCalls) -> ToolCallResponse:
         return openai_llm.tool_prompt(prompt.prompt, prompt.model, all_tools_list)
     elif prompt.model == ModelAlias.sonnet:
         return anthropic_llm.tool_prompt(prompt.prompt)
+    elif prompt.model in [ModelAlias.gemini_pro_2, ModelAlias.gemini_flash_2]:
+        return gemini_llm.tool_prompt(prompt.prompt, prompt.model, all_tools_list)
 
     raise ValueError(f"Model {prompt.model} not supported for tool calls")
 
