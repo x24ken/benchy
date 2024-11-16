@@ -24,11 +24,11 @@ onMounted(() => {
 <template>
   <div class="app-container">
     <div class="home-container" v-if="!currentView">
-      <h1>Benchy</h1>
-      <p>Benchmarks you can feel.</p>
+      <h1 class="title">BENCHY</h1>
+      <p class="subtitle">Benchmarks you can feel.</p>
       <nav class="nav-buttons">
         <a href="#/autocomplete" class="nav-button">Multi Autocomplete</a>
-        <a href="#/tool-call" class="nav-button">Tool Call Demo</a>
+        <a href="#/tool-call" class="nav-button">Long Tool Call</a>
       </nav>
     </div>
     <component :is="currentView" v-else />
@@ -36,6 +36,20 @@ onMounted(() => {
 </template>
 
 <style scoped>
+.title {
+  font-size: 5rem;
+  font-weight: bold;
+  background: linear-gradient(
+    90deg,
+    rgba(14, 68, 145, 1) 0%,
+    rgba(0, 212, 255, 1) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 30px rgba(0, 212, 255, 0.8);
+  margin-bottom: 1rem;
+}
+
 .home-container {
   text-align: center;
   padding: 2rem;
@@ -52,7 +66,7 @@ onMounted(() => {
   align-items: center;
   gap: 1rem;
   padding: 2rem;
-  background-color: #f5f5f5;
+  /* background-color: #f5f5f5; */
 }
 
 .nav-button {
