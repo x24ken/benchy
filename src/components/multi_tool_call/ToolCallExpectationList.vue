@@ -1,6 +1,8 @@
 <template>
   <div class="expectation-section">
-    <h2 class="expectation-header" style="margin: 5px 0 4px 0">Expectations</h2>
+    <h2 class="expectation-header" style="margin: 5px 0 4px 0">
+      Expected Tools
+    </h2>
     <div class="toolcallexpectationlist-w">
       <div class="tool-selector">
         <select
@@ -10,7 +12,7 @@
         >
           <option value="">Select a tool</option>
           <option v-for="tool in allTools" :key="tool" :value="tool">
-            {{ tool }}
+            {{ getToolEmoji(tool) }} {{ tool }}
           </option>
         </select>
         <ToolCallExpectationRandomizer />
@@ -22,7 +24,7 @@
           class="tool-tag"
           :style="{ backgroundColor: stringToColor(tool) }"
         >
-          {{ tool }}
+          {{ getToolEmoji(tool) }} {{ tool }}
           <button @click="removeToolCall(index)" class="remove-tag">×</button>
         </div>
       </div>
@@ -35,6 +37,16 @@ import { ref } from "vue";
 import { store } from "../../stores/toolCallStore";
 import { allTools } from "../../utils";
 import ToolCallExpectationRandomizer from "./ToolCallExpectationRandomizer.vue";
+
+function getToolEmoji(toolName: string): string {
+  const emojiMap: Record<string, string> = {
+    run_coder_agent: "🤖",
+    run_git_agent: "📦",
+    run_docs_agent: "📝",
+    // Add more mappings as needed
+  };
+  return emojiMap[toolName] || "🔧"; // Default emoji if no mapping exists
+}
 function stringToColor(str: string): string {
   // Generate hash from string
   let hash = 0;
@@ -136,6 +148,14 @@ function removeToolCall(index: number) {
   padding: 0.25rem 0.5rem;
   color: white;
   border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  font-size: 1.2rem;
+}
+
+.tool-tag:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
 }
 
 .remove-tag {
