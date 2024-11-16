@@ -2,7 +2,7 @@ import anthropic
 import os
 import json
 from modules.data_types import ModelAlias, ToolsAndPrompts
-from utils import MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS
+from utils import MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS, parse_markdown_backticks
 from modules.data_types import SimpleToolCall, ToolCallResponse
 from utils import timeit
 from modules.tools import (
@@ -57,7 +57,7 @@ def tool_prompt(prompt: str, model: str) -> ToolCallResponse:
             try:
                 # Parse raw response text into ToolsAndPrompts model
                 parsed_response = ToolsAndPrompts.model_validate_json(
-                    message.content[0].text
+                    parse_markdown_backticks(message.content[0].text)
                 )
                 tool_calls = [
                     SimpleToolCall(

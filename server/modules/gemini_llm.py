@@ -3,7 +3,11 @@ import os
 import json
 from modules.tools import gemini_tools_list
 from modules.data_types import SimpleToolCall, ModelAlias, ToolsAndPrompts
-from utils import timeit, MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS
+from utils import (
+    parse_markdown_backticks,
+    timeit,
+    MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS,
+)
 from modules.data_types import ToolCallResponse
 
 # Initialize Gemini client
@@ -36,7 +40,7 @@ def get_gemini_cost(model: str, input_tokens: int, output_tokens: int) -> float:
 def tool_prompt(prompt: str, model: str, force_tools: list[str]) -> ToolCallResponse:
     """
     Run a chat model with tool calls using Gemini's API.
-    Now supports JSON structured output variants.
+    Now supports JSON structured output variants by parsing the response.
     """
     with timeit() as t:
         if "-json" in model:
@@ -46,22 +50,19 @@ def tool_prompt(prompt: str, model: str, force_tools: list[str]) -> ToolCallResp
             )
 
             # Send message and get JSON response
-            response = gemini_model.generate_content(
-                prompt,
-                generation_config=genai.GenerationConfig(
-                    response_mime_type="application/json",
-                    response_schema=ToolsAndPrompts.model_json_schema(),
-                ),
-            )
-
-            print("GEMINI: response", response)
+            chat = gemini_model.start_chat()
+            response = chat.send_message(prompt)
 
             try:
+                # Parse raw response text into ToolsAndPrompts model
+                parsed_response = ToolsAndPrompts.model_validate_json(
+                    parse_markdown_backticks(response.text)
+                )
                 tool_calls = [
                     SimpleToolCall(
                         tool_name=tap.tool_name, params={"prompt": tap.prompt}
                     )
-                    for tap in response._response
+                    for tap in parsed_response.tools_and_prompts
                 ]
             except Exception as e:
                 print(f"Failed to parse JSON response: {e}")

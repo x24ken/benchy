@@ -3,7 +3,7 @@ import os
 import json
 from modules.tools import openai_tools_list
 from modules.data_types import SimpleToolCall, ToolsAndPrompts
-from utils import timeit
+from utils import parse_markdown_backticks, timeit
 from modules.data_types import PromptResponse, ModelAlias, ToolCallResponse
 from utils import MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS
 from modules.tools import all_tools_list
@@ -42,7 +42,29 @@ def tool_prompt(prompt: str, model: str, force_tools: list[str]) -> ToolCallResp
     Now supports JSON structured output variants.
     """
     with timeit() as t:
-        if "-json" in model:
+        if model == "o1-mini-json":
+            # Manual JSON parsing for o1-mini
+            completion = openai_client.chat.completions.create(
+                model="o1-mini",
+                messages=[{"role": "user", "content": prompt}],
+            )
+
+            try:
+                # Parse raw response text into ToolsAndPrompts model
+                parsed_response = ToolsAndPrompts.model_validate_json(
+                    parse_markdown_backticks(completion.choices[0].message.content)
+                )
+                tool_calls = [
+                    SimpleToolCall(
+                        tool_name=tap.tool_name.value, params={"prompt": tap.prompt}
+                    )
+                    for tap in parsed_response.tools_and_prompts
+                ]
+            except Exception as e:
+                print(f"Failed to parse JSON response: {e}")
+                tool_calls = []
+
+        elif "-json" in model:
             # Use structured output for JSON variants
             completion = openai_client.beta.chat.completions.parse(
                 model=model.replace("-json", ""),
@@ -53,9 +75,9 @@ def tool_prompt(prompt: str, model: str, force_tools: list[str]) -> ToolCallResp
             try:
                 tool_calls = [
                     SimpleToolCall(
-                        tool_name=tap.tool_name, params={"prompt": tap.prompt}
+                        tool_name=tap.tool_name.value, params={"prompt": tap.prompt}
                     )
-                    for tap in completion.choices[0].message.parsed
+                    for tap in completion.choices[0].message.parsed.tools_and_prompts
                 ]
             except Exception as e:
                 print(f"Failed to parse JSON response: {e}")

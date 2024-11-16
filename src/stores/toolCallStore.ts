@@ -1,15 +1,17 @@
 import { reactive } from "vue";
+import { allTools } from "../utils";
 
 function loadDefaultState() {
     return {
         isLoading: false,
         promptResponses: [] as ToolCallResponse[],
-        userInput: "# Call the appropriate tool for each task.\n\n1. Write code to update main.py with a new cli arg 'fmode'",
+        userInput: "# Call the one tool for each task.\n\n1. Write code to update main.py with a new cli arg 'fmode'",
         expectedToolCalls: ["run_coder_agent"],
         total_executions: 0,
         activeTab: "toolcall",
         jsonPrompt: `<purpose>
-    Given the tool-call-prompt, generate the result in the specified json-output-format.
+    Given the tool-call-prompt, generate the result in the specified json-output-format. 
+    Create a list of the tools and prompts that will be used in the tool-call-prompt. The tool_name MUST BE one of the tool-name-options.
 </purpose>
 
 <json-output-format>
@@ -31,6 +33,10 @@ function loadDefaultState() {
     ]
 }
 </json-output-format>
+
+<tool-name-options>
+    ${allTools.map(tool => `"${tool}"`).join(", ")}
+</tool-name-options>
 
 <tool-call-prompt>
 {{tool_call_prompt}}
@@ -171,6 +177,18 @@ function loadDefaultState() {
             },
             {
                 model: "claude-3-5-haiku-latest-json",
+                status: 'idle',
+                toolCalls: null,
+                execution_time: null,
+                execution_cost: null,
+                total_cost: 0,
+                total_execution_time: 0,
+                relativePricePercent: 100,
+                number_correct: 0,
+                percent_correct: 0,
+            },
+            {
+                model: "o1-mini-json",
                 status: 'idle',
                 toolCalls: null,
                 execution_time: null,

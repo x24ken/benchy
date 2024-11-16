@@ -3,26 +3,32 @@ from contextlib import contextmanager
 from typing import Generator
 from modules.data_types import ModelAlias
 
+
 @contextmanager
 def timeit() -> Generator[None, None, float]:
     """
     Context manager to measure execution time in milliseconds.
-    
+
     Usage:
         with timeit() as t:
             # code to time
         elapsed_ms = t()
-    
+
     Returns:
         Generator that yields None and returns elapsed time in milliseconds
     """
     start = time.perf_counter()
     yield lambda: int((time.perf_counter() - start) * 1000)
 
+
 MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS = {
     ModelAlias.gpt_4o_mini: {
         "input": 0.15,
         "output": 0.60,
+    },
+    ModelAlias.o1_mini_json: {
+        "input": 3.00,
+        "output": 15.00,
     },
     ModelAlias.haiku_3_legacy: {
         "input": 0.25,
@@ -60,4 +66,40 @@ MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS = {
         "input": 0.0375,
         "output": 0.15,
     },
+    # JSON variants with same pricing as base models
+    ModelAlias.gpt_4o_json: {
+        "input": 2.50,
+        "output": 10.00,
+    },
+    ModelAlias.gpt_4o_mini_json: {
+        "input": 0.15,
+        "output": 0.60,
+    },
+    ModelAlias.gemini_pro_2_json: {
+        "input": 1.25,
+        "output": 5.00,
+    },
+    ModelAlias.gemini_flash_2_json: {
+        "input": 0.075,
+        "output": 0.300,
+    },
+    ModelAlias.sonnet_json: {
+        "input": 3.00,
+        "output": 15.00,
+    },
+    ModelAlias.haiku_json: {
+        "input": 1.00,
+        "output": 5.00,
+    },
 }
+
+
+def parse_markdown_backticks(str) -> str:
+    if "```" not in str:
+        return str.strip()
+    # Remove opening backticks and language identifier
+    str = str.split("```", 1)[-1].split("\n", 1)[-1]
+    # Remove closing backticks
+    str = str.rsplit("```", 1)[0]
+    # Remove any leading or trailing whitespace
+    return str.strip()

@@ -13,8 +13,9 @@ class ModelAlias(str, Enum):
     gpt_4o = "gpt-4o"
     gpt_4o_predictive = "gpt-4o-predictive"
     gpt_4o_mini_predictive = "gpt-4o-mini-predictive"
-    
+
     # JSON variants
+    o1_mini_json = "o1-mini-json"
     gpt_4o_json = "gpt-4o-json"
     gpt_4o_mini_json = "gpt-4o-mini-json"
     gemini_pro_2_json = "gemini-1.5-pro-002-json"
@@ -33,16 +34,20 @@ class ToolEnum(str, Enum):
     run_git_agent = "run_git_agent"
     run_docs_agent = "run_docs_agent"
 
+
 class ToolAndPrompt(BaseModel):
     tool_name: ToolEnum
     prompt: str
 
+
 class ToolsAndPrompts(BaseModel):
     tools_and_prompts: list[ToolAndPrompt]
+
 
 class PromptWithToolCalls(BaseModel):
     prompt: str
     model: ModelAlias
+
 
 class PromptResponse(BaseModel):
     response: str
