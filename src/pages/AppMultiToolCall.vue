@@ -10,6 +10,12 @@
           Tool Call
         </button>
         <button
+          :class="{ active: store.activeTab === 'json_prompt' }"
+          @click="store.activeTab = 'json_prompt'"
+        >
+          JSON Prompt
+        </button>
+        <button
           :class="{ active: store.activeTab === 'notes' }"
           @click="store.activeTab = 'notes'"
         >
@@ -24,6 +30,7 @@
 
     <div class="tab-content !w-1200px">
       <ToolCallTab v-if="store.activeTab === 'toolcall'" />
+      <ToolCallJsonPromptTab v-else-if="store.activeTab === 'json_prompt'" />
       <ToolCallNotesTab v-else />
     </div>
   </div>
@@ -31,6 +38,7 @@
 
 <script setup lang="ts">
 import ToolCallTab from "../components/multi_tool_call/ToolCallTab.vue";
+import ToolCallJsonPromptTab from "../components/multi_tool_call/ToolCallJsonPromptTab.vue";
 import ToolCallNotesTab from "../components/multi_tool_call/ToolCallNotesTab.vue";
 import { store, resetState } from "../stores/toolCallStore";
 
