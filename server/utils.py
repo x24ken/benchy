@@ -58,6 +58,10 @@ MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS = {
         "input": 1.25,
         "output": 5.00,
     },
+    ModelAlias.gemini_exp_1114_json: {
+        "input": 1.25,
+        "output": 5.00,
+    },
     ModelAlias.gemini_flash_2: {
         "input": 0.075,
         "output": 0.300,

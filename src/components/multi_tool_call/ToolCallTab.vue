@@ -13,7 +13,7 @@
           class="run-button"
           :disabled="store.isLoading"
         >
-          {{ store.isLoading ? "Running..." : "Run Tool Calls" }}
+          {{ store.isLoading ? "Running..." : "Run Tool Call Prompt" }}
         </button>
       </div>
     </div>
@@ -56,9 +56,12 @@ import { runToolCall } from "../../apis/toolCallApi";
   flex-direction: column;
   gap: 20px;
 }
-
 .run-button {
-  background-color: rgb(14, 68, 145);
+  background: linear-gradient(
+    90deg,
+    rgba(14, 68, 145, 1) 0%,
+    rgba(0, 212, 255, 1) 100%
+  );
   color: white;
   padding: 10px 20px;
   border: none;
@@ -66,6 +69,12 @@ import { runToolCall } from "../../apis/toolCallApi";
   cursor: pointer;
   font-size: 16px;
   align-self: flex-start;
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.7);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.run-button:hover {
+  box-shadow: 0 0 20px rgba(0, 212, 255, 1);
 }
 
 .run-button:disabled {

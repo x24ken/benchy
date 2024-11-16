@@ -5,7 +5,7 @@ function loadDefaultState() {
     return {
         isLoading: false,
         promptResponses: [] as ToolCallResponse[],
-        userInput: "# Call the one tool for each task.\n\n1. Write code to update main.py with a new cli arg 'fmode'",
+        userInput: "# Call one tool for each task.\n\n1. Write code to update main.py with a new cli arg 'fmode'",
         expectedToolCalls: ["run_coder_agent"],
         total_executions: 0,
         activeTab: "toolcall",
@@ -28,8 +28,7 @@ function loadDefaultState() {
         {
             tool_name: "tool name 3",
             prompt: "tool call prompt 3"
-        },
-        ...
+        }
     ]
 }
 </json-output-format>
@@ -189,6 +188,18 @@ function loadDefaultState() {
             },
             {
                 model: "o1-mini-json",
+                status: 'idle',
+                toolCalls: null,
+                execution_time: null,
+                execution_cost: null,
+                total_cost: 0,
+                total_execution_time: 0,
+                relativePricePercent: 100,
+                number_correct: 0,
+                percent_correct: 0,
+            },
+            {
+                model: "gemini-exp-1114-json",
                 status: 'idle',
                 toolCalls: null,
                 execution_time: null,

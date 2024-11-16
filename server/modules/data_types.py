@@ -22,6 +22,7 @@ class ModelAlias(str, Enum):
     gemini_flash_2_json = "gemini-1.5-flash-002-json"
     sonnet_json = "claude-3-5-sonnet-20241022-json"
     haiku_json = "claude-3-5-haiku-latest-json"
+    gemini_exp_1114_json = "gemini-exp-1114-json"
 
 
 class Prompt(BaseModel):

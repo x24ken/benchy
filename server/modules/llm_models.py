@@ -81,6 +81,9 @@ def build_model_map() -> dict[ModelAlias, llm.Model]:
     gemini_1_5_pro_002: llm.Model = llm.get_model("gemini-1.5-pro-002")
     gemini_1_5_flash_002: llm.Model = llm.get_model("gemini-1.5-flash-002")
     gemini_1_5_flash_8b: llm.Model = llm.get_model("gemini-1.5-flash-8b-latest")
+    gemini_exp_1114: llm.Model = llm.get_model(
+        "gemini-1.5-pro-002"
+    )  # not supported: gemini-exp-1114. using pro to bypass
     model_map[ModelAlias.gemini_pro_2] = gemini_1_5_pro_002
     model_map[ModelAlias.gemini_flash_2] = gemini_1_5_flash_002
     model_map[ModelAlias.gemini_flash_8b] = gemini_1_5_flash_8b
@@ -89,6 +92,9 @@ def build_model_map() -> dict[ModelAlias, llm.Model]:
     )
     model_map[ModelAlias.gemini_flash_2_json] = (
         gemini_1_5_flash_002  # Same model, different mode
+    )
+    model_map[ModelAlias.gemini_exp_1114_json] = (
+        gemini_exp_1114  # Same model, different mode
     )
 
     # Build Anthropic models and their JSON variants
@@ -172,6 +178,7 @@ def tool_prompt(prompt: PromptWithToolCalls) -> ToolCallResponse:
         ModelAlias.gemini_flash_2,
         ModelAlias.gemini_pro_2_json,
         ModelAlias.gemini_flash_2_json,
+        ModelAlias.gemini_exp_1114_json,
     ]:
         return gemini_llm.tool_prompt(prompt.prompt, prompt.model, all_tools_list)
 

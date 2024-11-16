@@ -3,7 +3,7 @@
     <code-mirror
       v-model="store.userInput"
       :basic="true"
-      class="editor !h-100px !w-full"
+      class="editor !h-150px !w-full"
       placeholder="Enter your prompt for tool calls..."
       ref="editorRef"
       @focus="isFocused = true"

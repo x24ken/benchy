@@ -45,8 +45,12 @@ def tool_prompt(prompt: str, model: str, force_tools: list[str]) -> ToolCallResp
     with timeit() as t:
         if "-json" in model:
             # Initialize model for JSON output
+            base_model = model.replace("-json", "")
+            if model == "gemini-exp-1114-json":
+                base_model = "gemini-exp-1114"  # Map to actual model name
+                
             gemini_model = genai.GenerativeModel(
-                model_name=model.replace("-json", ""),
+                model_name=base_model,
             )
 
             # Send message and get JSON response

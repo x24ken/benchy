@@ -88,6 +88,7 @@ global {
         | "claude-3-5-sonnet-20241022-json"
         | "claude-3-5-haiku-latest-json"
         | "o1-mini-json"
+        | "gemini-exp-1114-json"
 
     export interface PromptRequest {
         prompt: string;
