@@ -8,6 +8,28 @@ function loadDefaultState() {
         expectedToolCalls: [] as string[],
         total_executions: 0,
         activeTab: "toolcall",
+        jsonPrompt: `<purpose>
+    Given the tool-call-prompt, generate the result in the specified json-output-format.
+</purpose>
+
+<json-output-format>
+{
+    tools_and_prompts: [
+        {
+            tool_name: "tool name 1",
+            prompt: "tool call prompt 1"
+        },
+        {
+            tool_name: "tool name 2",
+            prompt: "tool call prompt 2"
+        }
+    ]
+}
+</json-output-format>
+
+<tool-call-prompt>
+{{tool_call_prompt}}
+</tool-call-prompt>`,
 
         rowData: [
             {

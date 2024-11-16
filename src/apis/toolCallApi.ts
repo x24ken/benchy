@@ -1,13 +1,19 @@
 import { store as toolCallStore } from "../stores/toolCallStore";
 
 async function sendToolPrompt(prompt: string, model: ModelAlias): Promise<ToolCallResponse> {
+    let finalPrompt = prompt;
+    
+    if (model.includes('-json')) {
+        finalPrompt = store.jsonPrompt.replace('{{tool_call_prompt}}', store.userInput);
+    }
+    
     const response = await fetch('/tool-prompt', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            prompt,
+            prompt: finalPrompt,
             model,
         }),
     });

@@ -6,6 +6,15 @@ global {
         params: any;
     }
 
+    export interface ToolAndPrompt {
+        tool_name: string;
+        prompt: string;
+    }
+
+    export interface ToolsAndPrompts {
+        tools_and_prompts: ToolAndPrompt[];
+    }
+
     export interface ToolCallResponse {
         tool_calls: SimpleToolCall[];
         runTimeMs: number;
@@ -72,6 +81,12 @@ global {
         | "gpt-4o"
         | "gpt-4o-predictive"
         | "gpt-4o-mini-predictive"
+        | "gpt-4o-json"
+        | "gpt-4o-mini-json"
+        | "gemini-1.5-pro-002-json"
+        | "gemini-1.5-flash-002-json"
+        | "claude-3-5-sonnet-20241022-json"
+        | "claude-3-5-haiku-latest-json"
 
     export interface PromptRequest {
         prompt: string;
