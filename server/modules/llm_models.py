@@ -139,11 +139,14 @@ def tool_prompt(prompt: PromptWithToolCalls) -> ToolCallResponse:
     if model is None:
         raise ValueError(f"Model {prompt.model} not found")
 
-    if prompt.model in [ModelAlias.gpt_4o, ModelAlias.gpt_4o_mini]:
+    if prompt.model in [ModelAlias.gpt_4o, ModelAlias.gpt_4o_mini, 
+                       ModelAlias.gpt_4o_json, ModelAlias.gpt_4o_mini_json]:
         return openai_llm.tool_prompt(prompt.prompt, prompt.model, all_tools_list)
-    elif prompt.model in [ModelAlias.sonnet, ModelAlias.haiku, ModelAlias.haiku_3_legacy]:
-        return anthropic_llm.tool_prompt(prompt.prompt)
-    elif prompt.model in [ModelAlias.gemini_pro_2, ModelAlias.gemini_flash_2]:
+    elif prompt.model in [ModelAlias.sonnet, ModelAlias.haiku, ModelAlias.haiku_3_legacy,
+                         ModelAlias.sonnet_json, ModelAlias.haiku_json]:
+        return anthropic_llm.tool_prompt(prompt.prompt, prompt.model)
+    elif prompt.model in [ModelAlias.gemini_pro_2, ModelAlias.gemini_flash_2,
+                         ModelAlias.gemini_pro_2_json, ModelAlias.gemini_flash_2_json]:
         return gemini_llm.tool_prompt(prompt.prompt, prompt.model, all_tools_list)
 
     raise ValueError(f"Model {prompt.model} not supported for tool calls")

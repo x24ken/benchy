@@ -2,7 +2,7 @@ import openai
 import os
 import json
 from modules.tools import openai_tools_list
-from modules.data_types import SimpleToolCall
+from modules.data_types import SimpleToolCall, ToolsAndPrompts
 from utils import timeit
 from modules.data_types import PromptResponse, ModelAlias, ToolCallResponse
 from utils import MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS
@@ -39,40 +39,49 @@ def get_openai_cost(model: str, input_tokens: int, output_tokens: int) -> float:
 def tool_prompt(prompt: str, model: str, force_tools: list[str]) -> ToolCallResponse:
     """
     Run a chat model forcing specific tool calls.
-
-    Args:
-        prompt (str): The prompt to send to the OpenAI API.
-        model (str): The model ID to use for the API call.
-        force_tools (list[str]): List of tool names to force call.
-
-    Returns:
-        ToolCallResponse: The response including tools called, runtime, and cost.
+    Now supports JSON structured output variants.
     """
-    # Filter tools to only include forced ones
-
     with timeit() as t:
-        completion = openai_client.chat.completions.create(
-            model=model,
-            messages=[{"role": "user", "content": prompt}],
-            tools=openai_tools_list,
-            tool_choice="required",
-        )
+        if "-json" in model:
+            # Use structured output for JSON variants
+            completion = openai_client.beta.chat.completions.parse(
+                model=model.replace("-json", ""),
+                messages=[{"role": "user", "content": prompt}],
+                response_format=ToolsAndPrompts,
+            )
 
-    # Extract token counts and calculate cost
+            try:
+                tool_calls = [
+                    SimpleToolCall(
+                        tool_name=tap.tool_name, params={"prompt": tap.prompt}
+                    )
+                    for tap in completion.choices[0].message.parsed
+                ]
+            except Exception as e:
+                print(f"Failed to parse JSON response: {e}")
+                tool_calls = []
+
+        else:
+            # Original implementation for function calling
+            completion = openai_client.chat.completions.create(
+                model=model,
+                messages=[{"role": "user", "content": prompt}],
+                tools=openai_tools_list,
+                tool_choice="required",
+            )
+
+            tool_calls = [
+                SimpleToolCall(
+                    tool_name=tool_call.function.name,
+                    params=json.loads(tool_call.function.arguments),
+                )
+                for tool_call in completion.choices[0].message.tool_calls or []
+            ]
+
+    # Calculate costs
     input_tokens = completion.usage.prompt_tokens
     output_tokens = completion.usage.completion_tokens
     cost = get_openai_cost(model, input_tokens, output_tokens)
-
-    # Extract tool calls with parameters
-    tool_calls = []
-    if completion.choices[0].message.tool_calls:
-        tool_calls = [
-            SimpleToolCall(
-                tool_name=tool_call.function.name,
-                params=json.loads(tool_call.function.arguments),
-            )
-            for tool_call in completion.choices[0].message.tool_calls
-        ]
 
     return ToolCallResponse(
         tool_calls=tool_calls, runTimeMs=t(), inputAndOutputCost=cost

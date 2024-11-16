@@ -2,7 +2,7 @@ import google.generativeai as genai
 import os
 import json
 from modules.tools import gemini_tools_list
-from modules.data_types import SimpleToolCall, ModelAlias
+from modules.data_types import SimpleToolCall, ModelAlias, ToolsAndPrompts
 from utils import timeit, MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS
 from modules.data_types import ToolCallResponse
 
@@ -36,43 +36,55 @@ def get_gemini_cost(model: str, input_tokens: int, output_tokens: int) -> float:
 def tool_prompt(prompt: str, model: str, force_tools: list[str]) -> ToolCallResponse:
     """
     Run a chat model with tool calls using Gemini's API.
-
-    This implementation uses Gemini's native function calling capabilities to:
-    1. Process the user's prompt
-    2. Select and call appropriate tools
-    3. Return structured tool call responses
-
-    Args:
-        prompt (str): The prompt to send to the Gemini API
-        model (str): The model ID to use (e.g. "gemini-1.5-pro-002")
-        force_tools (list[str]): List of tool names to force call
-
-    Returns:
-        ToolCallResponse: The response including tools called, runtime, and cost
+    Now supports JSON structured output variants.
     """
-    # Initialize the model
-    gemini_model = genai.GenerativeModel(model_name=model, tools=gemini_tools_list)
-
     with timeit() as t:
-        # Start a chat that automatically handles function calling
-        chat = gemini_model.start_chat(enable_automatic_function_calling=True)
+        if "-json" in model:
+            # Initialize model for JSON output
+            gemini_model = genai.GenerativeModel(
+                model_name=model.replace("-json", ""),
+            )
 
-        # Send the message and get the response
-        response = chat.send_message(prompt)
+            # Send message and get JSON response
+            response = gemini_model.generate_content(
+                prompt,
+                generation_config=genai.GenerationConfig(
+                    response_mime_type="application/json",
+                    response_schema=ToolsAndPrompts.model_json_schema(),
+                ),
+            )
 
-        # Extract tool calls from the response parts
-        tool_calls = []
-        for part in response.parts:
-            if hasattr(part, "function_call"):
-                fc = part.function_call
-                tool_calls.append(SimpleToolCall(tool_name=fc.name, params=fc.args))
+            print("GEMINI: response", response)
 
-        # Extract token counts from usage metadata
+            try:
+                tool_calls = [
+                    SimpleToolCall(
+                        tool_name=tap.tool_name, params={"prompt": tap.prompt}
+                    )
+                    for tap in response._response
+                ]
+            except Exception as e:
+                print(f"Failed to parse JSON response: {e}")
+                tool_calls = []
+
+        else:
+            # Original implementation using function calling
+            gemini_model = genai.GenerativeModel(
+                model_name=model, tools=gemini_tools_list
+            )
+            chat = gemini_model.start_chat(enable_automatic_function_calling=True)
+            response = chat.send_message(prompt)
+
+            tool_calls = []
+            for part in response.parts:
+                if hasattr(part, "function_call"):
+                    fc = part.function_call
+                    tool_calls.append(SimpleToolCall(tool_name=fc.name, params=fc.args))
+
+        # Extract token counts and calculate cost
         usage_metadata = response._result.usage_metadata
         input_tokens = usage_metadata.prompt_token_count
         output_tokens = usage_metadata.candidates_token_count
-
-        # Calculate cost based on token usage
         cost = get_gemini_cost(model, input_tokens, output_tokens)
 
     return ToolCallResponse(
