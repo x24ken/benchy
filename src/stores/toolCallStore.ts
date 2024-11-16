@@ -4,8 +4,8 @@ function loadDefaultState() {
     return {
         isLoading: false,
         promptResponses: [] as ToolCallResponse[],
-        userInput: "",
-        expectedToolCalls: [] as string[],
+        userInput: "# Call the appropriate tool for each task.\n\n1. Write code to update main.py with a new cli arg 'fmode'",
+        expectedToolCalls: ["run_coder_agent"],
         total_executions: 0,
         activeTab: "toolcall",
         jsonPrompt: `<purpose>
@@ -22,7 +22,12 @@ function loadDefaultState() {
         {
             tool_name: "tool name 2",
             prompt: "tool call prompt 2"
-        }
+        },
+        {
+            tool_name: "tool name 3",
+            prompt: "tool call prompt 3"
+        },
+        ...
     ]
 }
 </json-output-format>
@@ -208,6 +213,7 @@ function setState(state: any) {
     store.activeTab = state.activeTab;
     store.rowData = state.rowData;
     store.total_executions = state.total_executions;
+    store.jsonPrompt = state.jsonPrompt;
 }
 
 export const store = reactive(loadState());

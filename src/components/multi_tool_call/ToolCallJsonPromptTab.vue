@@ -9,6 +9,7 @@
 </template>
 
 <script lang="ts" setup>
+import { onMounted } from "vue";
 import CodeMirror from "vue-codemirror6";
 import { store } from "../../stores/toolCallStore";
 </script>
