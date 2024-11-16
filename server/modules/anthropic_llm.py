@@ -1,7 +1,7 @@
 import anthropic
 import os
 import json
-from modules.data_types import ModelAlias
+from modules.data_types import ModelAlias, ToolsAndPrompts
 from utils import MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS
 from modules.data_types import SimpleToolCall, ToolCallResponse
 from utils import timeit
@@ -40,38 +40,54 @@ def get_anthropic_cost(model: str, input_tokens: int, output_tokens: int) -> flo
     return round(input_cost + output_cost, 6)
 
 
-def tool_prompt(
-    prompt: str, model: str = "claude-3-5-sonnet-20241022"
-) -> ToolCallResponse:
+def tool_prompt(prompt: str, model: str) -> ToolCallResponse:
     """
     Run a chat model with tool calls using Anthropic's Claude.
-
-    Args:
-        prompt (str): The prompt to send to the Anthropic API.
-        model (str): The model ID to use (defaults to Claude 3 Sonnet)
-
-    Returns:
-        ToolCallResponse: The response including tools called, runtime, and cost.
+    Now supports JSON structured output variants by parsing the response.
     """
-
     with timeit() as t:
-        message = anthropic_client.messages.create(
-            model=model,
-            max_tokens=1024,
-            messages=[{"role": "user", "content": prompt}],
-            tools=anthropic_tools_list,
-            tool_choice={"type": "any"},
-        )
+        if "-json" in model:
+            # Standard message request but expecting JSON response
+            message = anthropic_client.messages.create(
+                model=model.replace("-json", ""),
+                max_tokens=2048,
+                messages=[{"role": "user", "content": prompt}],
+            )
 
-    # Extract tool calls with parameters and execute them
-    tool_calls = []
-    for content in message.content:
-        if content.type == "tool_use":
-            tool_name = content.name
-            if tool_name in all_tools_list:
-                tool_calls.append(
-                    SimpleToolCall(tool_name=tool_name, params=content.input)
+            try:
+                # Parse raw response text into ToolsAndPrompts model
+                parsed_response = ToolsAndPrompts.model_validate_json(
+                    message.content[0].text
                 )
+                tool_calls = [
+                    SimpleToolCall(
+                        tool_name=tap.tool_name, params={"prompt": tap.prompt}
+                    )
+                    for tap in parsed_response.tools_and_prompts
+                ]
+            except Exception as e:
+                print(f"Failed to parse JSON response: {e}")
+                tool_calls = []
+
+        else:
+            # Original implementation for function calling
+            message = anthropic_client.messages.create(
+                model=model,
+                max_tokens=2048,
+                messages=[{"role": "user", "content": prompt}],
+                tools=anthropic_tools_list,
+                tool_choice={"type": "any"},
+            )
+
+            # Extract tool calls with parameters
+            tool_calls = []
+            for content in message.content:
+                if content.type == "tool_use":
+                    tool_name = content.name
+                    if tool_name in all_tools_list:
+                        tool_calls.append(
+                            SimpleToolCall(tool_name=tool_name, params=content.input)
+                        )
 
     # Calculate cost based on token usage
     input_tokens = message.usage.input_tokens
