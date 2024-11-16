@@ -34,7 +34,7 @@ const columnDefs = ref([
       if (!params.value) return "";
       return params.value.map((tc) => tc.tool_name).join(", ");
     },
-    minWidth: 340,
+    minWidth: 140,
   },
   {
     field: "execution_time",

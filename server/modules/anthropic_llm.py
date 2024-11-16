@@ -29,19 +29,8 @@ def get_anthropic_cost(model: str, input_tokens: int, output_tokens: int) -> flo
     Returns:
         float: Total cost in dollars
     """
-    # Map the model string to ModelAlias
-    model_alias = (
-        ModelAlias.sonnet 
-        if "claude-3-5-sonnet" in model 
-        else ModelAlias.haiku 
-        if "claude-3-5-haiku" in model
-        else None
-    )
-    
-    if not model_alias:
-        return 0.0
 
-    cost_map = MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS.get(model_alias)
+    cost_map = MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS.get(model)
     if not cost_map:
         return 0.0
 
@@ -51,7 +40,9 @@ def get_anthropic_cost(model: str, input_tokens: int, output_tokens: int) -> flo
     return round(input_cost + output_cost, 6)
 
 
-def tool_prompt(prompt: str, model: str = "claude-3-5-sonnet-20241022") -> ToolCallResponse:
+def tool_prompt(
+    prompt: str, model: str = "claude-3-5-sonnet-20241022"
+) -> ToolCallResponse:
     """
     Run a chat model with tool calls using Anthropic's Claude.
 

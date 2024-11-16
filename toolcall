@@ -1,9 +1,17 @@
 /drop
+/add       ai_docs/gemini-tool-use.md
+/add       server/modules/anthropic_llm.py
+/add       server/modules/gemini_llm.py
+/add       server/modules/llm_models.py
+/add       server/modules/tools.py
+/add       server/tests/tools_test.py
+/add       server/utils.py
 /add       src/apis/toolCallApi.ts
-/add       src/components/multi_tool_call/ToolCallExpectationList.vue
-/add       src/components/multi_tool_call/ToolCallExpectationRandomizer.vue
-/add       src/components/multi_tool_call/ToolCallInputField.vue
 /add       src/components/multi_tool_call/ToolCallTab.vue
-/add       src/pages/AppMultiToolCall.vue
+/add       src/components/multi_tool_call/ToolCallTable.vue
 /add       src/stores/toolCallStore.ts
 /add       src/utils.ts
+/add       toolcall
+/read-only ai_docs/anthropic-tool-use.md
+/read-only server/modules/openai_llm.py
+/read-only server/pyproject.toml

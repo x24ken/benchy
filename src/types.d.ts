@@ -63,6 +63,7 @@ global {
 
     export type ModelAlias =
         | "claude-3-5-haiku-latest"
+        | "claude-3-haiku-20240307"
         | "claude-3-5-sonnet-20241022"
         | "gemini-1.5-pro-002"
         | "gemini-1.5-flash-002"

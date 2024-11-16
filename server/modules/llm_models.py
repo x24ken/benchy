@@ -81,11 +81,13 @@ def build_model_map() -> dict[ModelAlias, llm.Model]:
     model_map[ModelAlias.gemini_flash_2] = gemini_1_5_flash_002
     model_map[ModelAlias.gemini_flash_8b] = gemini_1_5_flash_8b
 
-    # Build Anthropic model
+    # Build Anthropic models
     sonnet_model = llm.get_model("claude-3-5-sonnet-latest")
     haiku_model = llm.get_model("claude-3-5-haiku-latest")
+    haiku_legacy_model = llm.get_model("claude-3-haiku-20240307")
     model_map[ModelAlias.sonnet] = sonnet_model
     model_map[ModelAlias.haiku] = haiku_model
+    model_map[ModelAlias.haiku_3_legacy] = haiku_legacy_model
 
     return model_map
 
@@ -139,7 +141,7 @@ def tool_prompt(prompt: PromptWithToolCalls) -> ToolCallResponse:
 
     if prompt.model in [ModelAlias.gpt_4o, ModelAlias.gpt_4o_mini]:
         return openai_llm.tool_prompt(prompt.prompt, prompt.model, all_tools_list)
-    elif prompt.model == ModelAlias.sonnet:
+    elif prompt.model in [ModelAlias.sonnet, ModelAlias.haiku, ModelAlias.haiku_3_legacy]:
         return anthropic_llm.tool_prompt(prompt.prompt)
     elif prompt.model in [ModelAlias.gemini_pro_2, ModelAlias.gemini_flash_2]:
         return gemini_llm.tool_prompt(prompt.prompt, prompt.model, all_tools_list)

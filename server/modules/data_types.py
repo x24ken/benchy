@@ -4,6 +4,7 @@ from enum import Enum
 
 class ModelAlias(str, Enum):
     haiku = "claude-3-5-haiku-latest"
+    haiku_3_legacy = "claude-3-haiku-20240307"
     sonnet = "claude-3-5-sonnet-20241022"
     gemini_pro_2 = "gemini-1.5-pro-002"
     gemini_flash_2 = "gemini-1.5-flash-002"

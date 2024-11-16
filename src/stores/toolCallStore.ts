@@ -69,6 +69,18 @@ function loadDefaultState() {
                 relativePricePercent: 100,
                 number_correct: 0,
                 percent_correct: 0,
+            },
+            {
+                model: "claude-3-haiku-20240307",
+                status: 'idle',
+                toolCalls: null,
+                execution_time: null,
+                execution_cost: null,
+                total_cost: 0,
+                total_execution_time: 0,
+                relativePricePercent: 100,
+                number_correct: 0,
+                percent_correct: 0,
             }
         ] as ToolCallRowData[],
     };

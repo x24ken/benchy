@@ -41,7 +41,7 @@ export async function runToolCall() {
             console.log(`Running tool call for '${row.model}' with prompt '${toolCallStore.userInput}', and expected tool calls '${toolCallStore.expectedToolCalls}'`);
             const response = await sendToolPrompt(toolCallStore.userInput, row.model);
 
-            console.log(`response`, response)
+            console.log(`'${row.model}' response`, response)
 
             // Update row with results
             const updatedRow: ToolCallRowData = { ...toolCallStore.rowData[rowIndex] };

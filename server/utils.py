@@ -24,6 +24,10 @@ MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS = {
         "input": 0.15,
         "output": 0.60,
     },
+    ModelAlias.haiku_3_legacy: {
+        "input": 0.25,
+        "output": 1.25,
+    },
     ModelAlias.gpt_4o: {
         "input": 2.50,
         "output": 10.00,
