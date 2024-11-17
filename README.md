@@ -27,7 +27,10 @@
 - `src/store/*` - Stores all front end state and prompt
 - `src/api/*` - API layer for all requests
 - `server/server.py` - Server routes
-- `server/llm_models.py` - All LLM models
+- `server/modules/llm_models.py` - All LLM models
+- `server/modules/openai_llm.py` - OpenAI LLM
+- `server/modules/anthropic_llm.py` - Anthropic LLM
+- `server/modules/gemini_llm.py` - Gemini LLM
 
 ## Setup
 
