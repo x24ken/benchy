@@ -1,15 +1,23 @@
 # BENCHY
 > Benchmarks you can **feel**
+>
+> We all love benchmarks, but there's nothing like a hands on vibe check. What if we could meet somewhere in the middle?
 > 
-> Watch the walk through [video here](https://youtu.be/1ObiaSiA8BQ)
+> Enter BENCHY. A chill, live benchmark tool that lets you see the performance, price, and speed of LLMs in a side by side comparison for SPECIFIC use cases.
+>
+> Watch the walk through [video here](https://youtu.be/ZlljCLhq814)
+
+<img src="./images/parallel-function-calling.png" alt="parallel-function-calling" style="max-width: 800px;">
 
 <img src="./images/perf-price-speed-pick-two.png" alt="pick-two" style="max-width: 800px;">
 
-## Live Benchmark Tool
-- [Multi Autocomplete](src/pages/AppMultiAutocomplete.vue)
-  - Goal: Understand [claude 3.5 haiku](https://www.anthropic.com/claude/haiku) & GPT-4o [predictive outputs](https://platform.openai.com/docs/guides/predicted-outputs) compared to existing models. 
+## Live Benchmark Tools
 - [Long Tool Calling](src/pages/AppMultiToolCall.vue)
   - Goal: Understand the best LLMs and techniques for LONG chains of tool calls / function calls (15+).
+  - Watch the walk through [video here](https://youtu.be/ZlljCLhq814)
+- [Multi Autocomplete](src/pages/AppMultiAutocomplete.vue)
+  - Goal: Understand [claude 3.5 haiku](https://www.anthropic.com/claude/haiku) & GPT-4o [predictive outputs](https://platform.openai.com/docs/guides/predicted-outputs) compared to existing models. 
+  - Watch the walk through [video here](https://youtu.be/1ObiaSiA8BQ)
 
 ## Important Files
 - `.env` - Environment variables for API keys
