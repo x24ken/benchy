@@ -9,6 +9,10 @@ from utils import (
     MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS,
 )
 from modules.data_types import ToolCallResponse
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Initialize Gemini client
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
@@ -48,7 +52,7 @@ def tool_prompt(prompt: str, model: str, force_tools: list[str]) -> ToolCallResp
             base_model = model.replace("-json", "")
             if model == "gemini-exp-1114-json":
                 base_model = "gemini-exp-1114"  # Map to actual model name
-                
+
             gemini_model = genai.GenerativeModel(
                 model_name=base_model,
             )

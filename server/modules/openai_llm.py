@@ -7,6 +7,10 @@ from utils import parse_markdown_backticks, timeit
 from modules.data_types import PromptResponse, ModelAlias, ToolCallResponse
 from utils import MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS
 from modules.tools import all_tools_list
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 openai_client: openai.OpenAI = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
