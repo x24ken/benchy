@@ -194,6 +194,19 @@ def send_notification(user_id, message):
                 percent_correct: 0,
                 status: 'idle',
             },
+            {
+                completion: "",
+                model: "llama3.2:latest",
+                correct: null,
+                execution_time: null,
+                execution_cost: null,
+                total_cost: 0,
+                total_execution_time: 0,
+                relativePricePercent: 100,
+                number_correct: 0,
+                percent_correct: 0,
+                status: 'idle',
+            },
         ] as RowData[]
     };
 }

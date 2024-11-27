@@ -24,6 +24,7 @@ class ModelAlias(str, Enum):
     haiku_json = "claude-3-5-haiku-latest-json"
     gemini_exp_1114_json = "gemini-exp-1114-json"
     llama3_2_1b = "llama3.2:1b"
+    llama_3_2_3b = "llama3.2:latest"
     qwen_2_5_coder_14b = "qwen2.5-coder:14b"
 
 

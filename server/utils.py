@@ -99,6 +99,10 @@ MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS = {
         "input": 0.00,
         "output": 0.00,
     },
+    ModelAlias.llama_3_2_3b: {
+        "input": 0.00,
+        "output": 0.00,
+    },
     ModelAlias.qwen_2_5_coder_14b: {
         "input": 0.00,
         "output": 0.00,

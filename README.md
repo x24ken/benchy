@@ -31,13 +31,26 @@
 - `server/modules/openai_llm.py` - OpenAI LLM
 - `server/modules/anthropic_llm.py` - Anthropic LLM
 - `server/modules/gemini_llm.py` - Gemini LLM
+- `server/modules/ollama_llm.py` - Ollama LLM
 
 ## Setup
 
-### Get API Keys
+### Get API Keys & Models
 - [Anthropic](https://docs.anthropic.com/en/api/getting-started)
 - [Google Cloud](https://ai.google.dev/gemini-api/docs/api-key)
 - [OpenAI](https://help.openai.com/en/articles/4936850-where-do-i-find-my-openai-api-key)
+- [Ollama](https://ollama.ai/download)
+  - After installing Ollama, pull the required models:
+  ```bash
+  # Pull Llama 3.2 1B model
+  ollama pull llama3.2:1b
+  
+  # Pull Llama 3.2 latest (3B) model
+  ollama pull llama3.2:latest
+  
+  # Pull Qwen2.5 Coder 14B model
+  ollama pull qwen2.5-coder:14b
+  ```
 
 ### Client Setup
 ```bash

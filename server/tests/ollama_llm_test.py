@@ -12,3 +12,9 @@ def test_qwen_text_prompt():
     assert response.response != ""
     assert response.runTimeMs > 0
     assert response.inputAndOutputCost == 0.0
+
+def test_llama_3_2_latest_text_prompt():
+    response = text_prompt("ping", "llama3.2:latest")
+    assert response.response != ""
+    assert response.runTimeMs > 0
+    assert response.inputAndOutputCost == 0.0

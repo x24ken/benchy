@@ -90,6 +90,7 @@ global {
         | "o1-mini-json"
         | "gemini-exp-1114-json"
         | "llama3.2:1b"
+        | "llama3.2:latest"
         | "qwen2.5-coder:14b"
 
     export interface PromptRequest {
