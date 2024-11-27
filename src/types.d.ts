@@ -89,6 +89,8 @@ global {
         | "claude-3-5-haiku-latest-json"
         | "o1-mini-json"
         | "gemini-exp-1114-json"
+        | "llama3.2:1b"
+        | "qwen2.5-coder:14b"
 
     export interface PromptRequest {
         prompt: string;
