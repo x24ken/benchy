@@ -72,6 +72,7 @@ def build_model_map() -> dict[ModelAlias, llm.Model]:
     model_map[ModelAlias.llama3_2_1b] = None  # Ollama doesn't use llm.Model
     model_map[ModelAlias.llama_3_2_3b] = None  # Ollama doesn't use llm.Model
     model_map[ModelAlias.qwen_2_5_coder_14b] = None  # Ollama doesn't use llm.Model
+    model_map[ModelAlias.qwq_3db] = None  # Ollama doesn't use llm.Model
 
     # Build GPT-4 models and their JSON variants
     gpt4_o_latest: llm.Model = llm.get_model("gpt-4o")
@@ -148,7 +149,7 @@ def llm_prompt(
 def prompt(prompt: str, model_alias: ModelAlias) -> PromptResponse:
     model: llm.Model = model_map.get(model_alias)
 
-    if model_alias in [ModelAlias.llama3_2_1b, ModelAlias.llama_3_2_3b, ModelAlias.qwen_2_5_coder_14b]:
+    if model_alias in [ModelAlias.llama3_2_1b, ModelAlias.llama_3_2_3b, ModelAlias.qwen_2_5_coder_14b, ModelAlias.qwq_3db]:
         return ollama_llm.text_prompt(prompt, model_alias.value)
     elif model_alias == ModelAlias.gpt_4o_predictive:
         return openai_llm.predictive_prompt(prompt, prompt, "gpt-4o")
