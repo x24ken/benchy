@@ -2,7 +2,7 @@
   <div class="header-controls">
     <UserInput />
   </div>
-  <div class="ag-theme-quartz" style="height: 550px; width: 100%">
+  <div class="ag-theme-quartz" style="height: 600px; width: 100%">
     <ag-grid-vue
       :columnDefs="columnDefs"
       :rowData="rowData"
