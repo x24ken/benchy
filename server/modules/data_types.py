@@ -1,3 +1,4 @@
+from typing import Optional
 from pydantic import BaseModel
 from enum import Enum
 
@@ -72,12 +73,26 @@ class ToolCallResponse(BaseModel):
     inputAndOutputCost: float
 
 
+class BenchPromptResponse(BaseModel):
+    response: str
+    tokens_per_second: float
+    provider: str
+    total_duration_ms: float
+    load_duration_ms: float
+
+
 class ExecutionEvaluatorType(str, Enum):
-    execute_python_code_with_uv = "execute_python_code_with_uv"
     execute_python_code_with_uv = "execute_python_code_with_uv"
 
 
 class ExecutionEvaluationBenchmarkRow(BaseModel):
-    prompt: str
-    evaluator: ExecutionEvaluatorType
+    dynamic_variables: Optional[dict]
     expectation: str
+
+
+class ExecutionEvaluationBenchmarkFile(BaseModel):
+    base_prompt: str
+    evaluator: ExecutionEvaluatorType
+    prompts: list[ExecutionEvaluationBenchmarkRow]
+    benchmark_name: str
+    purpose: str
