@@ -1,0 +1,12 @@
+- base_prompt: |
+    Exclusively output python code: Create the mathematical statement for the following: {{statement}}
+  evaluator: "execute_python_code_with_uv"
+  benchmark_name: "Simple Math in Python"
+  purpose: "Evaluate the ability of a language model to perform simple mathematical operations in Python."
+  prompts:
+    - dynamic_variables:
+        statement: "add 5 and 5"
+      expectation: "10"
+    - dynamic_variables:
+        statement: "add 5 and 5 then split in half then triple"
+      expectation: "15"

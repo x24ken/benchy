@@ -73,9 +73,11 @@ class ToolCallResponse(BaseModel):
 
 
 class ExecutionEvaluatorType(str, Enum):
-    run_python_code_with_uv = "run_python_code_with_uv"
+    execute_python_code_with_uv = "execute_python_code_with_uv"
+    execute_python_code_with_uv = "execute_python_code_with_uv"
 
 
 class ExecutionEvaluationBenchmarkRow(BaseModel):
     prompt: str
     evaluator: ExecutionEvaluatorType
+    expectation: str
