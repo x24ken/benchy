@@ -75,6 +75,9 @@ class ToolCallResponse(BaseModel):
     inputAndOutputCost: float
 
 
+# ------------ Execution Evaluator Benchmarks ------------
+
+
 class BenchPromptResponse(BaseModel):
     response: str
     tokens_per_second: float
@@ -83,18 +86,41 @@ class BenchPromptResponse(BaseModel):
     load_duration_ms: float
 
 
-class ExecutionEvaluatorType(str, Enum):
+class ExeEvalType(str, Enum):
     execute_python_code_with_uv = "execute_python_code_with_uv"
 
 
-class ExecutionEvaluationBenchmarkRow(BaseModel):
+class ExeEvalBenchmarkInputRow(BaseModel):
     dynamic_variables: Optional[dict]
     expectation: str
 
 
-class ExecutionEvaluationBenchmarkFile(BaseModel):
+class ExecEvalBenchmarkFile(BaseModel):
     base_prompt: str
-    evaluator: ExecutionEvaluatorType
-    prompts: list[ExecutionEvaluationBenchmarkRow]
+    evaluator: ExeEvalType
+    prompts: list[ExeEvalBenchmarkInputRow]
     benchmark_name: str
     purpose: str
+
+
+class ExeEvalBenchmarkOutputResult(BaseModel):
+    prompt_response: BenchPromptResponse
+    model: ModelAlias
+    correct: bool
+
+
+class ExecEvalBenchmarkCompleteResult(BaseModel):
+    benchmark_file: ExecEvalBenchmarkFile
+    results: list[ExeEvalBenchmarkOutputResult]
+
+    @property
+    def correct_count(self) -> int:
+        return sum(1 for result in self.results if result.correct)
+
+    @property
+    def incorrect_count(self) -> int:
+        return len(self.results) - self.correct_count
+
+    @property
+    def accuracy(self) -> float:
+        return self.correct_count / len(self.results)
