@@ -88,7 +88,7 @@ class BenchPromptResponse(BaseModel):
 
 
 class ExeEvalType(str, Enum):
-    execute_python_code_with_uv = "execute_python_code_with_uv"
+    execute_python_code_with_num_output = "execute_python_code_with_num_output"
 
 
 class ExeEvalBenchmarkInputRow(BaseModel):
@@ -107,8 +107,10 @@ class ExecEvalBenchmarkFile(BaseModel):
 class ExeEvalBenchmarkOutputResult(BaseModel):
     prompt_response: BenchPromptResponse
     execution_result: str
+    expected_result: str  # Add this field
     model: str  # Changed from ModelAlias to str
     correct: bool
+    index: int  # Add this field
 
 
 class ExecEvalBenchmarkCompleteResult(BaseModel):

@@ -52,6 +52,10 @@ def ollama_bench(
     uv run python exbench.py ollama-bench llama3.2:1b llama3.2:latest benchmark_data/simple_math.yaml -c 5
 
     uv run python exbench.py ollama-bench vanilj/Phi-4:latest benchmark_data/simple_math.yaml -c 5
+
+    uv run python exbench.py ollama-bench qwen2.5-coder:14b vanilj/Phi-4:latest benchmark_data/simple_math.yaml -c 5
+
+    uv run python exbench.py ollama-bench llama3.2:latest qwen2.5-coder:14b vanilj/Phi-4:latest benchmark_data/simple_math.yaml
     """
     # Validate models
     model_aliases = []
@@ -66,7 +70,7 @@ def ollama_bench(
     try:
         with open(yaml_file) as f:
             yaml_data = yaml.safe_load(f)
-            
+
         # If YAML is a list, convert to dict with default structure
         if isinstance(yaml_data, list):
             yaml_data = {
@@ -74,9 +78,9 @@ def ollama_bench(
                 "evaluator": "execute_python_code_with_uv",
                 "prompts": yaml_data,
                 "benchmark_name": "unnamed_benchmark",
-                "purpose": "No purpose specified"
+                "purpose": "No purpose specified",
             }
-            
+
         # Ensure prompts have the correct structure
         if "prompts" in yaml_data:
             for prompt in yaml_data["prompts"]:
@@ -86,7 +90,7 @@ def ollama_bench(
                     prompt["dynamic_variables"] = {}
                 if "expectation" not in prompt:
                     prompt["expectation"] = ""
-            
+
         benchmark_file = ExecEvalBenchmarkFile(**yaml_data)
     except Exception as e:
         typer.echo(f"Error loading YAML file: {e}")
@@ -108,11 +112,11 @@ def ollama_bench(
     for model in model_aliases:
         typer.echo(f"\nRunning benchmarks for model: {model}")
         total_tests = len(benchmark_file.prompts)
-        
+
         # Run all prompts for this model at once
         results = run_benchmark_for_model(model, benchmark_file)
         complete_result.results.extend(results)
-        
+
         typer.echo(f"Completed benchmarks for model: {model}\n")
 
     # Generate and save report

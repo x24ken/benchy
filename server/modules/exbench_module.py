@@ -6,9 +6,13 @@ from modules.data_types import (
     ExecEvalBenchmarkModelReport,
     ExecEvalBenchmarkReport,
     ModelAlias,
+    ExeEvalType,
 )
 from modules.ollama_llm import bench_prompt
-from modules.execution_evaluators import execute_python_with_uv
+from modules.execution_evaluators import (
+    execute_python_code_with_num_output,
+    eval_result_compare,
+)
 from utils import parse_markdown_backticks
 
 
@@ -32,18 +36,22 @@ def run_benchmark_for_model(
 
         # Parse and execute the response
         cleaned_code = parse_markdown_backticks(bench_response.response)
+        execution_result = ""
+        expected_result = str(prompt_row.expectation).strip()  # Get expected result
         try:
-            if benchmark_file.evaluator == "execute_python_code_with_uv":
-                print("cleaned_code", cleaned_code)
-                execution_result = execute_python_with_uv(cleaned_code)
+            if (
+                benchmark_file.evaluator
+                == ExeEvalType.execute_python_code_with_num_output
+            ):
+                execution_result = execute_python_code_with_num_output(cleaned_code)
                 parsed_execution_result = str(execution_result).strip()
-                parsed_expectation = str(prompt_row.expectation).strip()
-                print("parsed_execution_result", parsed_execution_result)
-                print("parsed_expectation", parsed_expectation)
-                correct = parsed_execution_result == parsed_expectation
+                correct = eval_result_compare(
+                    benchmark_file.evaluator, expected_result, parsed_execution_result
+                )
             else:
                 raise ValueError(f"Unsupported evaluator: {benchmark_file.evaluator}")
         except Exception as e:
+            print("Error executing code:", e)
             execution_result = str(e)
             correct = False
 
@@ -51,8 +59,11 @@ def run_benchmark_for_model(
         results.append(
             ExeEvalBenchmarkOutputResult(
                 prompt_response=bench_response,
+                execution_result=execution_result,
+                expected_result=expected_result,  # Add expected result
                 model=model,
                 correct=correct,
+                index=i,  # Add the index
             )
         )
     return results
