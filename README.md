@@ -111,3 +111,6 @@ uv run pytest (**beware will hit APIs and cost money**)
 - https://platform.openai.com/docs/guides/structured-outputs
 - https://docs.anthropic.com/en/docs/build-with-claude/tool-use
 - https://ai.google.dev/gemini-api/docs/models/experimental-models
+- https://sqlparse.readthedocs.io/en/latest/intro.html
+- mlx: https://huggingface.co/mlx-community
+- ollama docs: https://github.com/ollama/ollama/blob/main/docs/api.md#examples

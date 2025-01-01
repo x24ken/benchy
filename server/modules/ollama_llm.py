@@ -75,7 +75,7 @@ def bench_prompt(prompt: str, model: str) -> BenchPromptResponse:
 
         import json
 
-        print(json.dumps(bench_response.dict(), indent=2))
+        # print(json.dumps(bench_response.dict(), indent=2))
 
         return bench_response
 

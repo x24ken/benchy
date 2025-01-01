@@ -10,3 +10,42 @@
     - dynamic_variables:
         statement: "add 5 and 5 then split in half then triple"
       expectation: "15"
+    - dynamic_variables:
+        statement: "multiply 3 by 4 and add 7"
+      expectation: "19"
+    - dynamic_variables:
+        statement: "subtract 15 from 20 and multiply by 3"
+      expectation: "15"
+    - dynamic_variables:
+        statement: "divide 100 by 4 and add 25"
+      expectation: "50"
+    - dynamic_variables:
+        statement: "calculate 10 squared minus 50"
+      expectation: "50"
+    - dynamic_variables:
+        statement: "find the average of 10, 20, and 30"
+      expectation: "20"
+    - dynamic_variables:
+        statement: "calculate 15 percent of 200"
+      expectation: "30"
+    - dynamic_variables:
+        statement: "add 1/2 and 1/4"
+      expectation: "0.75"
+    - dynamic_variables:
+        statement: "multiply 2.5 by 4 and subtract 3"
+      expectation: "7.0"
+    - dynamic_variables:
+        statement: "solve the quadratic equation x² + 5x + 6 = 0 and return the largest root"
+      expectation: "-2.0"
+    - dynamic_variables:
+        statement: "calculate the compound interest for $1000 at 5% annual rate over 3 years and return the final amount"
+      expectation: "1157.63"
+    - dynamic_variables:
+        statement: "calculate the area of a circle with radius 5 using π = 3.14159"
+      expectation: "78.53975"
+    - dynamic_variables:
+        statement: "find the greatest common divisor of 48 and 18"
+      expectation: "6"
+    - dynamic_variables:
+        statement: "calculate the factorial of 5"
+      expectation: "120"

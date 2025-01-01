@@ -1,1 +1,1 @@
-aider --model deepseek/deepseek-chat --architect --editor-model deepseek/deepseek-chat
+aider --model deepseek/deepseek-chat --architect --editor-model deepseek/deepseek-chat --yes-always
