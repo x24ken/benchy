@@ -16,7 +16,11 @@ def run_benchmark_for_model(
     model: str, benchmark_file: ExecEvalBenchmarkFile
 ) -> List[ExeEvalBenchmarkOutputResult]:
     results = []
-    for prompt_row in benchmark_file.prompts:
+    total_tests = len(benchmark_file.prompts)
+
+    for i, prompt_row in enumerate(benchmark_file.prompts, 1):
+        print(f"  Running test {i}/{total_tests}...")
+
         # Replace dynamic variables in base prompt
         prompt = benchmark_file.base_prompt
         if prompt_row.dynamic_variables:
@@ -30,11 +34,13 @@ def run_benchmark_for_model(
         cleaned_code = parse_markdown_backticks(bench_response.response)
         try:
             if benchmark_file.evaluator == "execute_python_code_with_uv":
+                print("cleaned_code", cleaned_code)
                 execution_result = execute_python_with_uv(cleaned_code)
-                print("execution_result", execution_result)
-                correct = (
-                    str(execution_result).strip() == str(prompt_row.expectation).strip()
-                )
+                parsed_execution_result = str(execution_result).strip()
+                parsed_expectation = str(prompt_row.expectation).strip()
+                print("parsed_execution_result", parsed_execution_result)
+                print("parsed_expectation", parsed_expectation)
+                correct = parsed_execution_result == parsed_expectation
             else:
                 raise ValueError(f"Unsupported evaluator: {benchmark_file.evaluator}")
         except Exception as e:
@@ -45,7 +51,7 @@ def run_benchmark_for_model(
         results.append(
             ExeEvalBenchmarkOutputResult(
                 prompt_response=bench_response,
-                model=model,  # Just use the string directly
+                model=model,
                 correct=correct,
             )
         )

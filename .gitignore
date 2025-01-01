@@ -235,3 +235,5 @@ director_log.txt
 uv.lock
 
 specs/
+
+server/reports/

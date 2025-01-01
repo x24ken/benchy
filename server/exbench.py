@@ -108,14 +108,11 @@ def ollama_bench(
     for model in model_aliases:
         typer.echo(f"\nRunning benchmarks for model: {model}")
         total_tests = len(benchmark_file.prompts)
-        model_results = []
         
-        for i, prompt_row in enumerate(benchmark_file.prompts, 1):
-            typer.echo(f"  Running test {i}/{total_tests}...")
-            results = run_benchmark_for_model(model, benchmark_file)
-            model_results.extend(results)
+        # Run all prompts for this model at once
+        results = run_benchmark_for_model(model, benchmark_file)
+        complete_result.results.extend(results)
         
-        complete_result.results.extend(model_results)
         typer.echo(f"Completed benchmarks for model: {model}\n")
 
     # Generate and save report
