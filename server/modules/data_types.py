@@ -70,3 +70,12 @@ class ToolCallResponse(BaseModel):
     tool_calls: list[SimpleToolCall]
     runTimeMs: int
     inputAndOutputCost: float
+
+
+class ExecutionEvaluatorType(str, Enum):
+    run_python_code_with_uv = "run_python_code_with_uv"
+
+
+class ExecutionEvaluationBenchmarkRow(BaseModel):
+    prompt: str
+    evaluator: ExecutionEvaluatorType
