@@ -1,6 +1,7 @@
 from ollama import chat
 from modules.data_types import PromptResponse, BenchPromptResponse
 from utils import timeit
+import json
 
 
 def text_prompt(prompt: str, model: str) -> PromptResponse:
@@ -73,8 +74,6 @@ def bench_prompt(prompt: str, model: str) -> BenchPromptResponse:
             / 1_000_000,  # Convert ns to ms
         )
 
-        import json
-
         # print(json.dumps(bench_response.dict(), indent=2))
 
         return bench_response
@@ -87,4 +86,5 @@ def bench_prompt(prompt: str, model: str) -> BenchPromptResponse:
             provider="ollama",
             total_duration_ms=0.0,
             load_duration_ms=0.0,
+            errored=True,
         )

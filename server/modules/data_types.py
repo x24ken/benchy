@@ -84,6 +84,7 @@ class BenchPromptResponse(BaseModel):
     provider: str
     total_duration_ms: float
     load_duration_ms: float
+    errored: Optional[bool]
 
 
 class ExeEvalType(str, Enum):
@@ -124,3 +125,30 @@ class ExecEvalBenchmarkCompleteResult(BaseModel):
     @property
     def accuracy(self) -> float:
         return self.correct_count / len(self.results)
+
+
+class ExecEvalBenchmarkModelReport(BaseModel):
+    model: ModelAlias
+    results: list[ExeEvalBenchmarkOutputResult]
+
+    correct_count: int
+    incorrect_count: int
+    accuracy: float
+
+    average_tokens_per_second: float
+    average_total_duration_ms: float
+    average_load_duration_ms: float
+
+
+class ExecEvalBenchmarkReport(BaseModel):
+    benchmark_name: str
+    purpose: str
+    models: list[ExecEvalBenchmarkModelReport]
+
+    overall_correct_count: int
+    overall_incorrect_count: int
+    overall_accuracy: float
+
+    average_tokens_per_second: float
+    average_total_duration_ms: float
+    average_load_duration_ms: float
