@@ -106,6 +106,7 @@ class ExecEvalBenchmarkFile(BaseModel):
 
 class ExeEvalBenchmarkOutputResult(BaseModel):
     prompt_response: BenchPromptResponse
+    execution_result: str
     model: str  # Changed from ModelAlias to str
     correct: bool
 
