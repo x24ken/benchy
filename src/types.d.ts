@@ -93,6 +93,7 @@ global {
         | "llama3.2:latest"
         | "qwen2.5-coder:14b"
         | "qwq:32b"
+        | "vanilj/Phi-4:latest"
 
     export interface PromptRequest {
         prompt: string;

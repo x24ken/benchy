@@ -111,6 +111,10 @@ MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS = {
         "input": 0.00,
         "output": 0.00,
     },
+    ModelAlias.phi_4: {
+        "input": 0.00,
+        "output": 0.00,
+    },
 }
 
 

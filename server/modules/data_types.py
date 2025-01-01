@@ -27,6 +27,7 @@ class ModelAlias(str, Enum):
     llama_3_2_3b = "llama3.2:latest"
     qwen_2_5_coder_14b = "qwen2.5-coder:14b"
     qwq_3db = "qwq:32b"
+    phi_4 = "vanilj/Phi-4:latest"
 
 
 class Prompt(BaseModel):

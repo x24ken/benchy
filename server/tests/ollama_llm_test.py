@@ -24,3 +24,9 @@ def test_llama_3_2_latest_text_prompt():
     assert response.response != ""
     assert response.runTimeMs > 0
     assert response.inputAndOutputCost == 0.0
+
+def test_phi_4_text_prompt():
+    response = text_prompt("ping", "vanilj/Phi-4:latest")
+    assert response.response != ""
+    assert response.runTimeMs > 0
+    assert response.inputAndOutputCost == 0.0
