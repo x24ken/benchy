@@ -84,7 +84,7 @@ class BenchPromptResponse(BaseModel):
     provider: str
     total_duration_ms: float
     load_duration_ms: float
-    errored: Optional[bool]
+    errored: Optional[bool] = None
 
 
 class ExeEvalType(str, Enum):
@@ -106,7 +106,7 @@ class ExecEvalBenchmarkFile(BaseModel):
 
 class ExeEvalBenchmarkOutputResult(BaseModel):
     prompt_response: BenchPromptResponse
-    model: ModelAlias
+    model: str  # Changed from ModelAlias to str
     correct: bool
 
 
@@ -128,7 +128,7 @@ class ExecEvalBenchmarkCompleteResult(BaseModel):
 
 
 class ExecEvalBenchmarkModelReport(BaseModel):
-    model: ModelAlias
+    model: str  # Changed from ModelAlias to str
     results: list[ExeEvalBenchmarkOutputResult]
 
     correct_count: int

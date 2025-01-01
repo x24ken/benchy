@@ -66,6 +66,27 @@ def ollama_bench(
     try:
         with open(yaml_file) as f:
             yaml_data = yaml.safe_load(f)
+            
+        # If YAML is a list, convert to dict with default structure
+        if isinstance(yaml_data, list):
+            yaml_data = {
+                "base_prompt": "",
+                "evaluator": "execute_python_code_with_uv",
+                "prompts": yaml_data,
+                "benchmark_name": "unnamed_benchmark",
+                "purpose": "No purpose specified"
+            }
+            
+        # Ensure prompts have the correct structure
+        if "prompts" in yaml_data:
+            for prompt in yaml_data["prompts"]:
+                if not isinstance(prompt, dict):
+                    prompt = {"dynamic_variables": {}, "expectation": str(prompt)}
+                if "dynamic_variables" not in prompt:
+                    prompt["dynamic_variables"] = {}
+                if "expectation" not in prompt:
+                    prompt["expectation"] = ""
+            
         benchmark_file = ExecEvalBenchmarkFile(**yaml_data)
     except Exception as e:
         typer.echo(f"Error loading YAML file: {e}")
@@ -85,17 +106,27 @@ def ollama_bench(
     )
 
     for model in model_aliases:
-        typer.echo(f"Running benchmarks for model: {model.value}")
-        model_results = run_benchmark_for_model(model, benchmark_file)
+        typer.echo(f"\nRunning benchmarks for model: {model}")
+        total_tests = len(benchmark_file.prompts)
+        model_results = []
+        
+        for i, prompt_row in enumerate(benchmark_file.prompts, 1):
+            typer.echo(f"  Running test {i}/{total_tests}...")
+            results = run_benchmark_for_model(model, benchmark_file)
+            model_results.extend(results)
+        
         complete_result.results.extend(model_results)
+        typer.echo(f"Completed benchmarks for model: {model}\n")
 
     # Generate and save report
     report = generate_report(complete_result)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    report_filename = f"{output_dir}/{benchmark_file.benchmark_name}_{timestamp}.json"
+    # Replace spaces with underscores in benchmark name
+    safe_benchmark_name = benchmark_file.benchmark_name.replace(" ", "_")
+    report_filename = f"{output_dir}/{safe_benchmark_name}_{timestamp}.json"
 
     with open(report_filename, "w") as f:
-        json.dump(report.dict(), f, indent=2)
+        json.dump(report, f, indent=2)
 
     typer.echo(f"Benchmark report saved to: {report_filename}")
 
