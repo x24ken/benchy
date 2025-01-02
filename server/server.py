@@ -10,7 +10,11 @@ from modules.data_types import (
     ExecEvalBenchmarkCompleteResult,
 )
 import modules.llm_models as llm_models
-from modules.exbench_module import run_benchmark_for_model, generate_report
+from modules.exbench_module import (
+    run_benchmark_for_model, 
+    generate_report, 
+    save_report_to_file
+)
 
 app = Flask(__name__)
 
@@ -68,10 +72,11 @@ def handle_tool_prompt():
 @app.route("/iso-speed-bench", methods=["POST"])
 def handle_iso_speed_bench():
     # Validate content type
-    if not request.content_type == 'application/yaml':
-        return jsonify({
-            "error": "Invalid content type. Expected application/yaml"
-        }), 415
+    if not request.content_type == "application/yaml":
+        return (
+            jsonify({"error": "Invalid content type. Expected application/yaml"}),
+            415,
+        )
 
     try:
         # Parse YAML
@@ -80,59 +85,59 @@ def handle_iso_speed_bench():
             if not yaml_data:
                 raise ValueError("Empty YAML file")
         except yaml.YAMLError as e:
-            return jsonify({
-                "error": f"Invalid YAML format: {str(e)}"
-            }), 400
+            return jsonify({"error": f"Invalid YAML format: {str(e)}"}), 400
 
         # Validate structure
         try:
             benchmark_file = ExecEvalBenchmarkFile(**yaml_data)
         except ValueError as e:
-            return jsonify({
-                "error": f"Invalid benchmark structure: {str(e)}"
-            }), 400
+            return jsonify({"error": f"Invalid benchmark structure: {str(e)}"}), 400
 
         # Validate models
         if not benchmark_file.models:
-            return jsonify({
-                "error": "No models specified in benchmark file"
-            }), 400
+            return jsonify({"error": "No models specified in benchmark file"}), 400
 
         # Validate prompts
         if not benchmark_file.prompts:
-            return jsonify({
-                "error": "No prompts specified in benchmark file"
-            }), 400
+            return jsonify({"error": "No prompts specified in benchmark file"}), 400
 
         # Run benchmarks
         complete_result = ExecEvalBenchmarkCompleteResult(
-            benchmark_file=benchmark_file,
-            results=[]
+            benchmark_file=benchmark_file, results=[]
         )
-        
+
         for model in benchmark_file.models:
             try:
+                print(f"Running benchmark for model {model}")
                 results = run_benchmark_for_model(model, benchmark_file)
                 complete_result.results.extend(results)
             except Exception as e:
-                return jsonify({
-                    "error": f"Error running benchmark for model {model}: {str(e)}"
-                }), 500
+                return (
+                    jsonify(
+                        {
+                            "error": f"Error running benchmark for model {model}: {str(e)}"
+                        }
+                    ),
+                    500,
+                )
 
         # Generate report
         try:
+            print(f"Generating report for {benchmark_file.benchmark_name}")
             report = generate_report(complete_result)
-            # Use Pydantic's model_dump() for JSON serialization
-            return report.model_dump()
-        except Exception as e:
-            return jsonify({
-                "error": f"Error generating report: {str(e)}"
-            }), 500
             
+            # Save report using the new function
+            report_path = save_report_to_file(report)
+            print(f"Benchmark report saved to: {report_path}")
+            
+            return report.model_dump_json(), 200, {"Content-Type": "application/json"}
+        except Exception as e:
+            return jsonify({"error": f"Error generating report: {str(e)}"}), 500
+
     except Exception as e:
-        return jsonify({
-            "error": f"Unexpected error: {str(e)}"
-        }), 500
+        print(f"Unexpected error: {str(e)}")
+        return jsonify({"error": f"Unexpected error: {str(e)}"}), 500
+
 
 def main():
     app.run(debug=True, port=5000)

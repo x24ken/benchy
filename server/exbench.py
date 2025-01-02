@@ -8,7 +8,11 @@ from modules.data_types import (
     ExecEvalBenchmarkFile,
     ExecEvalBenchmarkCompleteResult,
 )
-from modules.exbench_module import run_benchmark_for_model, generate_report
+from modules.exbench_module import (
+    run_benchmark_for_model, 
+    generate_report, 
+    save_report_to_file
+)
 
 app = typer.Typer()
 
@@ -104,17 +108,11 @@ def ollama_bench(
 
         typer.echo(f"Completed benchmarks for model: {model}\n")
 
-    # Generate and save report
+    # Generate and save report using the new function
     report = generate_report(complete_result)
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    # Replace spaces with underscores in benchmark name
-    safe_benchmark_name = benchmark_file.benchmark_name.replace(" ", "_")
-    report_filename = f"{output_dir}/{safe_benchmark_name}_{timestamp}.json"
-
-    with open(report_filename, "w") as f:
-        json.dump(report, f, indent=2)
-
-    typer.echo(f"Benchmark report saved to: {report_filename}")
+    report_path = save_report_to_file(report, output_dir)
+    
+    typer.echo(f"Benchmark report saved to: {report_path}")
 
 
 if __name__ == "__main__":

@@ -1,4 +1,33 @@
-from typing import List
+from typing import List, Optional
+from datetime import datetime
+from pathlib import Path
+from datetime import datetime
+from pathlib import Path
+from modules.data_types import ExecEvalBenchmarkReport
+
+def save_report_to_file(report: ExecEvalBenchmarkReport, output_dir: str = "reports") -> str:
+    """Save benchmark report to file with standardized naming.
+    
+    Args:
+        report: The benchmark report to save
+        output_dir: Directory to save the report in
+        
+    Returns:
+        Path to the saved report file
+    """
+    # Create output directory if it doesn't exist
+    Path(output_dir).mkdir(exist_ok=True)
+    
+    # Generate filename
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    safe_benchmark_name = report.benchmark_name.replace(" ", "_")
+    report_filename = f"{output_dir}/{safe_benchmark_name}_{timestamp}.json"
+    
+    # Save report
+    with open(report_filename, "w") as f:
+        f.write(report.model_dump_json())
+    
+    return report_filename
 from modules.data_types import (
     ExecEvalBenchmarkFile,
     ExecEvalBenchmarkCompleteResult,
@@ -146,4 +175,4 @@ def generate_report(
         average_tokens_per_second=avg_tokens_per_second,
         average_total_duration_ms=avg_total_duration,
         average_load_duration_ms=avg_load_duration,
-    ).model_dump()
+    )
