@@ -21,7 +21,6 @@ def ping():
 
 @app.command()
 def ollama_bench(
-    models: List[str] = typer.Argument(..., help="List of models to benchmark"),
     yaml_file: str = typer.Argument(
         ..., help="Path to YAML benchmark configuration file"
     ),
@@ -49,23 +48,8 @@ def ollama_bench(
 
     Example usage:
 
-    uv run python exbench.py ollama-bench llama3.2:1b llama3.2:latest benchmark_data/simple_math.yaml -c 5
-
-    uv run python exbench.py ollama-bench vanilj/Phi-4:latest benchmark_data/simple_math.yaml -c 5
-
-    uv run python exbench.py ollama-bench qwen2.5-coder:14b vanilj/Phi-4:latest benchmark_data/simple_math.yaml -c 5
-
-    uv run python exbench.py ollama-bench llama3.2:latest qwen2.5-coder:14b vanilj/Phi-4:latest benchmark_data/simple_math.yaml
+    uv run python exbench.py ollama-bench benchmark_data/simple_math.yaml -c 5
     """
-    # Validate models
-    model_aliases = []
-    for model in models:
-        try:
-            model_aliases.append(ModelAlias[model])
-        except KeyError:
-            typer.echo(f"No model alias for {model}, using raw model name")
-            model_aliases.append(model)
-
     # Load and validate YAML file
     try:
         with open(yaml_file) as f:
@@ -79,6 +63,8 @@ def ollama_bench(
                 "prompts": yaml_data,
                 "benchmark_name": "unnamed_benchmark",
                 "purpose": "No purpose specified",
+                "models": [],  # Default empty models list
+                "model_provider": "ollama",  # Default to ollama
             }
 
         # Ensure prompts have the correct structure
@@ -103,6 +89,15 @@ def ollama_bench(
 
     # Create output directory if it doesn't exist
     Path(output_dir).mkdir(exist_ok=True)
+
+    # Validate models
+    model_aliases = []
+    for model in benchmark_file.models:
+        try:
+            model_aliases.append(ModelAlias[model])
+        except KeyError:
+            typer.echo(f"No model alias for {model}, using raw model name")
+            model_aliases.append(model)
 
     # Run benchmarks
     complete_result = ExecEvalBenchmarkCompleteResult(

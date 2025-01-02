@@ -7,6 +7,7 @@ from modules.data_types import (
     ExecEvalBenchmarkReport,
     ModelAlias,
     ExeEvalType,
+    ModelProvider,
 )
 from modules.ollama_llm import bench_prompt
 from modules.execution_evaluators import (
@@ -31,8 +32,17 @@ def run_benchmark_for_model(
             for key, value in prompt_row.dynamic_variables.items():
                 prompt = prompt.replace(f"{{{{{key}}}}}", str(value))
 
-        # Get benchmark response
-        bench_response = bench_prompt(prompt, model)
+        if benchmark_file.model_provider == ModelProvider.ollama.value:
+            # Get benchmark response
+            bench_response = bench_prompt(prompt, model)
+        elif benchmark_file.model_provider == ModelProvider.mlx.value:
+            raise ValueError(
+                f"Mlx is not supported yet. Unsupported model provider: {benchmark_file.model_provider}"
+            )
+        else:
+            raise ValueError(
+                f"Unsupported model provider: {benchmark_file.model_provider}"
+            )
 
         # Parse and execute the response
         cleaned_code = parse_markdown_backticks(bench_response.response)

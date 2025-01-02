@@ -87,6 +87,11 @@ class BenchPromptResponse(BaseModel):
     errored: Optional[bool] = None
 
 
+class ModelProvider(str, Enum):
+    ollama = "ollama"
+    mlx = "mlx"
+
+
 class ExeEvalType(str, Enum):
     execute_python_code_with_num_output = "execute_python_code_with_num_output"
 
@@ -102,6 +107,8 @@ class ExecEvalBenchmarkFile(BaseModel):
     prompts: list[ExeEvalBenchmarkInputRow]
     benchmark_name: str
     purpose: str
+    models: list[str]  # List of model names/aliases
+    model_provider: ModelProvider  # Either 'ollama' or 'mlx'
 
 
 class ExeEvalBenchmarkOutputResult(BaseModel):
