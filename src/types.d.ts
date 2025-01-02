@@ -107,4 +107,31 @@ global {
     }
 }
 
+export interface ExecEvalBenchmarkModelReport {
+    model: string;
+    results: ExecEvalBenchmarkOutputResult[];
+    correct_count: number;
+    incorrect_count: number;
+    accuracy: number;
+    average_tokens_per_second: number;
+    average_total_duration_ms: number;
+    average_load_duration_ms: number;
+}
+
+export interface ExecEvalBenchmarkOutputResult {
+    prompt_response: {
+        response: string;
+        tokens_per_second: number;
+        provider: string;
+        total_duration_ms: number;
+        load_duration_ms: number;
+    };
+    execution_result: string;
+    expected_result: string;
+    input_prompt: string;
+    model: string;
+    correct: boolean;
+    index: number;
+}
+
 export { };

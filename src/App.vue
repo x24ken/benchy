@@ -2,10 +2,12 @@
 import { ref, computed, onMounted } from "vue";
 import AppMultiAutocomplete from "./pages/AppMultiAutocomplete.vue";
 import AppMultiToolCall from "./pages/AppMultiToolCall.vue";
+import IsoSpeedBench from "./pages/IsoSpeedBench.vue";
 
 const routes = {
   "/autocomplete": AppMultiAutocomplete,
   "/tool-call": AppMultiToolCall,
+  "/iso-speed-bench": IsoSpeedBench
 };
 
 const currentPath = ref(window.location.hash);
@@ -31,6 +33,7 @@ document.title = "BENCHY";
       <nav class="nav-buttons">
         <a href="#/autocomplete" class="nav-button">Multi Autocomplete</a>
         <a href="#/tool-call" class="nav-button">Long Tool Call</a>
+        <a href="#/iso-speed-bench" class="nav-button">ISO Speed Bench</a>
       </nav>
     </div>
     <component :is="currentView" v-else />

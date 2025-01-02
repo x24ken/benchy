@@ -1,12 +1,16 @@
 from flask import Flask, request, jsonify
 from time import time
+import yaml
 from modules.data_types import (
     ModelAlias,
     PromptResponse,
     PromptWithToolCalls,
     ToolCallResponse,
+    ExecEvalBenchmarkFile,
+    ExecEvalBenchmarkCompleteResult,
 )
 import modules.llm_models as llm_models
+from modules.exbench_module import run_benchmark_for_model, generate_report
 
 app = Flask(__name__)
 
@@ -60,6 +64,74 @@ def handle_tool_prompt():
         }
     )
 
+
+@app.route("/iso-speed-bench", methods=["POST"])
+def handle_iso_speed_bench():
+    # Validate content type
+    if not request.content_type == 'application/yaml':
+        return jsonify({
+            "error": "Invalid content type. Expected application/yaml"
+        }), 415
+
+    try:
+        # Parse YAML
+        try:
+            yaml_data = yaml.safe_load(request.data)
+            if not yaml_data:
+                raise ValueError("Empty YAML file")
+        except yaml.YAMLError as e:
+            return jsonify({
+                "error": f"Invalid YAML format: {str(e)}"
+            }), 400
+
+        # Validate structure
+        try:
+            benchmark_file = ExecEvalBenchmarkFile(**yaml_data)
+        except ValueError as e:
+            return jsonify({
+                "error": f"Invalid benchmark structure: {str(e)}"
+            }), 400
+
+        # Validate models
+        if not benchmark_file.models:
+            return jsonify({
+                "error": "No models specified in benchmark file"
+            }), 400
+
+        # Validate prompts
+        if not benchmark_file.prompts:
+            return jsonify({
+                "error": "No prompts specified in benchmark file"
+            }), 400
+
+        # Run benchmarks
+        complete_result = ExecEvalBenchmarkCompleteResult(
+            benchmark_file=benchmark_file,
+            results=[]
+        )
+        
+        for model in benchmark_file.models:
+            try:
+                results = run_benchmark_for_model(model, benchmark_file)
+                complete_result.results.extend(results)
+            except Exception as e:
+                return jsonify({
+                    "error": f"Error running benchmark for model {model}: {str(e)}"
+                }), 500
+
+        # Generate report
+        try:
+            report = generate_report(complete_result)
+            return jsonify(report.models)
+        except Exception as e:
+            return jsonify({
+                "error": f"Error generating report: {str(e)}"
+            }), 500
+            
+    except Exception as e:
+        return jsonify({
+            "error": f"Unexpected error: {str(e)}"
+        }), 500
 
 def main():
     app.run(debug=True, port=5000)
