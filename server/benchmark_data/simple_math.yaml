@@ -1,8 +1,8 @@
+benchmark_name: "Simple Math in Python"
+purpose: "Evaluate the ability of a language model to perform simple mathematical operations in Python."
 base_prompt: |
   Exclusively output python code: Create and print the mathematical statement for the following: {{statement}}
 evaluator: "execute_python_code_with_num_output"
-benchmark_name: "Simple Math in Python"
-purpose: "Evaluate the ability of a language model to perform simple mathematical operations in Python."
 models: ["llama3.2:1b", "qwen2.5-coder:14b"]
 model_provider: "ollama"
 prompts:
