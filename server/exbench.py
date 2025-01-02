@@ -7,7 +7,6 @@ import json
 from modules.data_types import (
     ExecEvalBenchmarkFile,
     ExecEvalBenchmarkCompleteResult,
-    ModelAlias,
 )
 from modules.exbench_module import run_benchmark_for_model, generate_report
 
@@ -90,21 +89,12 @@ def ollama_bench(
     # Create output directory if it doesn't exist
     Path(output_dir).mkdir(exist_ok=True)
 
-    # Validate models
-    model_aliases = []
-    for model in benchmark_file.models:
-        try:
-            model_aliases.append(ModelAlias[model])
-        except KeyError:
-            typer.echo(f"No model alias for {model}, using raw model name")
-            model_aliases.append(model)
-
     # Run benchmarks
     complete_result = ExecEvalBenchmarkCompleteResult(
         benchmark_file=benchmark_file, results=[]
     )
 
-    for model in model_aliases:
+    for model in benchmark_file.models:
         typer.echo(f"\nRunning benchmarks for model: {model}")
         total_tests = len(benchmark_file.prompts)
 
