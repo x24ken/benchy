@@ -122,7 +122,8 @@ def handle_iso_speed_bench():
         # Generate report
         try:
             report = generate_report(complete_result)
-            return jsonify(report.models)
+            # Use Pydantic's model_dump() for JSON serialization
+            return report.model_dump()
         except Exception as e:
             return jsonify({
                 "error": f"Error generating report: {str(e)}"
