@@ -7,13 +7,16 @@ import IsoSpeedBench from "./pages/IsoSpeedBench.vue";
 const routes = {
   "/autocomplete": AppMultiAutocomplete,
   "/tool-call": AppMultiToolCall,
-  "/iso-speed-bench": IsoSpeedBench
+  "/iso-speed-bench": IsoSpeedBench,
 };
 
 const currentPath = ref(window.location.hash);
 
 const currentView = computed(() => {
-  return routes[currentPath.value.slice(1)] || null;
+  if (!currentPath.value) {
+    return null;
+  }
+  return routes[currentPath.value.slice(1) as keyof typeof routes] || null;
 });
 
 onMounted(() => {
