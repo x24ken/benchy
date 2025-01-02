@@ -107,10 +107,11 @@ class ExecEvalBenchmarkFile(BaseModel):
 class ExeEvalBenchmarkOutputResult(BaseModel):
     prompt_response: BenchPromptResponse
     execution_result: str
-    expected_result: str  # Add this field
-    model: str  # Changed from ModelAlias to str
+    expected_result: str
+    input_prompt: str
+    model: str
     correct: bool
-    index: int  # Add this field
+    index: int
 
 
 class ExecEvalBenchmarkCompleteResult(BaseModel):

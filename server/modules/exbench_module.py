@@ -58,6 +58,7 @@ def run_benchmark_for_model(
         # Store results
         results.append(
             ExeEvalBenchmarkOutputResult(
+                input_prompt=prompt,
                 prompt_response=bench_response,
                 execution_result=execution_result,
                 expected_result=expected_result,  # Add expected result
