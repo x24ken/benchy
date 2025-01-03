@@ -3,7 +3,7 @@ purpose: "Evaluate the ability of a language model to perform simple mathematica
 base_prompt: |
   Exclusively output python code: Create and print the mathematical statement for the following: {{statement}}
 evaluator: "execute_python_code_with_num_output"
-models: ["llama3.2:1b", "qwen2.5-coder:14b"]
+models: ["llama3.2:1b", "llama3.2:latest", "qwen2.5-coder:14b", "vanilj/Phi-4:latest", "qwen2.5:32b", "llama3.3:70b-instruct-q4_0"]
 model_provider: "ollama"
 prompts:
   - dynamic_variables:

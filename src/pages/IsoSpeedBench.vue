@@ -26,6 +26,11 @@
       <div class="benchmark-info">
         <h2>{{ store.benchmarkReport.benchmark_name }}</h2>
         <p>{{ store.benchmarkReport.purpose }}</p>
+        <p style="font-size: 16px; margin-top: 5px">
+          {{
+            store.benchmarkReport.models[0].results[0].prompt_response.provider
+          }}
+        </p>
       </div>
 
       <div class="controls">
