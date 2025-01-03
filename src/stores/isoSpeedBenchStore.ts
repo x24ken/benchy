@@ -4,21 +4,27 @@ import { ExecEvalBenchmarkModelReport, ExecEvalBenchmarkReport } from "../types"
 interface IsoSpeedBenchState {
     isLoading: boolean;
     benchmarkReport: ExecEvalBenchmarkReport | null;
-    currentIndex: number;
+    currentTime: number;
     intervalId: number | null;
     speed: number;
+    isReplaying: boolean;
+    completedResults: Set<string>;
 }
 
 export const store = reactive<IsoSpeedBenchState>({
     isLoading: false,
     benchmarkReport: null,
-    currentIndex: 0,
+    currentTime: 0,
     intervalId: null,
-    speed: 50
+    speed: 50,
+    isReplaying: false,
+    completedResults: new Set()
 });
 
 export function resetBenchmark() {
-    store.currentIndex = 0;
+    store.currentTime = 0;
+    store.completedResults.clear();
+    store.isReplaying = false;
     if (store.intervalId) {
         clearInterval(store.intervalId);
         store.intervalId = null;
@@ -26,18 +32,39 @@ export function resetBenchmark() {
 }
 
 export function startBenchmark() {
-    resetBenchmark();
-    // if (!store.benchmarkReport?.models?.[0]?.results) return;
-    store.intervalId = setInterval(() => {
-        if (store.currentIndex < store.benchmarkReport?.models[0].results.length) {
-            store.currentIndex++;
-        } else {
-            if (store.intervalId) {
-                clearInterval(store.intervalId);
-                store.intervalId = null;
-            }
+  resetBenchmark();
+  store.isReplaying = true;
+  
+  store.intervalId = setInterval(() => {
+    store.currentTime += store.speed;
+    
+    store.benchmarkReport?.models.forEach(modelReport => {
+      // Calculate cumulative time for each result
+      let cumulativeTime = 0;
+      
+      modelReport.results.forEach((result, index) => {
+        cumulativeTime += result.prompt_response.total_duration_ms;
+        const resultKey = `${modelReport.model}-${index}`;
+        
+        if (!store.completedResults.has(resultKey) && 
+            store.currentTime >= cumulativeTime) {
+          store.completedResults.add(resultKey);
         }
-    }, store.speed);
+      });
+    });
+
+    // Check if all results are completed
+    const totalResults = store.benchmarkReport?.models.reduce((acc, model) => 
+      acc + model.results.length, 0) || 0;
+      
+    if (store.completedResults.size >= totalResults) {
+      if (store.intervalId) {
+        clearInterval(store.intervalId);
+        store.intervalId = null;
+        store.isReplaying = false;
+      }
+    }
+  }, store.speed);
 }
 
 export const inMemoryBenchmarkReport: ExecEvalBenchmarkReport = {

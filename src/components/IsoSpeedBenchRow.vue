@@ -18,9 +18,9 @@
         :class="[
           'result-square',
           {
-            'correct': promptResult.correct,
-            'incorrect': !promptResult.correct,
-            'pending': index >= store.currentIndex
+            'correct': isResultCompleted(promptResult, index) && promptResult.correct,
+            'incorrect': isResultCompleted(promptResult, index) && !promptResult.correct,
+            'pending': !isResultCompleted(promptResult, index)
           }
         ]"
         @click="openModal(promptResult)"
@@ -35,9 +35,18 @@
 import { store } from "../stores/isoSpeedBenchStore";
 import { ExecEvalBenchmarkModelReport, ExecEvalBenchmarkOutputResult } from "../types";
 
-defineProps<{
+const props = defineProps<{
   modelReport: ExecEvalBenchmarkModelReport
 }>();
+
+function isResultCompleted(result: ExecEvalBenchmarkOutputResult, index: number) {
+  // Calculate cumulative time up to this result
+  const cumulativeTime = props.modelReport.results
+    .slice(0, index + 1)
+    .reduce((sum, r) => sum + r.prompt_response.total_duration_ms, 0);
+    
+  return store.currentTime >= cumulativeTime;
+}
 
 function openModal(result: ExecEvalBenchmarkOutputResult) {
   // Implement modal opening logic
