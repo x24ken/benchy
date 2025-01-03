@@ -100,8 +100,8 @@ def run_benchmark_for_model(
             ExeEvalBenchmarkOutputResult(
                 input_prompt=prompt,
                 prompt_response=bench_response,
-                execution_result=execution_result,
-                expected_result=expected_result,  # Add expected result
+                execution_result=str(execution_result),
+                expected_result=str(expected_result),  # Add expected result
                 model=model,
                 correct=correct,
                 index=i,  # Add the index

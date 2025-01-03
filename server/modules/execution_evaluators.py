@@ -28,16 +28,17 @@ def execute_python_code_with_num_output(code: str) -> str:
     """
     # Remove any surrounding quotes and whitespace
     code = code.strip().strip("'").strip('"')
-    
+
     # Create a temporary file with the code
     import tempfile
-    with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=True) as tmp:
+
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".py", delete=True) as tmp:
         tmp.write(code)
         tmp.flush()
-        
+
         # Execute the temporary file using uv
         result = execute(f"uv run {tmp.name} --ignore-warnings")
-        
+
         # Try to parse the result as a number
         try:
             # Remove any extra whitespace or newlines
