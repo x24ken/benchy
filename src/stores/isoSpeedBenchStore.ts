@@ -40,7 +40,7 @@ export function startBenchmark() {
     }, store.speed);
 }
 
-const inMemoryBenchmarkReport: ExecEvalBenchmarkReport = {
+export const inMemoryBenchmarkReport: ExecEvalBenchmarkReport = {
     "benchmark_name": "Simple Math in Python",
     "purpose": "Evaluate the ability of a language model to perform simple mathematical operations in Python.",
     "models": [

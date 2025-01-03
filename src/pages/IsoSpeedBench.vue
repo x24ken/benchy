@@ -15,6 +15,14 @@
       <p v-else>Drag & Drop YAML file here</p>
     </div>
 
+    <button 
+      v-if="!store.benchmarkReport"
+      @click="useSampleData"
+      class="sample-data-button"
+    >
+      Or use sample data
+    </button>
+
     <div v-if="store.benchmarkReport">
       <button @click="startBenchmark">Replay Bench</button>
       <button @click="resetBenchmark">Reset</button>
@@ -38,8 +46,13 @@ import {
   store,
   resetBenchmark,
   startBenchmark,
+  inMemoryBenchmarkReport,
 } from "../stores/isoSpeedBenchStore";
 import IsoSpeedBenchRow from "../components/IsoSpeedBenchRow.vue";
+
+function useSampleData() {
+  store.benchmarkReport = inMemoryBenchmarkReport;
+}
 
 function handleFileDrop(event: DragEvent) {
   const file = event.dataTransfer?.files[0];
@@ -105,6 +118,21 @@ function handleFileDrop(event: DragEvent) {
 
 .speed-control {
   margin: 20px 0;
+}
+
+.sample-data-button {
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.sample-data-button:hover {
+  background-color: #2980b9;
 }
 
 .loading-spinner {

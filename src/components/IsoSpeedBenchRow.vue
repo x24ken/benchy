@@ -1,19 +1,19 @@
 <template>
   <div class="row">
     <div class="model-info">
-      <div>{{ result.model }}</div>
-      <div>{{ result.provider }}</div>
-      <div>Correct: {{ result.correct_count }}</div>
-      <div>Incorrect: {{ result.incorrect_count }}</div>
-      <div>Accuracy: {{ (result.accuracy * 100).toFixed(2) }}%</div>
-      <div>Avg TPS: {{ result.average_tokens_per_second.toFixed(2) }}</div>
-      <div>Avg Duration: {{ result.average_total_duration_ms.toFixed(2) }}ms</div>
-      <div>Avg Load: {{ result.average_load_duration_ms.toFixed(2) }}ms</div>
+      <div>{{ modelReport.model }}</div>
+      <div>{{ modelReport.results[0]?.prompt_response?.provider }}</div>
+      <div>Correct: {{ modelReport.correct_count }}</div>
+      <div>Incorrect: {{ modelReport.incorrect_count }}</div>
+      <div>Accuracy: {{ (modelReport.accuracy * 100).toFixed(2) }}%</div>
+      <div>Avg TPS: {{ modelReport.average_tokens_per_second.toFixed(2) }}</div>
+      <div>Avg Duration: {{ modelReport.average_total_duration_ms.toFixed(2) }}ms</div>
+      <div>Avg Load: {{ modelReport.average_load_duration_ms.toFixed(2) }}ms</div>
     </div>
     
     <div class="results-grid">
       <div 
-        v-for="(promptResult, index) in result.results" 
+        v-for="(promptResult, index) in modelReport.results" 
         :key="index"
         :class="[
           'result-square',
