@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <h1>ISO Speed Bench</h1>
+  <div class="container" :class="{ 'bench-mode': benchMode }">
+    <h1 v-if="!benchMode">ISO Speed Bench</h1>
 
     <div v-if="!store.benchmarkReport">
       <div
@@ -34,12 +34,49 @@
       </div>
 
       <div class="controls">
-        <button @click="startBenchmark">Replay Bench</button>
+        <button @click="startBenchmark">Play Benchmark</button>
         <button @click="fullReset">Reset</button>
+        <button @click="showSettings = !showSettings">
+          {{ showSettings ? "Hide" : "Show" }} Settings
+        </button>
 
-        <div class="speed-control">
-          <label>Speed (ms):</label>
-          <input type="number" v-model="store.speed" min="10" max="1000" />
+        <div v-if="showSettings" class="settings-row">
+          <div class="setting">
+            <label>Bench Mode:</label>
+            <input type="checkbox" v-model="benchMode" />
+          </div>
+          <div class="setting">
+            <label>Speed (ms):</label>
+            <input
+              type="range"
+              v-model="store.speed"
+              min="10"
+              max="1000"
+              class="slider"
+            />
+            <span>{{ store.speed }}ms</span>
+          </div>
+
+          <div class="setting">
+            <label>Block Scale:</label>
+            <input
+              type="range"
+              v-model="scale"
+              min="20"
+              max="150"
+              class="slider"
+            />
+            <span>{{ scale }}px</span>
+          </div>
+
+          <div class="setting">
+            <label>Model Stats:</label>
+            <select v-model="modelStatDetail">
+              <option value="verbose">Verbose</option>
+              <option value="simple">Simple</option>
+              <option value="hide">Hide</option>
+            </select>
+          </div>
         </div>
       </div>
 
@@ -47,12 +84,15 @@
         v-for="(modelReport, index) in store.benchmarkReport.models"
         :key="index"
         :modelReport="modelReport"
+        :scale="scale"
+        :modelStatDetail="modelStatDetail"
       />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import {
   store,
   resetBenchmark,
@@ -60,6 +100,11 @@ import {
   inMemoryBenchmarkReport,
 } from "../stores/isoSpeedBenchStore";
 import IsoSpeedBenchRow from "../components/IsoSpeedBenchRow.vue";
+
+const showSettings = ref(false);
+const scale = ref(150); // Default block size
+const modelStatDetail = ref<"verbose" | "simple" | "hide">("verbose");
+const benchMode = ref(false);
 
 function useSampleData() {
   store.benchmarkReport = inMemoryBenchmarkReport;
@@ -102,7 +147,8 @@ function handleFileDrop(event: DragEvent) {
 <style scoped>
 .container {
   padding: 20px;
-  max-width: 90vw;
+  max-width: 95vw;
+  min-width: 70vw;
   margin: 0 auto;
 }
 
@@ -136,22 +182,39 @@ function handleFileDrop(event: DragEvent) {
   margin: 20px 0;
 }
 
-.sample-data-button {
-  padding: 10px 20px;
-  background-color: #3498db;
-  color: white;
+button {
+  padding: 8px 16px;
+  background-color: #e0e0e0; /* Light gray */
+  color: #333; /* Darker text for better contrast */
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin-bottom: 20px;
   transition: background-color 0.3s ease;
 }
 
+button:hover {
+  background-color: #d0d0d0; /* Slightly darker on hover */
+}
+
+.sample-data-button {
+  margin-bottom: 20px;
+  background-color: #e0e0e0; /* Light gray */
+}
+
 .sample-data-button:hover {
-  background-color: #2980b9;
+  background-color: #d0d0d0; /* Slightly darker on hover */
+}
+
+.controls button {
+  background-color: #e0e0e0; /* Light gray */
+}
+
+.controls button:hover {
+  background-color: #d0d0d0; /* Slightly darker on hover */
 }
 
 .benchmark-info {
+  display: v-bind('benchMode ? "none" : "block"');
   margin-bottom: 30px;
   padding: 20px;
   background-color: #f5f5f5;
@@ -184,6 +247,35 @@ function handleFileDrop(event: DragEvent) {
   display: flex;
   gap: 10px;
   align-items: center;
+  min-width: 200px;
+}
+
+.settings-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-left: auto;
+  align-items: center;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.setting {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 200px;
+}
+
+.slider {
+  width: 100px;
+}
+
+select {
+  padding: 4px;
+  border-radius: 4px;
 }
 
 @keyframes spin {
@@ -192,6 +284,25 @@ function handleFileDrop(event: DragEvent) {
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+.bench-mode {
+  padding: 10px;
+
+  h1 {
+    display: none;
+  }
+
+  .benchmark-info {
+    display: none;
+  }
+
+  .controls {
+    margin-bottom: 10px;
+  }
+
+  .row {
+    margin-bottom: 20px;
   }
 }
 </style>
