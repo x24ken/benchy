@@ -94,6 +94,7 @@ class ModelProvider(str, Enum):
 
 class ExeEvalType(str, Enum):
     execute_python_code_with_num_output = "execute_python_code_with_num_output"
+    execute_python_code_with_string_output = "execute_python_code_with_string_output"
 
 
 class ExeEvalBenchmarkInputRow(BaseModel):
@@ -149,8 +150,6 @@ class ExecEvalBenchmarkModelReport(BaseModel):
     average_tokens_per_second: float
     average_total_duration_ms: float
     average_load_duration_ms: float
-
-
 
 
 class ExecEvalBenchmarkReport(BaseModel):

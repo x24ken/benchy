@@ -22,18 +22,18 @@ base_prompt: |
   <function-arguments>
       {{arguments}}
   </function-arguments>
-evaluator: "execute_python_code_output"
+evaluator: "execute_python_code_with_string_output"
 models: ["llama3.2:1b", "qwen2.5-coder:14b"]
 model_provider: "ollama"
 prompts:
   - dynamic_variables:
       function: "def add(a, b): int - add two numbers"
       arguments: "1, 2"
-    expectation: 3
+    expectation: "3"
   - dynamic_variables:
       function: "def multiply_list(numbers: list) -> int - multiply all numbers in a list together"
       arguments: "[2, 3, 4]"
-    expectation: 24
+    expectation: "24"
   - dynamic_variables:
       function: "def reverse_string(text: str) -> str - reverse the characters in a string"
       arguments: "'hello world'"
@@ -41,27 +41,27 @@ prompts:
   - dynamic_variables:
       function: "def count_vowels(text: str) -> int - count the number of vowels in a string"
       arguments: "'beautiful'"
-    expectation: 5
+    expectation: "5"
   - dynamic_variables:
       function: "def is_palindrome(text: str) -> bool - check if a string is a palindrome"
       arguments: "'racecar'"
-    expectation: True
+    expectation: "True"
   - dynamic_variables:
       function: "def fibonacci(n: int) -> list - generate fibonacci sequence up to n numbers"
       arguments: "5"
-    expectation: [0, 1, 1, 2, 3]
+    expectation: "[0, 1, 1, 2, 3]"
   - dynamic_variables:
       function: "def filter_even_numbers(numbers: list) -> list - return only even numbers from a list"
       arguments: "[1, 2, 3, 4, 5, 6]"
-    expectation: [2, 4, 6]
+    expectation: "[2, 4, 6]"
   - dynamic_variables:
       function: "def merge_dicts(dict1: dict, dict2: dict) -> dict - merge two dictionaries"
       arguments: "{'a': 1, 'b': 2}, {'c': 3, 'd': 4}"
-    expectation: {"a": 1, "b": 2, "c": 3, "d": 4}
+    expectation: "{'a': 1, 'b': 2, 'c': 3, 'd': 4}"
   - dynamic_variables:
       function: "def calculate_factorial(n: int) -> int - calculate factorial of a number"
       arguments: "5"
-    expectation: 120
+    expectation: "120"
   - dynamic_variables:
       function: "def find_longest_word(sentence: str) -> str - find the longest word in a sentence"
       arguments: "'The quick brown fox jumps over the lazy dog'"
@@ -69,4 +69,4 @@ prompts:
   - dynamic_variables:
       function: "def sort_by_length(words: list) -> list - sort list of strings by length"
       arguments: "['python', 'java', 'javascript', 'go']"
-    expectation: ["go", "java", "python", "javascript"]
+    expectation: "['go', 'java', 'python', 'javascript']"

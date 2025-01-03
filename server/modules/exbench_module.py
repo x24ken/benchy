@@ -14,7 +14,7 @@ from modules.data_types import (
 )
 from modules.ollama_llm import bench_prompt
 from modules.execution_evaluators import (
-    execute_python_code_with_num_output,
+    execute_python_code,
     eval_result_compare,
 )
 from utils import parse_markdown_backticks
@@ -83,10 +83,18 @@ def run_benchmark_for_model(
                 benchmark_file.evaluator
                 == ExeEvalType.execute_python_code_with_num_output
             ):
-                execution_result = execute_python_code_with_num_output(cleaned_code)
+                execution_result = execute_python_code(cleaned_code)
                 parsed_execution_result = str(execution_result).strip()
                 correct = eval_result_compare(
                     benchmark_file.evaluator, expected_result, parsed_execution_result
+                )
+            elif (
+                benchmark_file.evaluator
+                == ExeEvalType.execute_python_code_with_string_output
+            ):
+                execution_result = execute_python_code(cleaned_code)
+                correct = eval_result_compare(
+                    benchmark_file.evaluator, expected_result, execution_result
                 )
             else:
                 raise ValueError(f"Unsupported evaluator: {benchmark_file.evaluator}")
@@ -151,7 +159,7 @@ def run_benchmark_for_model(
                 benchmark_file.evaluator
                 == ExeEvalType.execute_python_code_with_num_output
             ):
-                execution_result = execute_python_code_with_num_output(cleaned_code)
+                execution_result = execute_python_code(cleaned_code)
                 parsed_execution_result = str(execution_result).strip()
                 correct = eval_result_compare(
                     benchmark_file.evaluator, expected_result, parsed_execution_result

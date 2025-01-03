@@ -15,6 +15,8 @@ def eval_result_compare(evalType: ExeEvalType, expected: str, actual: str) -> bo
             # Compare with epsilon tolerance for floating point numbers
             epsilon = 1e-6
             return abs(expected_num - actual_num) < epsilon
+        elif evalType == ExeEvalType.execute_python_code_with_string_output:
+            return str(expected).strip() == str(actual).strip()
         else:
             raise ValueError(f"Unsupported evaluation type: {evalType}")
     except (ValueError, TypeError):
@@ -22,7 +24,7 @@ def eval_result_compare(evalType: ExeEvalType, expected: str, actual: str) -> bo
         return str(expected).strip() == str(actual).strip()
 
 
-def execute_python_code_with_num_output(code: str) -> str:
+def execute_python_code(code: str) -> str:
     """
     Execute Python code and return the numeric output as a string.
     """
