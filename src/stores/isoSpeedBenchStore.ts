@@ -51,7 +51,7 @@ loadSettings();
 
 // Automatically save settings when they change
 watch(() => store.settings, (newSettings) => {
-    saveSettings();
+    // saveSettings();
 }, { deep: true });
 
 
@@ -68,37 +68,48 @@ function resetBenchmark() {
 function startBenchmark() {
     resetBenchmark();
     store.isReplaying = true;
+    store.currentTime = 0;
 
+    const tickRate = Math.min(50, store.settings.speed);
+    
     store.intervalId = setInterval(() => {
-        store.currentTime += store.settings.speed;
-
+        // Increment the global timer by tickRate
+        store.currentTime += tickRate;
+        
+        // Check each model to see if it should complete its next result
         store.benchmarkReport?.models.forEach(modelReport => {
-            // Calculate cumulative time for each result
-            let cumulativeTime = 0;
-
-            modelReport.results.forEach((result, index) => {
-                cumulativeTime += result.prompt_response.total_duration_ms;
-                const resultKey = `${modelReport.model}-${index}`;
-
-                if (!store.completedResults.has(resultKey) &&
-                    store.currentTime >= cumulativeTime) {
+            const currentIndex = Array.from(store.completedResults)
+                .filter(key => key.startsWith(modelReport.model + '-'))
+                .length;
+                
+            // If we still have results to process
+            if (currentIndex < modelReport.results.length) {
+                // Calculate cumulative time up to this result
+                const cumulativeTime = modelReport.results
+                    .slice(0, currentIndex + 1)
+                    .reduce((sum, result) => sum + result.prompt_response.total_duration_ms, 0);
+                
+                // If we've reached or passed the time for this result
+                if (store.currentTime >= cumulativeTime) {
+                    const resultKey = `${modelReport.model}-${currentIndex}`;
                     store.completedResults.add(resultKey);
                 }
-            });
+            }
         });
 
-        // Check if all results are completed
-        const totalResults = store.benchmarkReport?.models.reduce((acc, model) =>
-            acc + model.results.length, 0) || 0;
+        // Check if all results are complete
+        const allComplete = store.benchmarkReport?.models.every(modelReport => 
+            store.completedResults.size >= modelReport.results.length * store.benchmarkReport!.models.length
+        );
 
-        if (store.completedResults.size >= totalResults) {
+        if (allComplete) {
             if (store.intervalId) {
                 clearInterval(store.intervalId);
                 store.intervalId = null;
                 store.isReplaying = false;
             }
         }
-    }, store.settings.speed);
+    }, tickRate);
 }
 
 const inMemoryBenchmarkReport: ExecEvalBenchmarkReport = {

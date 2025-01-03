@@ -90,6 +90,11 @@
       </div>
     </div>
   </div>
+  <PromptDialogModal 
+    ref="modalRef"
+    :result="selectedResult"
+    v-if="selectedResult" 
+  />
 </template>
 
 <script setup lang="ts">
@@ -98,6 +103,8 @@ import {
   ExecEvalBenchmarkModelReport,
   ExecEvalBenchmarkOutputResult,
 } from "../types";
+import { ref } from 'vue';
+import PromptDialogModal from './PromptDialogModal.vue';
 
 const props = defineProps<{
   modelReport: ExecEvalBenchmarkModelReport;
@@ -116,8 +123,12 @@ function isResultCompleted(
   return store.currentTime >= cumulativeTime;
 }
 
+const modalRef = ref<InstanceType<typeof PromptDialogModal> | null>(null);
+const selectedResult = ref<ExecEvalBenchmarkOutputResult | null>(null);
+
 function openModal(result: ExecEvalBenchmarkOutputResult) {
-  // Implement modal opening logic
+  selectedResult.value = result;
+  modalRef.value?.showDialog();
 }
 </script>
 
