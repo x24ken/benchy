@@ -2,7 +2,7 @@
   <dialog ref="dialogRef">
     <div class="modal-content">
       <header :class="{ correct: result.correct, incorrect: !result.correct }">
-        <h2>Prompt Result #{{ result.index }}</h2>
+        <h2>{{ formatModelName(result.model) }} - Prompt #{{ result.index }}</h2>
         <span class="status">{{
           result.correct ? "Correct" : "Incorrect"
         }}</span>
@@ -60,6 +60,14 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import type { ExecEvalBenchmarkOutputResult } from "../../types";
+import { store } from "../../stores/isoSpeedBenchStore";
+
+function formatModelName(modelName: string): string {
+  if (!store.settings.showProviderPrefix && modelName.includes('~')) {
+    return modelName.split('~')[1];
+  }
+  return modelName;
+}
 
 const props = defineProps<{
   result: ExecEvalBenchmarkOutputResult;

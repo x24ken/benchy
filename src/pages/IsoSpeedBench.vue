@@ -77,6 +77,10 @@
               <option value="hide">Hide</option>
             </select>
           </div>
+          <div class="setting">
+            <label>Show Provider:</label>
+            <input type="checkbox" v-model="settings.showProviderPrefix" />
+          </div>
         </div>
       </div>
 

@@ -4,7 +4,12 @@ import json
 from modules.tools import openai_tools_list
 from modules.data_types import SimpleToolCall, ToolsAndPrompts
 from utils import parse_markdown_backticks, timeit
-from modules.data_types import PromptResponse, ModelAlias, ToolCallResponse
+from modules.data_types import (
+    PromptResponse, 
+    ModelAlias, 
+    ToolCallResponse,
+    BenchPromptResponse
+)
 from utils import MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS
 from modules.tools import all_tools_list
 from dotenv import load_dotenv
@@ -112,6 +117,38 @@ def tool_prompt(prompt: str, model: str, force_tools: list[str]) -> ToolCallResp
     return ToolCallResponse(
         tool_calls=tool_calls, runTimeMs=t(), inputAndOutputCost=cost
     )
+
+
+def bench_prompt(prompt: str, model: str) -> BenchPromptResponse:
+    """
+    Send a prompt to OpenAI and get detailed benchmarking response.
+    """
+    try:
+        with timeit() as t:
+            completion = openai_client.chat.completions.create(
+                model=model,
+                messages=[{"role": "user", "content": prompt}],
+                stream=False
+            )
+            elapsed_ms = t()
+
+        return BenchPromptResponse(
+            response=completion.choices[0].message.content,
+            tokens_per_second=0.0,  # OpenAI doesn't provide timing info
+            provider="openai",
+            total_duration_ms=elapsed_ms,
+            load_duration_ms=0.0,
+        )
+    except Exception as e:
+        print(f"OpenAI error: {str(e)}")
+        return BenchPromptResponse(
+            response=f"Error: {str(e)}",
+            tokens_per_second=0.0,
+            provider="openai",
+            total_duration_ms=0.0,
+            load_duration_ms=0.0,
+            errored=True,
+        )
 
 
 def predictive_prompt(prompt: str, prediction: str, model: str) -> PromptResponse:

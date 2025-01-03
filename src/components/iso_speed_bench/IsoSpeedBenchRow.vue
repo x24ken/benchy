@@ -4,7 +4,7 @@
       class="model-info"
       :style="{ width: modelStatDetail === 'hide' ? 'auto' : '300px' }"
     >
-      <h2>{{ modelReport.model }}</h2>
+      <h2>{{ formatModelName(modelReport.model) }}</h2>
       <div
         class="model-details"
         v-if="modelStatDetail !== 'hide'"
@@ -107,6 +107,13 @@ import {
 } from "../../types";
 import { ref } from "vue";
 import PromptDialogModal from "./PromptDialogModal.vue";
+
+function formatModelName(modelName: string): string {
+  if (!store.settings.showProviderPrefix && modelName.includes('~')) {
+    return modelName.split('~')[1];
+  }
+  return modelName;
+}
 
 const props = defineProps<{
   modelReport: ExecEvalBenchmarkModelReport;

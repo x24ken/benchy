@@ -44,7 +44,7 @@ def parse_model_string(model: str) -> tuple[str, str]:
         "ollama",
         "anthropic",
         "deepseek",
-        # "openai",
+        "openai",
         # "mlx",
         # "gemini",
         # "groq",
@@ -124,10 +124,13 @@ def run_benchmark_for_model(
             bench_response = anthropic_llm.bench_prompt(prompt, model_name)
         elif provider == "deepseek":
             bench_response = deepseek_llm.bench_prompt(prompt, model_name)
+        elif provider == "openai":
+            from modules.openai_llm import bench_prompt
+            bench_response = bench_prompt(prompt, model_name)
         else:
             raise ValueError(
                 f"Unsupported model provider: {provider}. "
-                f"Supported providers are: ollama, anthropic, deepseek"
+                f"Supported providers are: ollama, anthropic, deepseek, openai"
             )
 
         # Parse and execute the response

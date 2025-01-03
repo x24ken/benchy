@@ -13,6 +13,7 @@ interface IsoSpeedBenchState {
         speed: number;
         scale: number;
         modelStatDetail: 'verbose' | 'simple' | 'hide';
+        showProviderPrefix: boolean;
     };
 }
 
@@ -27,7 +28,8 @@ const store = reactive<IsoSpeedBenchState>({
         benchMode: false,
         speed: 50,
         scale: 150,
-        modelStatDetail: 'verbose'
+        modelStatDetail: 'verbose',
+        showProviderPrefix: false
     }
 });
 
