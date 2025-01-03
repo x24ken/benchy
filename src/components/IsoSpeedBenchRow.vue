@@ -1,14 +1,37 @@
 <template>
   <div class="row">
     <div class="model-info">
-      <div>{{ modelReport.model }}</div>
-      <div>{{ modelReport.results[0]?.prompt_response?.provider }}</div>
-      <div>Correct: {{ modelReport.correct_count }}</div>
-      <div>Incorrect: {{ modelReport.incorrect_count }}</div>
-      <div>Accuracy: {{ (modelReport.accuracy * 100).toFixed(2) }}%</div>
-      <div>Avg TPS: {{ modelReport.average_tokens_per_second.toFixed(2) }}</div>
-      <div>Avg Duration: {{ modelReport.average_total_duration_ms.toFixed(2) }}ms</div>
-      <div>Avg Load: {{ modelReport.average_load_duration_ms.toFixed(2) }}ms</div>
+      <h2>{{ modelReport.model }}</h2>
+      <div class="model-details">
+        <div class="detail-item">
+          <span class="label">Provider:</span>
+          <span>{{ modelReport.results[0]?.prompt_response?.provider }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Correct:</span>
+          <span class="correct-count">{{ modelReport.correct_count }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Incorrect:</span>
+          <span class="incorrect-count">{{ modelReport.incorrect_count }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Accuracy:</span>
+          <span>{{ (modelReport.accuracy * 100).toFixed(2) }}%</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Avg TPS:</span>
+          <span>{{ modelReport.average_tokens_per_second.toFixed(2) }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Avg Duration:</span>
+          <span>{{ modelReport.average_total_duration_ms.toFixed(2) }}ms</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Avg Load:</span>
+          <span>{{ modelReport.average_load_duration_ms.toFixed(2) }}ms</span>
+        </div>
+      </div>
     </div>
     
     <div class="results-grid">
@@ -25,7 +48,12 @@
         ]"
         @click="openModal(promptResult)"
       >
-        {{ index + 1 }}
+        <div class="square-content">
+          <div class="index">{{ index + 1 }}</div>
+          <div class="tps" v-if="isResultCompleted(promptResult, index)">
+            {{ promptResult.prompt_response.tokens_per_second.toFixed(2) }} tps
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -40,7 +68,6 @@ const props = defineProps<{
 }>();
 
 function isResultCompleted(result: ExecEvalBenchmarkOutputResult, index: number) {
-  // Calculate cumulative time up to this result
   const cumulativeTime = props.modelReport.results
     .slice(0, index + 1)
     .reduce((sum, r) => sum + r.prompt_response.total_duration_ms, 0);
@@ -56,28 +83,73 @@ function openModal(result: ExecEvalBenchmarkOutputResult) {
 <style scoped>
 .row {
   display: flex;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+  gap: 30px;
 }
 
 .model-info {
   width: 300px;
-  padding-right: 20px;
+}
+
+h2 {
+  margin: 0 0 15px 0;
+  font-size: 1.5em;
+}
+
+.model-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.label {
+  font-weight: 500;
+  color: #666;
+}
+
+.correct-count {
+  color: #4caf50;
+}
+
+.incorrect-count {
+  color: #f44336;
 }
 
 .results-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 15px;
+  flex: 1;
 }
 
 .result-square {
-  width: 30px;
-  height: 30px;
+  width: 150px;
+  height: 150px;
   display: flex;
   align-items: center;
   justify-content: center;
   border: 1px solid #ccc;
   cursor: pointer;
+  position: relative;
+}
+
+.square-content {
+  text-align: center;
+}
+
+.index {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.tps {
+  font-size: 0.9em;
+  margin-top: 5px;
 }
 
 .pending {
@@ -86,9 +158,11 @@ function openModal(result: ExecEvalBenchmarkOutputResult) {
 
 .correct {
   background-color: #4caf50;
+  color: white;
 }
 
 .incorrect {
   background-color: #f44336;
+  color: white;
 }
 </style>

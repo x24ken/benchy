@@ -1,35 +1,39 @@
 <template>
   <div class="container">
     <h1>ISO Speed Bench</h1>
-    <div
-      class="file-drop"
-      @dragover.prevent
-      @drop="handleFileDrop"
-      :class="{ loading: store.isLoading }"
-      :aria-busy="store.isLoading"
-    >
-      <div v-if="store.isLoading" class="loading-content">
-        <div class="loading-spinner"></div>
-        <p>Running benchmarks... Please wait</p>
+    
+    <div v-if="!store.benchmarkReport">
+      <div
+        class="file-drop"
+        @dragover.prevent
+        @drop="handleFileDrop"
+        :class="{ loading: store.isLoading }"
+        :aria-busy="store.isLoading"
+      >
+        <div v-if="store.isLoading" class="loading-content">
+          <div class="loading-spinner"></div>
+          <p>Running benchmarks... Please wait</p>
+        </div>
+        <p v-else>Drag & Drop YAML file here</p>
       </div>
-      <p v-else>Drag & Drop YAML file here</p>
+
+      <button 
+        @click="useSampleData"
+        class="sample-data-button"
+      >
+        Or use sample data
+      </button>
     </div>
 
-    <button 
-      v-if="!store.benchmarkReport"
-      @click="useSampleData"
-      class="sample-data-button"
-    >
-      Or use sample data
-    </button>
+    <div v-else class="benchmark-container">
+      <div class="controls">
+        <button @click="startBenchmark">Replay Bench</button>
+        <button @click="fullReset">Reset</button>
 
-    <div v-if="store.benchmarkReport">
-      <button @click="startBenchmark">Replay Bench</button>
-      <button @click="resetBenchmark">Reset</button>
-
-      <div class="speed-control">
-        <label>Speed (ms):</label>
-        <input type="number" v-model="store.speed" min="10" max="1000" />
+        <div class="speed-control">
+          <label>Speed (ms):</label>
+          <input type="number" v-model="store.speed" min="10" max="1000" />
+        </div>
       </div>
 
       <IsoSpeedBenchRow
@@ -52,6 +56,11 @@ import IsoSpeedBenchRow from "../components/IsoSpeedBenchRow.vue";
 
 function useSampleData() {
   store.benchmarkReport = inMemoryBenchmarkReport;
+}
+
+function fullReset() {
+  resetBenchmark();
+  store.benchmarkReport = null;
 }
 
 function handleFileDrop(event: DragEvent) {
@@ -86,7 +95,7 @@ function handleFileDrop(event: DragEvent) {
 <style scoped>
 .container {
   padding: 20px;
-  max-width: 1200px;
+  max-width: 80vw;
   margin: 0 auto;
 }
 
@@ -142,6 +151,13 @@ function handleFileDrop(event: DragEvent) {
   width: 40px;
   height: 40px;
   animation: spin 1s linear infinite;
+}
+
+.controls {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
 @keyframes spin {
