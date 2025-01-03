@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from time import time
 import yaml
 from modules.data_types import (
+    ExecEvalBenchmarkReport,
     ModelAlias,
     PromptResponse,
     PromptWithToolCalls,
@@ -11,9 +12,9 @@ from modules.data_types import (
 )
 import modules.llm_models as llm_models
 from modules.exbench_module import (
-    run_benchmark_for_model, 
-    generate_report, 
-    save_report_to_file
+    run_benchmark_for_model,
+    generate_report,
+    save_report_to_file,
 )
 
 app = Flask(__name__)
@@ -124,12 +125,12 @@ def handle_iso_speed_bench():
         # Generate report
         try:
             print(f"Generating report for {benchmark_file.benchmark_name}")
-            report = generate_report(complete_result)
-            
+            report: ExecEvalBenchmarkReport = generate_report(complete_result)
+
             # Save report using the new function
             report_path = save_report_to_file(report)
             print(f"Benchmark report saved to: {report_path}")
-            
+
             return report.model_dump_json(), 200, {"Content-Type": "application/json"}
         except Exception as e:
             return jsonify({"error": f"Error generating report: {str(e)}"}), 500

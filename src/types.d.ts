@@ -107,6 +107,18 @@ global {
     }
 }
 
+export interface ExecEvalBenchmarkReport {
+    benchmark_name: string;
+    purpose: string;
+    models: ExecEvalBenchmarkModelReport[];
+    overall_correct_count: number;
+    overall_incorrect_count: number;
+    overall_accuracy: number;
+    average_tokens_per_second: number;
+    average_total_duration_ms: number;
+    average_load_duration_ms: number;
+}
+
 export interface ExecEvalBenchmarkModelReport {
     model: string;
     results: ExecEvalBenchmarkOutputResult[];
@@ -118,14 +130,17 @@ export interface ExecEvalBenchmarkModelReport {
     average_load_duration_ms: number;
 }
 
+export interface BenchPromptResponse {
+    response: string;
+    tokens_per_second: number;
+    provider: string;
+    total_duration_ms: number;
+    load_duration_ms: number;
+    errored: boolean | null;
+}
+
 export interface ExecEvalBenchmarkOutputResult {
-    prompt_response: {
-        response: string;
-        tokens_per_second: number;
-        provider: string;
-        total_duration_ms: number;
-        load_duration_ms: number;
-    };
+    prompt_response: BenchPromptResponse;
     execution_result: string;
     expected_result: string;
     input_prompt: string;

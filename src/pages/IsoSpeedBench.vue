@@ -1,9 +1,9 @@
 <template>
   <div class="container">
     <h1>ISO Speed Bench</h1>
-    <div 
-      class="file-drop" 
-      @dragover.prevent 
+    <div
+      class="file-drop"
+      @dragover.prevent
       @drop="handleFileDrop"
       :class="{ loading: store.isLoading }"
       :aria-busy="store.isLoading"
@@ -15,7 +15,7 @@
       <p v-else>Drag & Drop YAML file here</p>
     </div>
 
-    <div v-if="store.benchmarkResults.length > 0">
+    <div v-if="store.benchmarkReport">
       <button @click="startBenchmark">Replay Bench</button>
       <button @click="resetBenchmark">Reset</button>
 
@@ -25,9 +25,9 @@
       </div>
 
       <IsoSpeedBenchRow
-        v-for="(result, index) in store.benchmarkResults"
+        v-for="(modelReport, index) in store.benchmarkReport.models"
         :key="index"
-        :result="result"
+        :modelReport="modelReport"
       />
     </div>
   </div>
@@ -57,7 +57,7 @@ function handleFileDrop(event: DragEvent) {
             },
             body: content,
           });
-          store.benchmarkResults = await response.json();
+          store.benchmarkReport = await response.json();
         } catch (error) {
           console.error("Error running benchmark:", error);
         } finally {
@@ -117,7 +117,11 @@ function handleFileDrop(event: DragEvent) {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>

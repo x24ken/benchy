@@ -36,7 +36,7 @@ import { store } from "../stores/isoSpeedBenchStore";
 import { ExecEvalBenchmarkModelReport, ExecEvalBenchmarkOutputResult } from "../types";
 
 defineProps<{
-  result: ExecEvalBenchmarkModelReport
+  modelReport: ExecEvalBenchmarkModelReport
 }>();
 
 function openModal(result: ExecEvalBenchmarkOutputResult) {
