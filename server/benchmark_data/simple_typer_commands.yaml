@@ -334,7 +334,7 @@ base_prompt: |
         pass
   </python-typer-commands>
 evaluator: "raw_string_evaluator"
-models: ["llama3.2:1b", "qwen2.5-coder:14b", "falcon3:10b", "vanilj/Phi-4:latest"]
+models: ["llama3.2:1b", "qwen2.5-coder:14b", "falcon3:10b", "vanilj/Phi-4:latest", "anthropic~claude-3-5-sonnet-latest", "deepseek~deepseek-chat"]
 model_provider: "ollama"
 
 prompts:

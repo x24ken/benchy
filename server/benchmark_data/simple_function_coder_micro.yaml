@@ -25,8 +25,9 @@ base_prompt: |
 evaluator: "execute_python_code_with_string_output"
 models: 
   - "llama3.2:latest" 
+  - "vanilj/Phi-4:latest"
   - "ollama~falcon3:10b"
-  - "anthropic~claude-3-5-haiku-latest"
+  - "anthropic~claude-3-5-sonnet-latest"
   - "deepseek~deepseek-chat"
 prompts:
   - dynamic_variables:
