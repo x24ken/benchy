@@ -26,9 +26,9 @@ evaluator: "execute_python_code_with_string_output"
 models: 
   - "llama3.2:1b"
   - "llama3.2:latest" 
-  - "ollama:falcon3:10b"
-  - "anthropic:claude-3-5-haiku-latest"
-  - "deepseek:deepseek-chat"
+  - "ollama~falcon3:10b"
+  - "anthropic~claude-3-5-haiku-latest"
+  - "deepseek~deepseek-chat"
 prompts:
   - dynamic_variables:
       function: "def add(a, b): int - add two numbers"

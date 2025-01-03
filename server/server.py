@@ -86,20 +86,24 @@ def handle_iso_speed_bench():
             if not yaml_data:
                 raise ValueError("Empty YAML file")
         except yaml.YAMLError as e:
+            print(f"Error parsing YAML: {str(e)}")
             return jsonify({"error": f"Invalid YAML format: {str(e)}"}), 400
 
         # Validate structure
         try:
             benchmark_file = ExecEvalBenchmarkFile(**yaml_data)
         except ValueError as e:
+            print(f"Error validating benchmark structure: {str(e)}")
             return jsonify({"error": f"Invalid benchmark structure: {str(e)}"}), 400
 
         # Validate models
         if not benchmark_file.models:
+            print("No models specified in benchmark file")
             return jsonify({"error": "No models specified in benchmark file"}), 400
 
         # Validate prompts
         if not benchmark_file.prompts:
+            print("No prompts specified in benchmark file")
             return jsonify({"error": "No prompts specified in benchmark file"}), 400
 
         # Run benchmarks
@@ -113,6 +117,7 @@ def handle_iso_speed_bench():
                 results = run_benchmark_for_model(model, benchmark_file)
                 complete_result.results.extend(results)
             except Exception as e:
+                print(f"Error running benchmark for model {model}: {str(e)}")
                 return (
                     jsonify(
                         {

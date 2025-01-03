@@ -19,32 +19,45 @@ from modules.execution_evaluators import (
     eval_result_compare,
 )
 from utils import parse_markdown_backticks
+from modules import ollama_llm, anthropic_llm, deepseek_llm
+
+provider_delimiter = "~"
 
 
 def parse_model_string(model: str) -> tuple[str, str]:
     """
     Parse model string into provider and model name.
     Format: "provider:model_name" or "model_name" (defaults to ollama)
-    
+
     Raises:
         ValueError: If provider is not supported
     """
-    if ":" not in model:
+    if provider_delimiter not in model:
         # Default to ollama if no provider specified
         return "ollama", model
-    
-    provider, *model_parts = model.split(":")
-    model_name = ":".join(model_parts)
-    
+
+    provider, *model_parts = model.split(provider_delimiter)
+    model_name = provider_delimiter.join(model_parts)
+
     # Validate provider
-    supported_providers = ["ollama", "anthropic", "deepseek"]
+    supported_providers = [
+        "ollama",
+        "anthropic",
+        "deepseek",
+        # "openai",
+        # "mlx",
+        # "gemini",
+        # "groq",
+        # "fireworks",
+    ]
     if provider not in supported_providers:
         raise ValueError(
             f"Unsupported provider: {provider}. "
             f"Supported providers are: {', '.join(supported_providers)}"
         )
-    
+
     return provider, model_name
+
 
 # ------------------------- File Operations -------------------------
 def save_report_to_file(
@@ -94,9 +107,9 @@ def run_benchmark_for_model(
 
         # Get benchmark response based on provider
         if provider == "ollama":
-            from modules.ollama_llm import bench_prompt
+
             try:
-                bench_response = bench_prompt(prompt, model_name)
+                bench_response = ollama_llm.bench_prompt(prompt, model_name)
             except Exception as e:
                 print(f"Error running Ollama model {model_name}: {str(e)}")
                 bench_response = BenchPromptResponse(
@@ -108,11 +121,9 @@ def run_benchmark_for_model(
                     errored=True,
                 )
         elif provider == "anthropic":
-            from modules.anthropic_llm import bench_prompt
-            bench_response = bench_prompt(prompt, model_name)
+            bench_response = anthropic_llm.bench_prompt(prompt, model_name)
         elif provider == "deepseek":
-            from modules.deepseek_llm import bench_prompt
-            bench_response = bench_prompt(prompt, model_name)
+            bench_response = deepseek_llm.bench_prompt(prompt, model_name)
         else:
             raise ValueError(
                 f"Unsupported model provider: {provider}. "
@@ -123,15 +134,21 @@ def run_benchmark_for_model(
         cleaned_code = parse_markdown_backticks(bench_response.response)
         execution_result = ""
         expected_result = str(prompt_row.expectation).strip()
-        
+
         try:
-            if benchmark_file.evaluator == ExeEvalType.execute_python_code_with_num_output:
+            if (
+                benchmark_file.evaluator
+                == ExeEvalType.execute_python_code_with_num_output
+            ):
                 execution_result = execute_python_code(cleaned_code)
                 parsed_execution_result = str(execution_result).strip()
                 correct = eval_result_compare(
                     benchmark_file.evaluator, expected_result, parsed_execution_result
                 )
-            elif benchmark_file.evaluator == ExeEvalType.execute_python_code_with_string_output:
+            elif (
+                benchmark_file.evaluator
+                == ExeEvalType.execute_python_code_with_string_output
+            ):
                 execution_result = execute_python_code(cleaned_code)
                 correct = eval_result_compare(
                     benchmark_file.evaluator, expected_result, execution_result
@@ -158,74 +175,6 @@ def run_benchmark_for_model(
                 model=model,
                 correct=correct,
                 index=i,  # Add the index
-            )
-        )
-    return results
-
-    """Run all prompts in benchmark file for a specific model.
-    
-    Args:
-        model: Model name/alias to test
-        benchmark_file: Benchmark configuration
-        
-    Returns:
-        List of benchmark results for the model
-    """
-    results = []
-    total_tests = len(benchmark_file.prompts)
-
-    for i, prompt_row in enumerate(benchmark_file.prompts, 1):
-        print(f"  Running test {i}/{total_tests}...")
-
-        # Replace dynamic variables in base prompt
-        prompt = benchmark_file.base_prompt
-        if prompt_row.dynamic_variables:
-            for key, value in prompt_row.dynamic_variables.items():
-                prompt = prompt.replace(f"{{{{{key}}}}}", str(value))
-
-        if benchmark_file.model_provider == ModelProvider.ollama.value:
-            # Get benchmark response
-            bench_response = bench_prompt(prompt, model)
-        elif benchmark_file.model_provider == ModelProvider.mlx.value:
-            raise ValueError(
-                f"Mlx is not supported yet. Unsupported model provider: {benchmark_file.model_provider}"
-            )
-        else:
-            raise ValueError(
-                f"Unsupported model provider: {benchmark_file.model_provider}"
-            )
-
-        # Parse and execute the response
-        cleaned_code = parse_markdown_backticks(bench_response.response)
-        execution_result = ""
-        expected_result = str(prompt_row.expectation).strip()
-        try:
-            if (
-                benchmark_file.evaluator
-                == ExeEvalType.execute_python_code_with_num_output
-            ):
-                execution_result = execute_python_code(cleaned_code)
-                parsed_execution_result = str(execution_result).strip()
-                correct = eval_result_compare(
-                    benchmark_file.evaluator, expected_result, parsed_execution_result
-                )
-            else:
-                raise ValueError(f"Unsupported evaluator: {benchmark_file.evaluator}")
-        except Exception as e:
-            print("Error executing code:", e)
-            execution_result = str(e)
-            correct = False
-
-        # Store results
-        results.append(
-            ExeEvalBenchmarkOutputResult(
-                input_prompt=prompt,
-                prompt_response=bench_response,
-                execution_result=execution_result,
-                expected_result=expected_result,
-                model=model,
-                correct=correct,
-                index=i,
             )
         )
     return results

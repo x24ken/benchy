@@ -110,7 +110,6 @@ class ExecEvalBenchmarkFile(BaseModel):
     benchmark_name: str
     purpose: str
     models: list[str]  # List of model names/aliases
-    model_provider: ModelProvider  # Either 'ollama' or 'mlx'
 
 
 class ExeEvalBenchmarkOutputResult(BaseModel):
