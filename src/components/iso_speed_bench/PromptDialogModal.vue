@@ -3,8 +3,29 @@
     <div class="modal-content">
       <header :class="{ correct: result.correct, incorrect: !result.correct }">
         <h2>Prompt Result #{{ result.index }}</h2>
-        <span class="status">{{ result.correct ? 'Correct' : 'Incorrect' }}</span>
+        <span class="status">{{
+          result.correct ? "Correct" : "Incorrect"
+        }}</span>
       </header>
+
+      <section class="metrics">
+        <div class="metric">
+          <span>Tokens/Second:</span>
+          <span>{{ result.prompt_response.tokens_per_second.toFixed(2) }}</span>
+        </div>
+        <div class="metric">
+          <span>Total Duration:</span>
+          <span
+            >{{ result.prompt_response.total_duration_ms.toFixed(2) }}ms</span
+          >
+        </div>
+        <div class="metric">
+          <span>Load Duration:</span>
+          <span
+            >{{ result.prompt_response.load_duration_ms.toFixed(2) }}ms</span
+          >
+        </div>
+      </section>
 
       <div class="result-sections">
         <section>
@@ -27,21 +48,6 @@
             <textarea readonly>{{ result.execution_result }}</textarea>
           </div>
         </section>
-
-        <section class="metrics">
-          <div class="metric">
-            <span>Tokens/Second:</span>
-            <span>{{ result.prompt_response.tokens_per_second.toFixed(2) }}</span>
-          </div>
-          <div class="metric">
-            <span>Total Duration:</span>
-            <span>{{ result.prompt_response.total_duration_ms.toFixed(2) }}ms</span>
-          </div>
-          <div class="metric">
-            <span>Load Duration:</span>
-            <span>{{ result.prompt_response.load_duration_ms.toFixed(2) }}ms</span>
-          </div>
-        </section>
       </div>
 
       <footer>
@@ -52,8 +58,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import type { ExecEvalBenchmarkOutputResult } from '../types';
+import { ref } from "vue";
+import type { ExecEvalBenchmarkOutputResult } from "../../types";
 
 const props = defineProps<{
   result: ExecEvalBenchmarkOutputResult;
@@ -82,7 +88,7 @@ dialog {
   border-radius: 8px;
   max-width: 90vw;
   width: 800px;
-  max-height: 90vh;
+  height: 90vh;
 }
 
 dialog::backdrop {
@@ -150,7 +156,7 @@ h3 {
 
 textarea {
   width: 100%;
-  min-height: 100px;
+  min-height: 200px;
   padding: 0.75rem;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -179,6 +185,9 @@ textarea {
   display: flex;
   justify-content: space-between;
   font-size: 0.9rem;
+}
+.metric span:first-child {
+  font-weight: bold;
 }
 
 footer {

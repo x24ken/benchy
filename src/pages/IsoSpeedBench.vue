@@ -99,7 +99,7 @@ import {
   startBenchmark,
   inMemoryBenchmarkReport,
 } from "../stores/isoSpeedBenchStore";
-import IsoSpeedBenchRow from "../components/IsoSpeedBenchRow.vue";
+import IsoSpeedBenchRow from "../components/iso_speed_bench/IsoSpeedBenchRow.vue";
 
 const showSettings = ref(false);
 const { settings } = store;

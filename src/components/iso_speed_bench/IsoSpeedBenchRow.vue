@@ -64,12 +64,14 @@
         :class="[
           'result-square',
           {
-            correct: isResultCompleted(promptResult, index) && promptResult.correct,
-            incorrect: isResultCompleted(promptResult, index) && !promptResult.correct,
+            correct:
+              isResultCompleted(promptResult, index) && promptResult.correct,
+            incorrect:
+              isResultCompleted(promptResult, index) && !promptResult.correct,
             pending: !isResultCompleted(promptResult, index),
             'hide-duration': scale < 100,
             'hide-tps': scale < 75,
-            'hide-number': scale < 50
+            'hide-number': scale < 50,
           },
         ]"
         @click="openModal(promptResult)"
@@ -90,26 +92,26 @@
       </div>
     </div>
   </div>
-  <PromptDialogModal 
+  <PromptDialogModal
     ref="modalRef"
     :result="selectedResult"
-    v-if="selectedResult" 
+    v-if="selectedResult"
   />
 </template>
 
 <script setup lang="ts">
-import { store } from "../stores/isoSpeedBenchStore";
+import { store } from "../../stores/isoSpeedBenchStore";
 import {
   ExecEvalBenchmarkModelReport,
   ExecEvalBenchmarkOutputResult,
-} from "../types";
-import { ref } from 'vue';
-import PromptDialogModal from './PromptDialogModal.vue';
+} from "../../types";
+import { ref } from "vue";
+import PromptDialogModal from "./PromptDialogModal.vue";
 
 const props = defineProps<{
   modelReport: ExecEvalBenchmarkModelReport;
   scale: number;
-  modelStatDetail: 'verbose' | 'simple' | 'hide';
+  modelStatDetail: "verbose" | "simple" | "hide";
 }>();
 
 function isResultCompleted(
@@ -213,11 +215,11 @@ h2 {
   .index {
     display: none;
   }
-  
+
   .metrics {
     display: none;
   }
-  
+
   .square-content {
     justify-content: center;
   }

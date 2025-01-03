@@ -11,6 +11,7 @@ from modules.data_types import (
     ModelAlias,
     ExeEvalType,
     ModelProvider,
+    BenchPromptResponse,
 )
 from modules.ollama_llm import bench_prompt
 from modules.execution_evaluators import (
@@ -19,6 +20,31 @@ from modules.execution_evaluators import (
 )
 from utils import parse_markdown_backticks
 
+
+def parse_model_string(model: str) -> tuple[str, str]:
+    """
+    Parse model string into provider and model name.
+    Format: "provider:model_name" or "model_name" (defaults to ollama)
+    
+    Raises:
+        ValueError: If provider is not supported
+    """
+    if ":" not in model:
+        # Default to ollama if no provider specified
+        return "ollama", model
+    
+    provider, *model_parts = model.split(":")
+    model_name = ":".join(model_parts)
+    
+    # Validate provider
+    supported_providers = ["ollama", "anthropic", "deepseek"]
+    if provider not in supported_providers:
+        raise ValueError(
+            f"Unsupported provider: {provider}. "
+            f"Supported providers are: {', '.join(supported_providers)}"
+        )
+    
+    return provider, model_name
 
 # ------------------------- File Operations -------------------------
 def save_report_to_file(
@@ -53,6 +79,10 @@ def run_benchmark_for_model(
     results = []
     total_tests = len(benchmark_file.prompts)
 
+    # Parse and validate the model string
+    provider, model_name = parse_model_string(model)
+    print(f"Running benchmark with provider: {provider}, model: {model_name}")
+
     for i, prompt_row in enumerate(benchmark_file.prompts, 1):
         print(f"  Running test {i}/{total_tests}...")
 
@@ -62,37 +92,52 @@ def run_benchmark_for_model(
             for key, value in prompt_row.dynamic_variables.items():
                 prompt = prompt.replace(f"{{{{{key}}}}}", str(value))
 
-        if benchmark_file.model_provider == ModelProvider.ollama.value:
-            # Get benchmark response
-            bench_response = bench_prompt(prompt, model)
-        elif benchmark_file.model_provider == ModelProvider.mlx.value:
-            raise ValueError(
-                f"Mlx is not supported yet. Unsupported model provider: {benchmark_file.model_provider}"
-            )
+        # Get benchmark response based on provider
+        if provider == "ollama":
+            from modules.ollama_llm import bench_prompt
+            try:
+                bench_response = bench_prompt(prompt, model_name)
+            except Exception as e:
+                print(f"Error running Ollama model {model_name}: {str(e)}")
+                bench_response = BenchPromptResponse(
+                    response=f"Error: {str(e)}",
+                    tokens_per_second=0.0,
+                    provider="ollama",
+                    total_duration_ms=0.0,
+                    load_duration_ms=0.0,
+                    errored=True,
+                )
+        elif provider == "anthropic":
+            from modules.anthropic_llm import bench_prompt
+            bench_response = bench_prompt(prompt, model_name)
+        elif provider == "deepseek":
+            from modules.deepseek_llm import bench_prompt
+            bench_response = bench_prompt(prompt, model_name)
         else:
             raise ValueError(
-                f"Unsupported model provider: {benchmark_file.model_provider}"
+                f"Unsupported model provider: {provider}. "
+                f"Supported providers are: ollama, anthropic, deepseek"
             )
 
         # Parse and execute the response
         cleaned_code = parse_markdown_backticks(bench_response.response)
         execution_result = ""
-        expected_result = str(prompt_row.expectation).strip()  # Get expected result
+        expected_result = str(prompt_row.expectation).strip()
+        
         try:
-            if (
-                benchmark_file.evaluator
-                == ExeEvalType.execute_python_code_with_num_output
-            ):
+            if benchmark_file.evaluator == ExeEvalType.execute_python_code_with_num_output:
                 execution_result = execute_python_code(cleaned_code)
                 parsed_execution_result = str(execution_result).strip()
                 correct = eval_result_compare(
                     benchmark_file.evaluator, expected_result, parsed_execution_result
                 )
-            elif (
-                benchmark_file.evaluator
-                == ExeEvalType.execute_python_code_with_string_output
-            ):
+            elif benchmark_file.evaluator == ExeEvalType.execute_python_code_with_string_output:
                 execution_result = execute_python_code(cleaned_code)
+                correct = eval_result_compare(
+                    benchmark_file.evaluator, expected_result, execution_result
+                )
+            elif benchmark_file.evaluator == ExeEvalType.raw_string_evaluator:
+                execution_result = cleaned_code  # Use raw output
                 correct = eval_result_compare(
                     benchmark_file.evaluator, expected_result, execution_result
                 )

@@ -17,10 +17,12 @@ def eval_result_compare(evalType: ExeEvalType, expected: str, actual: str) -> bo
             return abs(expected_num - actual_num) < epsilon
         elif evalType == ExeEvalType.execute_python_code_with_string_output:
             return str(expected).strip() == str(actual).strip()
+        elif evalType == ExeEvalType.raw_string_evaluator:
+            # Exact string comparison for raw string evaluator
+            return str(expected).strip() == str(actual).strip()
         else:
-            raise ValueError(f"Unsupported evaluation type: {evalType}")
+            return str(expected).strip() == str(actual).strip()
     except (ValueError, TypeError):
-        # If conversion fails, do strict string comparison
         return str(expected).strip() == str(actual).strip()
 
 
