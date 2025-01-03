@@ -57,7 +57,7 @@
       </div>
     </div>
 
-    <div class="results-grid">
+    <div class="results-grid" :style="{ '--block-size': props.scale + 'px' }">
       <div
         v-for="(promptResult, index) in modelReport.results"
         :key="index"
@@ -102,7 +102,7 @@ import {
 const props = defineProps<{
   modelReport: ExecEvalBenchmarkModelReport;
   scale: number;
-  modelStatDetail: string;
+  modelStatDetail: 'verbose' | 'simple' | 'hide';
 }>();
 
 function isResultCompleted(

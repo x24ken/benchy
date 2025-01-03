@@ -1,6 +1,6 @@
 <template>
-  <div class="container" :class="{ 'bench-mode': benchMode }">
-    <h1 v-if="!benchMode">ISO Speed Bench</h1>
+  <div class="container" :class="{ 'bench-mode': store.settings.benchMode }">
+    <h1 v-if="!store.settings.benchMode">ISO Speed Bench</h1>
 
     <div v-if="!store.benchmarkReport">
       <div
@@ -34,7 +34,7 @@
       </div>
 
       <div class="controls">
-        <button @click="startBenchmark">Play Benchmark</button>
+        <button @click="startBenchmark()">Play Benchmark</button>
         <button @click="fullReset">Reset</button>
         <button @click="showSettings = !showSettings">
           {{ showSettings ? "Hide" : "Show" }} Settings
@@ -43,35 +43,35 @@
         <div v-if="showSettings" class="settings-row">
           <div class="setting">
             <label>Bench Mode:</label>
-            <input type="checkbox" v-model="benchMode" />
+            <input type="checkbox" v-model="settings.benchMode" />
           </div>
           <div class="setting">
             <label>Speed (ms):</label>
             <input
               type="range"
-              v-model="store.speed"
+              v-model="settings.speed"
               min="10"
               max="1000"
               class="slider"
             />
-            <span>{{ store.speed }}ms</span>
+            <span>{{ settings.speed }}ms</span>
           </div>
 
           <div class="setting">
             <label>Block Scale:</label>
             <input
               type="range"
-              v-model="scale"
+              v-model="settings.scale"
               min="20"
               max="150"
               class="slider"
             />
-            <span>{{ scale }}px</span>
+            <span>{{ settings.scale }}px</span>
           </div>
 
           <div class="setting">
             <label>Model Stats:</label>
-            <select v-model="modelStatDetail">
+            <select v-model="settings.modelStatDetail">
               <option value="verbose">Verbose</option>
               <option value="simple">Simple</option>
               <option value="hide">Hide</option>
@@ -84,8 +84,8 @@
         v-for="(modelReport, index) in store.benchmarkReport.models"
         :key="index"
         :modelReport="modelReport"
-        :scale="scale"
-        :modelStatDetail="modelStatDetail"
+        :scale="Number(settings.scale)"
+        :modelStatDetail="settings.modelStatDetail"
       />
     </div>
   </div>
@@ -102,9 +102,7 @@ import {
 import IsoSpeedBenchRow from "../components/IsoSpeedBenchRow.vue";
 
 const showSettings = ref(false);
-const scale = ref(150); // Default block size
-const modelStatDetail = ref<"verbose" | "simple" | "hide">("verbose");
-const benchMode = ref(false);
+const { settings } = store;
 
 function useSampleData() {
   store.benchmarkReport = inMemoryBenchmarkReport;
@@ -246,20 +244,22 @@ button:hover {
   margin-bottom: 20px;
   display: flex;
   gap: 10px;
-  align-items: center;
+  align-items: flex-start;
   min-width: 200px;
+  overflow: visible; /* Ensure settings are visible */
 }
 
 .settings-row {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  margin-left: auto;
-  align-items: center;
-  margin-top: 10px;
   padding: 10px;
   background-color: #f5f5f5;
   border-radius: 4px;
+  max-width: 600px; /* Add max-width constraint */
+  overflow: hidden; /* Prevent overflow */
+  margin-left: auto; /* Keep aligned to right */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .setting {

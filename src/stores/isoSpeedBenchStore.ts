@@ -1,4 +1,4 @@
-import { reactive } from "vue";
+import { reactive, watch } from "vue";
 import { ExecEvalBenchmarkReport } from "../types";
 
 interface IsoSpeedBenchState {
@@ -6,22 +6,56 @@ interface IsoSpeedBenchState {
     benchmarkReport: ExecEvalBenchmarkReport | null;
     currentTime: number;
     intervalId: number | null;
-    speed: number;
     isReplaying: boolean;
     completedResults: Set<string>;
+    settings: {
+        benchMode: boolean;
+        speed: number;
+        scale: number;
+        modelStatDetail: 'verbose' | 'simple' | 'hide';
+    };
 }
 
-export const store = reactive<IsoSpeedBenchState>({
+const store = reactive<IsoSpeedBenchState>({
     isLoading: false,
     benchmarkReport: null,
     currentTime: 0,
     intervalId: null,
-    speed: 50,
     isReplaying: false,
-    completedResults: new Set()
+    completedResults: new Set(),
+    settings: {
+        benchMode: false,
+        speed: 50,
+        scale: 150,
+        modelStatDetail: 'verbose'
+    }
 });
 
-export function resetBenchmark() {
+function saveSettings() {
+    localStorage.setItem('isoSpeedBenchSettings', JSON.stringify(store.settings));
+}
+
+function loadSettings() {
+    const savedSettings = localStorage.getItem('isoSpeedBenchSettings');
+    if (savedSettings) {
+        try {
+            Object.assign(store.settings, JSON.parse(savedSettings));
+        } catch (e) {
+            console.error('Failed to load settings:', e);
+        }
+    }
+}
+
+// Load settings when store is initialized
+loadSettings();
+
+// Automatically save settings when they change
+watch(() => store.settings, (newSettings) => {
+    saveSettings();
+}, { deep: true });
+
+
+function resetBenchmark() {
     store.currentTime = 0;
     store.completedResults.clear();
     store.isReplaying = false;
@@ -31,12 +65,12 @@ export function resetBenchmark() {
     }
 }
 
-export function startBenchmark() {
+function startBenchmark() {
     resetBenchmark();
     store.isReplaying = true;
 
     store.intervalId = setInterval(() => {
-        store.currentTime += store.speed;
+        store.currentTime += store.settings.speed;
 
         store.benchmarkReport?.models.forEach(modelReport => {
             // Calculate cumulative time for each result
@@ -64,10 +98,10 @@ export function startBenchmark() {
                 store.isReplaying = false;
             }
         }
-    }, store.speed);
+    }, store.settings.speed);
 }
 
-export const inMemoryBenchmarkReport: ExecEvalBenchmarkReport = {
+const inMemoryBenchmarkReport: ExecEvalBenchmarkReport = {
     "benchmark_name": "Simple Math in Python",
     "purpose": "Evaluate the ability of a language model to perform simple mathematical operations in Python.",
     "models": [
@@ -197,3 +231,11 @@ export const inMemoryBenchmarkReport: ExecEvalBenchmarkReport = {
     "average_total_duration_ms": 1389.7137986666667,
     "average_load_duration_ms": 192.73456950000002
 }
+
+
+export {
+    store,
+    resetBenchmark,
+    startBenchmark,
+    inMemoryBenchmarkReport,
+};
