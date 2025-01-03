@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1>ISO Speed Bench</h1>
-    
+
     <div v-if="!store.benchmarkReport">
       <div
         class="file-drop"
@@ -17,15 +17,17 @@
         <p v-else>Drag & Drop YAML file here</p>
       </div>
 
-      <button 
-        @click="useSampleData"
-        class="sample-data-button"
-      >
+      <button @click="useSampleData" class="sample-data-button">
         Or use sample data
       </button>
     </div>
 
     <div v-else class="benchmark-container">
+      <div class="benchmark-info">
+        <h2>{{ store.benchmarkReport.benchmark_name }}</h2>
+        <p>{{ store.benchmarkReport.purpose }}</p>
+      </div>
+
       <div class="controls">
         <button @click="startBenchmark">Replay Bench</button>
         <button @click="fullReset">Reset</button>
@@ -95,7 +97,7 @@ function handleFileDrop(event: DragEvent) {
 <style scoped>
 .container {
   padding: 20px;
-  max-width: 80vw;
+  max-width: 90vw;
   margin: 0 auto;
 }
 
@@ -142,6 +144,25 @@ function handleFileDrop(event: DragEvent) {
 
 .sample-data-button:hover {
   background-color: #2980b9;
+}
+
+.benchmark-info {
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.benchmark-info h2 {
+  margin: 0 0 10px 0;
+  font-size: 1.8em;
+}
+
+.benchmark-info p {
+  margin: 0;
+  color: #666;
+  font-size: 1.1em;
+  line-height: 1.5;
 }
 
 .loading-spinner {

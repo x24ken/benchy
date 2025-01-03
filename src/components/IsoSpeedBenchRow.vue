@@ -50,8 +50,9 @@
       >
         <div class="square-content">
           <div class="index">{{ index + 1 }}</div>
-          <div class="tps" v-if="isResultCompleted(promptResult, index)">
-            {{ promptResult.prompt_response.tokens_per_second.toFixed(2) }} tps
+          <div class="metrics" v-if="isResultCompleted(promptResult, index)">
+            <div class="tps">{{ promptResult.prompt_response.tokens_per_second.toFixed(2) }} tps</div>
+            <div class="duration">{{ promptResult.prompt_response.total_duration_ms.toFixed(2) }}ms dur</div>
           </div>
         </div>
       </div>
@@ -140,6 +141,21 @@ h2 {
 
 .square-content {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 5px;
+}
+
+.duration {
+  font-size: 0.8em;
+  opacity: 0.8;
 }
 
 .index {
