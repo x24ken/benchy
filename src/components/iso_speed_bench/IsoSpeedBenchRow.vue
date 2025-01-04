@@ -4,6 +4,13 @@
       class="model-info"
       :style="{ width: modelStatDetail === 'hide' ? 'auto' : '300px' }"
     >
+      <div class="provider-logo" v-if="getProviderFromModel">
+        <img
+          class="provider-logo-img"
+          :src="getProviderLogo"
+          :alt="getProviderFromModel"
+        />
+      </div>
       <h2>{{ formatModelName(modelReport.model) }}</h2>
       <div
         class="model-details"
@@ -105,21 +112,53 @@ import {
   ExecEvalBenchmarkModelReport,
   ExecEvalBenchmarkOutputResult,
 } from "../../types";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import PromptDialogModal from "./PromptDialogModal.vue";
 
-function formatModelName(modelName: string): string {
-  if (!store.settings.showProviderPrefix && modelName.includes('~')) {
-    return modelName.split('~')[1];
-  }
-  return modelName;
-}
+import anthropicLogo from "../../assets/anthropic.svg";
+import ollamaLogo from "../../assets/ollama.svg";
+import openaiLogo from "../../assets/openai.svg";
+import googleLogo from "../../assets/google.svg";
+import groqLogo from "../../assets/groq.svg";
+import deepseekLogo from "../../assets/deepseek.svg";
 
 const props = defineProps<{
   modelReport: ExecEvalBenchmarkModelReport;
   scale: number;
   modelStatDetail: "verbose" | "simple" | "hide";
 }>();
+
+const getProviderFromModel = computed(() => {
+  const provider = props.modelReport.results[0]?.prompt_response?.provider;
+  return provider ? provider.toLowerCase() : null;
+});
+
+const getProviderLogo = computed(() => {
+  const provider = getProviderFromModel.value;
+  switch (provider) {
+    case "anthropic":
+      return anthropicLogo;
+    case "openai":
+      return openaiLogo;
+    case "google":
+      return googleLogo;
+    case "groq":
+      return groqLogo;
+    case "ollama":
+      return ollamaLogo;
+    case "deepseek":
+      return deepseekLogo;
+    default:
+      return null;
+  }
+});
+
+function formatModelName(modelName: string): string {
+  if (!store.settings.showProviderPrefix && modelName.includes("~")) {
+    return modelName.split("~")[1];
+  }
+  return modelName;
+}
 
 function isResultCompleted(
   result: ExecEvalBenchmarkOutputResult,
@@ -144,7 +183,6 @@ function openModal(result: ExecEvalBenchmarkOutputResult) {
 <style scoped>
 .row {
   display: flex;
-  margin-bottom: v-bind('benchMode ? "20px" : "40px"');
   gap: 30px;
 }
 
@@ -154,7 +192,23 @@ function openModal(result: ExecEvalBenchmarkOutputResult) {
   transition: width 0.2s ease;
 }
 
+.provider-logo {
+  width: 50px;
+  height: 50px;
+  margin-right: 8px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.provider-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 h2 {
+  display: inline-block;
+  vertical-align: middle;
   margin: 0 0 15px 0;
   font-size: 1.5em;
   white-space: nowrap;
