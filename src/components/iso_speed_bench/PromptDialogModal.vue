@@ -2,7 +2,9 @@
   <dialog ref="dialogRef">
     <div class="modal-content">
       <header :class="{ correct: result.correct, incorrect: !result.correct }">
-        <h2>{{ formatModelName(result.model) }} - Prompt #{{ result.index }}</h2>
+        <h2>
+          {{ formatModelName(result.model) }} - Prompt #{{ result.index }}
+        </h2>
         <span class="status">{{
           result.correct ? "Correct" : "Incorrect"
         }}</span>
@@ -63,8 +65,8 @@ import type { ExecEvalBenchmarkOutputResult } from "../../types";
 import { store } from "../../stores/isoSpeedBenchStore";
 
 function formatModelName(modelName: string): string {
-  if (!store.settings.showProviderPrefix && modelName.includes('~')) {
-    return modelName.split('~')[1];
+  if (!store.settings.showProviderPrefix && modelName.includes("~")) {
+    return modelName.split("~")[1];
   }
   return modelName;
 }
@@ -163,7 +165,7 @@ h3 {
 }
 
 textarea {
-  width: 100%;
+  width: 95%;
   min-height: 200px;
   padding: 0.75rem;
   border: 1px solid #ddd;
