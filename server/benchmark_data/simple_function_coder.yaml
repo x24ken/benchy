@@ -26,11 +26,11 @@ evaluator: "execute_python_code_with_string_output"
 models: 
   - "llama3.2:1b"
   - "llama3.2:latest" 
-  - "ollama~qwen2.5-coder:14b"
-  - "ollama~falcon3:10b"
-  - "ollama~vanilj/Phi-4:latest"
-  # - "anthropic~claude-3-5-haiku-latest"
-  # - "deepseek~deepseek-chat"
+  - "ollamaqwen2.5-coder:14b"
+  - "ollamafalcon3:10b"
+  - "ollamavanilj/Phi-4:latest"
+  - "anthropic~claude-3-5-sonnet-latest"
+  - "deepseek~deepseek-chat"
 prompts:
   - dynamic_variables:
       function: "def add(a, b): int - add two numbers"

@@ -17,11 +17,13 @@ base_prompt: |
   <statement>{{statement}}</statement>
 evaluator: "execute_python_code_with_num_output"
 models:
-  - "llama3.2:latest" 
-  - "ollama~falcon3:10b"
-  - "anthropic~claude-3-5-haiku-latest"
+  - "llama3.2:1b"
+  # - "llama3.2:latest"
+  # - "qwen2.5-coder:14b"
+  - "falcon3:10b"
+  # - "vanilj/Phi-4:latest"
+  - "anthropic~claude-3-5-sonnet-latest"
   - "deepseek~deepseek-chat"
-model_provider: "ollama"
 prompts:
   - dynamic_variables:
       statement: "add 5 and 5"

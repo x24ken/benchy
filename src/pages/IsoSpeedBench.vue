@@ -7,6 +7,7 @@
         class="file-drop"
         @dragover.prevent
         @drop="handleFileDrop"
+        @dragenter.prevent
         :class="{ loading: store.isLoading }"
         :aria-busy="store.isLoading"
       >
@@ -14,8 +15,23 @@
           <div class="loading-spinner"></div>
           <p>Running benchmarks... Please wait</p>
         </div>
-        <p v-else>Drag & Drop YAML file here</p>
+        <div v-else>
+          <p>Drag & Drop YAML or JSON file here</p>
+          <p>or</p>
+          <button @click="fileInputRef?.click()" class="upload-button">
+            Choose File
+          </button>
+        </div>
       </div>
+
+      <!-- Hidden file input -->
+      <input
+        type="file"
+        ref="fileInputRef"
+        @change="handleFileSelect"
+        accept=".yaml,.yml,.json"
+        style="display: none"
+      />
 
       <button @click="useSampleData" class="sample-data-button">
         Or use sample data
@@ -103,6 +119,60 @@ import {
   startBenchmark,
   inMemoryBenchmarkReport,
 } from "../stores/isoSpeedBenchStore";
+
+const fileInputRef = ref<HTMLInputElement | null>(null);
+
+function handleFileSelect(event: Event) {
+  const input = event.target as HTMLInputElement;
+  const file = input.files?.[0];
+  if (file) {
+    processFile(file);
+  }
+  // Reset the input so the same file can be selected again
+  input.value = '';
+}
+
+function processFile(file: File) {
+  const reader = new FileReader();
+  reader.onload = async (e) => {
+    const content = e.target?.result;
+    if (typeof content !== "string") return;
+
+    if (file.name.endsWith(".json")) {
+      try {
+        const jsonData = JSON.parse(content);
+        if (jsonData.benchmark_name && jsonData.models && Array.isArray(jsonData.models)) {
+          store.benchmarkReport = jsonData;
+          return;
+        }
+      } catch (error) {
+        console.error("Error parsing JSON:", error);
+        alert("Invalid JSON file format");
+        return;
+      }
+    }
+    
+    if (file.name.endsWith(".yaml") || file.name.endsWith(".yml")) {
+      try {
+        store.isLoading = true;
+        const response = await fetch("/iso-speed-bench", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/yaml",
+          },
+          body: content,
+        });
+        store.benchmarkReport = await response.json();
+      } catch (error) {
+        console.error("Error running benchmark:", error);
+        alert("Error processing YAML file");
+      } finally {
+        store.isLoading = false;
+      }
+    }
+  };
+  reader.readAsText(file);
+}
 import IsoSpeedBenchRow from "../components/iso_speed_bench/IsoSpeedBenchRow.vue";
 
 const showSettings = ref(false);
@@ -118,30 +188,10 @@ function fullReset() {
 }
 
 function handleFileDrop(event: DragEvent) {
+  event.preventDefault();
   const file = event.dataTransfer?.files[0];
-  if (file && (file.name.endsWith(".yaml") || file.name.endsWith(".yml"))) {
-    const reader = new FileReader();
-    reader.onload = async (e) => {
-      const content = e.target?.result;
-      if (typeof content === "string") {
-        try {
-          store.isLoading = true;
-          const response = await fetch("/iso-speed-bench", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/yaml",
-            },
-            body: content,
-          });
-          store.benchmarkReport = await response.json();
-        } catch (error) {
-          console.error("Error running benchmark:", error);
-        } finally {
-          store.isLoading = false;
-        }
-      }
-    };
-    reader.readAsText(file);
+  if (file) {
+    processFile(file);
   }
 }
 </script>
@@ -165,6 +215,20 @@ function handleFileDrop(event: DragEvent) {
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
+
+  .upload-button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #e0e0e0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    
+    &:hover {
+      background-color: #d0d0d0;
+    }
+  }
 }
 
 .file-drop.loading {
