@@ -97,7 +97,7 @@ dialog {
   border: none;
   border-radius: 8px;
   max-width: 90vw;
-  width: 800px;
+  width: 80vw;
   height: 90vh;
 }
 
