@@ -12,6 +12,7 @@ base_prompt: |
       <instruction>Print the numeric result only.</instruction>
       <instruction>Do not output any text besides the final printed value.</instruction>
       <instruction>Ensure the output can be executed immediately for the final numeric value.</instruction>
+      <instruction>Reduce decimal precision to 2 decimal places when outputting single numbers.</instruction>
   </instructions>
 
   <statement>{{statement}}</statement>
