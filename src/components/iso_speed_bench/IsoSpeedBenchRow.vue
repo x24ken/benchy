@@ -4,14 +4,21 @@
       class="model-info"
       :style="{ width: modelStatDetail === 'hide' ? 'auto' : '300px' }"
     >
-      <div class="provider-logo" v-if="getProviderFromModel">
-        <img
-          class="provider-logo-img"
-          :src="getProviderLogo"
-          :alt="getProviderFromModel"
-        />
+      <div
+        class="provider-logo-wrapper"
+        style="display: flex; align-items;: center"
+      >
+        <div class="provider-logo" v-if="getProviderFromModel">
+          <img
+            class="provider-logo-img"
+            :src="getProviderLogo"
+            :alt="getProviderFromModel"
+          />
+        </div>
+        <h2 style="margin: 0; line-height: 2" class="model-name">
+          {{ formatModelName(modelReport.model) }}
+        </h2>
       </div>
-      <h2>{{ formatModelName(modelReport.model) }}</h2>
       <div
         class="model-details"
         v-if="modelStatDetail !== 'hide'"
@@ -184,11 +191,12 @@ function openModal(result: ExecEvalBenchmarkOutputResult) {
 .row {
   display: flex;
   gap: 30px;
+  margin-bottom: 20px;
 }
 
 .model-info {
-  min-width: 300px;
-  width: 300px;
+  min-width: 350px;
+  width: 350px;
   transition: width 0.2s ease;
 }
 
