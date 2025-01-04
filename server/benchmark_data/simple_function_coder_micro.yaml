@@ -24,9 +24,9 @@ base_prompt: |
   </function-arguments>
 evaluator: "execute_python_code_with_string_output"
 models: 
-  - "llama3.2:latest" 
+  - "llama3.2:1b" 
   - "vanilj/Phi-4:latest"
-  - "ollama~falcon3:10b"
+  - "falcon3:10b"
   - "anthropic~claude-3-5-sonnet-latest"
   - "deepseek~deepseek-chat"
 prompts:
