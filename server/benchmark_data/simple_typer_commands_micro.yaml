@@ -11,6 +11,8 @@ base_prompt: |
       <instruction>Focus on generating a Typer-based command line that can be used with a Python script called main.py.</instruction>
       <instruction>All commands must be fully spelled out with arguments and flags exactly as required by the stt_request.</instruction>
       <instruction>Make sure to include `python main.py` at the start of the command.</instruction>
+      <instruction>Be sure to use - for the function names instead of _</instruction>
+      <instruction>Don't use = for arguments, use spaces instead</instruction>
   </instructions>
 
   <python-typer-commands>
@@ -339,7 +341,7 @@ base_prompt: |
   </stt-requests>
 
 evaluator: "raw_string_evaluator"
-models: ["llama3.2:1b", "anthropic~claude-3-5-sonnet-latest", "deepseek~deepseek-chat"]
+models: ["llama3.2:latest", "qwen2.5-coder:14b", "falcon3:10b", "anthropic~claude-3-5-sonnet-latest", "deepseek~deepseek-chat"]
 model_provider: "ollama"
 
 prompts:
@@ -354,3 +356,15 @@ prompts:
   - dynamic_variables:
       stt_request: "Please list files in /home/user including hidden ones"
     expectation: "python main.py list-files /home/user --all"
+
+  - dynamic_variables:
+      stt_request: "Create a new user named alice with role admin"
+    expectation: "python main.py create-user alice --role admin"
+
+  - dynamic_variables:
+      stt_request: "Delete user with ID user123, skip confirmation"
+    expectation: "python main.py delete-user user123 --confirm"
+
+  - dynamic_variables:
+      stt_request: "Generate a sales report in the file sales_report.csv"
+    expectation: "python main.py generate-report sales --output sales_report.csv"
