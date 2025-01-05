@@ -43,7 +43,8 @@
         <p>Drag & Drop a YAML or JSON file into the file drop area.</p>
         <p>
           You can find YAML benchmark configuration files in
-          'server/benchmark_data/*.yaml' to run against your own machine.
+          'server/benchmark_data/*.yaml' to run against your own machine. Study
+          this file to see how to structure your own.
         </p>
         <p>
           Or you can find JSON benchmark result files in 'server/reports/*.json'

@@ -5,7 +5,7 @@
 > 
 > Enter BENCHY. A chill, live benchmark tool that lets you see the performance, price, and speed of LLMs in a side by side comparison for SPECIFIC use cases.
 >
-> Watch the walk through [video here](https://youtu.be/ZlljCLhq814)
+> Watch the walk through [video here](https://youtu.be/OwUm-4I22QI)
 
 <img src="./images/m4-max-mac-book-pro-benchmarked.png" alt="m4-mac-book-pro" style="max-width: 800px;">
 
@@ -13,7 +13,7 @@
 
 <img src="./images/perf-price-speed-pick-two.png" alt="pick-two" style="max-width: 800px;">
 
-## Live Benchmark Tools
+## Benchy Micro Apps
 - [Iso Speed Bench](src/pages/IsoSpeedBench.vue)
   - Goal: Create a unified, config file based, multi-llm provider, yes/no evaluation based benchmark for high quality insights and iteration.
   - Watch the M4 Unboxing and benchmark [video here](https://youtu.be/OwUm-4I22QI)
@@ -86,7 +86,8 @@ cd server
 uv sync
 
 # Set up environment variables
-cp .env.sample .env
+cp .env.sample .env (client)
+cp server/.env.sample server/.env (server)
 
 # Set EVERY .env key with your API keys and settings
 ANTHROPIC_API_KEY=
@@ -100,9 +101,6 @@ uv run python server.py
 # Run tests
 uv run pytest (**beware will hit APIs and cost money**)
 ```
-
-## Dev Notes & Caveats
-- See `src/components/DevNotes.vue` for limitations
 
 ## Resources
 - https://github.com/simonw/llm?tab=readme-ov-file
@@ -125,3 +123,4 @@ uv run pytest (**beware will hit APIs and cost money**)
 - https://sqlparse.readthedocs.io/en/latest/intro.html
 - mlx: https://huggingface.co/mlx-community
 - ollama docs: https://github.com/ollama/ollama/blob/main/docs/api.md#examples
+- deepseek docs: https://platform.deepseek.com/usage
