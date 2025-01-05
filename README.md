@@ -14,16 +14,18 @@
 <img src="./images/perf-price-speed-pick-two.png" alt="pick-two" style="max-width: 800px;">
 
 ## Benchy Micro Apps
-- [Iso Speed Bench](src/pages/IsoSpeedBench.vue)
+- [Iso Speed Bench](https://youtu.be/OwUm-4I22QI)
   - Goal: Create a unified, config file based, multi-llm provider, yes/no evaluation based benchmark for high quality insights and iteration.
   - Watch the M4 Unboxing and benchmark [video here](https://youtu.be/OwUm-4I22QI)
-- [Long Tool Calling](src/pages/AppMultiToolCall.vue)
+  - Front end: [src/pages/IsoSpeedBench.vue](src/pages/IsoSpeedBench.vue)
+- [Long Tool Calling](https://youtu.be/ZlljCLhq814)
   - Goal: Understand the best LLMs and techniques for LONG chains of tool calls / function calls (15+).
   - Watch the walk through [video here](https://youtu.be/ZlljCLhq814)
-- [Multi Autocomplete](src/pages/AppMultiAutocomplete.vue)
+  - Front end: [src/pages/AppMultiToolCall.vue](src/pages/AppMultiToolCall.vue)
+- [Multi Autocomplete](https://youtu.be/1ObiaSiA8BQ)
   - Goal: Understand [claude 3.5 haiku](https://www.anthropic.com/claude/haiku) & GPT-4o [predictive outputs](https://platform.openai.com/docs/guides/predicted-outputs) compared to existing models. 
   - Watch the walk through [video here](https://youtu.be/1ObiaSiA8BQ)
-
+  - Front end: [src/pages/AppMultiAutocomplete.vue](src/pages/AppMultiAutocomplete.vue)
 ## Important Files
 - `.env` - Environment variables for API keys
 - `server/.env` - Environment variables for API keys
