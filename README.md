@@ -7,11 +7,16 @@
 >
 > Watch the walk through [video here](https://youtu.be/ZlljCLhq814)
 
+<img src="./images/m4-max-mac-book-pro-benchmarked.png" alt="m4-mac-book-pro" style="max-width: 800px;">
+
 <img src="./images/parallel-function-calling.png" alt="parallel-function-calling" style="max-width: 800px;">
 
 <img src="./images/perf-price-speed-pick-two.png" alt="pick-two" style="max-width: 800px;">
 
 ## Live Benchmark Tools
+- [Iso Speed Bench](src/pages/IsoSpeedBench.vue)
+  - Goal: Create a unified, config file based, multi-llm provider, yes/no evaluation based benchmark for high quality insights and iteration.
+  - Watch the M4 Unboxing and benchmark [video here](https://youtu.be/OwUm-4I22QI)
 - [Long Tool Calling](src/pages/AppMultiToolCall.vue)
   - Goal: Understand the best LLMs and techniques for LONG chains of tool calls / function calls (15+).
   - Watch the walk through [video here](https://youtu.be/ZlljCLhq814)
@@ -26,12 +31,16 @@
 - `server/pyproject.toml` - Server dependencies
 - `src/store/*` - Stores all front end state and prompt
 - `src/api/*` - API layer for all requests
+- `src/pages/*` - Front end per app pages
+- `src/components/*` - Front end components
 - `server/server.py` - Server routes
 - `server/modules/llm_models.py` - All LLM models
 - `server/modules/openai_llm.py` - OpenAI LLM
 - `server/modules/anthropic_llm.py` - Anthropic LLM
 - `server/modules/gemini_llm.py` - Gemini LLM
 - `server/modules/ollama_llm.py` - Ollama LLM
+- `server/benchmark_data/*` - Benchmark data
+- `server/reports/*` - Benchmark results
 
 ## Setup
 
@@ -39,6 +48,7 @@
 - [Anthropic](https://docs.anthropic.com/en/api/getting-started)
 - [Google Cloud](https://ai.google.dev/gemini-api/docs/api-key)
 - [OpenAI](https://help.openai.com/en/articles/4936850-where-do-i-find-my-openai-api-key)
+- [Deepseek](https://platform.deepseek.com/)
 - [Ollama](https://ollama.ai/download)
   - After installing Ollama, pull the required models:
   ```bash
@@ -82,6 +92,7 @@ cp .env.sample .env
 ANTHROPIC_API_KEY=
 OPENAI_API_KEY=
 GEMINI_API_KEY=
+DEEPSEEK_API_KEY=
 
 # Start server
 uv run python server.py

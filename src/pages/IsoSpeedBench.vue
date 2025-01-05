@@ -36,6 +36,24 @@
       <button @click="useSampleData" class="sample-data-button">
         Or use sample data
       </button>
+
+      <!-- how to use -->
+      <div class="how-to-use">
+        <h2>How to use</h2>
+        <p>Drag & Drop a YAML or JSON file into the file drop area.</p>
+        <p>
+          You can find YAML benchmark configuration files in
+          'server/benchmark_data/*.yaml' to run against your own machine.
+        </p>
+        <p>
+          Or you can find JSON benchmark result files in 'server/reports/*.json'
+          to see how existing/your models performed.
+        </p>
+        <p>
+          Or click the "Or use sample data" button to use a pre-defined dataset.
+        </p>
+        <p></p>
+      </div>
     </div>
 
     <div v-else class="benchmark-container">
@@ -129,7 +147,7 @@ function handleFileSelect(event: Event) {
     processFile(file);
   }
   // Reset the input so the same file can be selected again
-  input.value = '';
+  input.value = "";
 }
 
 function processFile(file: File) {
@@ -141,7 +159,11 @@ function processFile(file: File) {
     if (file.name.endsWith(".json")) {
       try {
         const jsonData = JSON.parse(content);
-        if (jsonData.benchmark_name && jsonData.models && Array.isArray(jsonData.models)) {
+        if (
+          jsonData.benchmark_name &&
+          jsonData.models &&
+          Array.isArray(jsonData.models)
+        ) {
           store.benchmarkReport = jsonData;
           return;
         }
@@ -151,7 +173,7 @@ function processFile(file: File) {
         return;
       }
     }
-    
+
     if (file.name.endsWith(".yaml") || file.name.endsWith(".yml")) {
       try {
         store.isLoading = true;
@@ -224,7 +246,7 @@ function handleFileDrop(event: DragEvent) {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.2s;
-    
+
     &:hover {
       background-color: #d0d0d0;
     }
