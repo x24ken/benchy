@@ -119,6 +119,22 @@ MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS = {
         "input": 0.14,
         "output": 0.28,
     },
+    "o1-mini": {
+        "input": 3.00,
+        "output": 15.00,
+    },
+    "o1-preview": {
+        "input": 15.00,
+        "output": 60.00,
+    },
+    "o1": {
+        "input": 15.00,
+        "output": 60.00,
+    },
+    "gemini-2.0-flash-exp": {
+        "input": 0.00,
+        "output": 0.00,
+    },
 }
 
 
