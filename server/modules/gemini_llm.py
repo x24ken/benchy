@@ -2,7 +2,12 @@ import google.generativeai as genai
 import os
 import json
 from modules.tools import gemini_tools_list
-from modules.data_types import SimpleToolCall, ModelAlias, ToolsAndPrompts
+from modules.data_types import (
+    PromptResponse,
+    SimpleToolCall,
+    ModelAlias,
+    ToolsAndPrompts,
+)
 from utils import (
     parse_markdown_backticks,
     timeit,
@@ -39,6 +44,28 @@ def get_gemini_cost(model: str, input_tokens: int, output_tokens: int) -> float:
     output_cost = (output_tokens / 1_000_000) * cost_map["output"]
 
     return round(input_cost + output_cost, 6)
+
+
+def text_prompt(prompt: str, model: str) -> PromptResponse:
+    """
+    Send a prompt to Gemini and get a response.
+    """
+    try:
+        with timeit() as t:
+            gemini_model = genai.GenerativeModel(model_name=model)
+            response = gemini_model.generate_content(prompt)
+            elapsed_ms = t()
+
+        return PromptResponse(
+            response=response.text,
+            runTimeMs=elapsed_ms,
+            inputAndOutputCost=0.0,
+        )
+    except Exception as e:
+        print(f"Gemini error: {str(e)}")
+        return PromptResponse(
+            response=f"Error: {str(e)}", runTimeMs=0.0, inputAndOutputCost=0.0
+        )
 
 
 def tool_prompt(prompt: str, model: str, force_tools: list[str]) -> ToolCallResponse:
