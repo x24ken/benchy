@@ -56,10 +56,14 @@ def text_prompt(prompt: str, model: str) -> PromptResponse:
             response = gemini_model.generate_content(prompt)
             elapsed_ms = t()
 
+            input_tokens = response._result.usage_metadata.prompt_token_count
+            output_tokens = response._result.usage_metadata.candidates_token_count
+            cost = get_gemini_cost(model, input_tokens, output_tokens)
+
         return PromptResponse(
             response=response.text,
             runTimeMs=elapsed_ms,
-            inputAndOutputCost=0.0,
+            inputAndOutputCost=cost,
         )
     except Exception as e:
         print(f"Gemini error: {str(e)}")

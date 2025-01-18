@@ -61,10 +61,14 @@ def text_prompt(prompt: str, model: str) -> PromptResponse:
             )
             elapsed_ms = t()
 
+            input_tokens = message.usage.input_tokens
+            output_tokens = message.usage.output_tokens
+            cost = get_anthropic_cost(model, input_tokens, output_tokens)
+
             return PromptResponse(
                 response=message.content[0].text,
                 runTimeMs=elapsed_ms,
-                inputAndOutputCost=0.0,
+                inputAndOutputCost=cost,
             )
     except Exception as e:
         print(f"Anthropic error: {str(e)}")
