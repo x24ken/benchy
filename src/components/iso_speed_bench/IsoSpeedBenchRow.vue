@@ -6,7 +6,7 @@
     >
       <div
         class="provider-logo-wrapper"
-        style="display: flex; align-items;: center"
+        style="display: flex; align-items: center"
       >
         <div class="provider-logo" v-if="getProviderFromModel">
           <img
