@@ -1,0 +1,1 @@
+aider --model o1 --architect --editor-model anthropic.claude-3-5-sonnet-20241022-v2:0 --yes-always --no-detect-urls
