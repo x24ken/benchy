@@ -115,6 +115,10 @@ MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS = {
         "input": 0.00,
         "output": 0.00,
     },
+    "deepseek-chat": {
+        "input": 0.14,
+        "output": 0.28,
+    },
 }
 
 
