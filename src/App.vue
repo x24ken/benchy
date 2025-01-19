@@ -65,7 +65,7 @@ document.title = "BENCHY";
 
 .app-container {
   height: 100vh;
-  width: 100vw;
+  width: 90vw;
   display: flex;
   flex-direction: column;
   align-items: center;
