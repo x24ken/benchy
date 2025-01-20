@@ -5,7 +5,9 @@
 > 
 > Enter BENCHY. A chill, live benchmark tool that lets you see the performance, price, and speed of LLMs in a side by side comparison for SPECIFIC use cases.
 >
-> Watch the walk through [video here](https://youtu.be/OwUm-4I22QI)
+> Watch the walk through [video here](https://youtu.be/y_ywOVQyafE)
+
+<img src="./images/o1-ai-coding-limit-testing.png" alt="o1-ai-coding-limit-testing" style="max-width: 800px;">
 
 <img src="./images/m4-max-mac-book-pro-benchmarked.png" alt="m4-mac-book-pro" style="max-width: 800px;">
 
@@ -14,6 +16,8 @@
 <img src="./images/perf-price-speed-pick-two.png" alt="pick-two" style="max-width: 800px;">
 
 ## Benchy Micro Apps
+- [BIG AI Coding Updates to Benchy](https://youtu.be/y_ywOVQyafE)
+  - Watch the walk through [video here](https://youtu.be/y_ywOVQyafE)
 - [Iso Speed Bench](https://youtu.be/OwUm-4I22QI)
   - Goal: Create a unified, config file based, multi-llm provider, yes/no evaluation based benchmark for high quality insights and iteration.
   - Watch the M4 Unboxing and benchmark [video here](https://youtu.be/OwUm-4I22QI)
