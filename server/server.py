@@ -24,7 +24,7 @@ app = Flask(__name__)
 def handle_prompt():
     data = request.get_json()
     prompt = data["prompt"]
-    model = ModelAlias(data["model"])
+    model = data["model"]  # store as string
 
     start_time = time()
     prompt_response = llm_models.prompt(prompt, model)
@@ -45,9 +45,7 @@ def handle_prompt():
 @app.route("/tool-prompt", methods=["POST"])
 def handle_tool_prompt():
     data = request.get_json()
-    prompt_with_tools = PromptWithToolCalls(
-        prompt=data["prompt"], model=ModelAlias(data["model"])
-    )
+    prompt_with_tools = PromptWithToolCalls(prompt=data["prompt"], model=data["model"])
 
     start_time = time()
     tool_response = llm_models.tool_prompt(prompt_with_tools)

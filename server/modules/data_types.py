@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Union
 from pydantic import BaseModel
 from enum import Enum
 
@@ -35,7 +35,7 @@ class ModelAlias(str, Enum):
 
 class Prompt(BaseModel):
     prompt: str
-    model: ModelAlias
+    model: Union[ModelAlias, str]
 
 
 class ToolEnum(str, Enum):
@@ -55,7 +55,7 @@ class ToolsAndPrompts(BaseModel):
 
 class PromptWithToolCalls(BaseModel):
     prompt: str
-    model: ModelAlias
+    model: ModelAlias | str
 
 
 class PromptResponse(BaseModel):
