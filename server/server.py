@@ -22,6 +22,7 @@ app = Flask(__name__)
 
 @app.route("/prompt", methods=["POST"])
 def handle_prompt():
+    """Handle a prompt request and return the model's response."""
     data = request.get_json()
     prompt = data["prompt"]
     model = data["model"]  # store as string
@@ -44,6 +45,7 @@ def handle_prompt():
 
 @app.route("/tool-prompt", methods=["POST"])
 def handle_tool_prompt():
+    """Handle a tool prompt request and return the tool calls."""
     data = request.get_json()
     prompt_with_tools = PromptWithToolCalls(prompt=data["prompt"], model=data["model"])
 
@@ -70,6 +72,7 @@ def handle_tool_prompt():
 
 @app.route("/iso-speed-bench", methods=["POST"])
 def handle_iso_speed_bench():
+    """Handle an ISO speed benchmark request with YAML input."""
     # Validate content type
     if not request.content_type == "application/yaml":
         return (
@@ -144,6 +147,7 @@ def handle_iso_speed_bench():
 
 
 def main():
+    """Run the Flask application."""
     app.run(debug=True, port=5000)
 
 
