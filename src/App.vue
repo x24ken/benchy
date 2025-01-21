@@ -82,7 +82,7 @@ document.title = "BENCHY";
 
 .app-container {
   height: 100vh;
-  width: 90vw;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -103,18 +103,10 @@ document.title = "BENCHY";
 
 @keyframes slow-gradient {
   0% {
-    background: linear-gradient(
-      180deg,
-      #e0f7ff 0%,
-      #ffffff 100%
-    );
+    background: linear-gradient(180deg, #e0f7ff 0%, #ffffff 100%);
   }
   100% {
-    background: linear-gradient(
-      180deg,
-      #ffffff 0%,
-      #e0f7ff 100%
-    );
+    background: linear-gradient(180deg, #ffffff 0%, #e0f7ff 100%);
   }
 }
 
@@ -139,13 +131,13 @@ document.title = "BENCHY";
 }
 
 .autocomplete-bg {
-  background-color: #e6f0ff; 
+  background-color: #e6f0ff;
 }
 .toolcall-bg {
-  background-color: #f9ffe6; 
+  background-color: #f9ffe6;
 }
 .isospeed-bg {
-  background-color: #fffbf0; 
+  background-color: #fffbf0;
 }
 
 .nav-button {
