@@ -13,7 +13,7 @@ from utils import (
     timeit,
     MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS,
 )
-from modules.data_types import ToolCallResponse
+from modules.data_types import ToolCallResponse, BenchPromptResponse
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
@@ -69,6 +69,38 @@ def text_prompt(prompt: str, model: str) -> PromptResponse:
         print(f"Gemini error: {str(e)}")
         return PromptResponse(
             response=f"Error: {str(e)}", runTimeMs=0.0, inputAndOutputCost=0.0
+        )
+
+
+def bench_prompt(prompt: str, model: str) -> BenchPromptResponse:
+    """
+    Send a prompt to Gemini and get detailed benchmarking response.
+    """
+    try:
+        with timeit() as t:
+            gemini_model = genai.GenerativeModel(model_name=model)
+            response = gemini_model.generate_content(prompt)
+            elapsed_ms = t()
+
+            input_tokens = response._result.usage_metadata.prompt_token_count
+            output_tokens = response._result.usage_metadata.candidates_token_count
+
+        return BenchPromptResponse(
+            response=response.text,
+            tokens_per_second=0.0,  # Gemini doesn't provide timing info
+            provider="gemini",
+            total_duration_ms=elapsed_ms,
+            load_duration_ms=0.0,
+        )
+    except Exception as e:
+        print(f"Gemini error: {str(e)}")
+        return BenchPromptResponse(
+            response=f"Error: {str(e)}",
+            tokens_per_second=0.0,
+            provider="gemini",
+            total_duration_ms=0.0,
+            load_duration_ms=0.0,
+            errored=True,
         )
 
 

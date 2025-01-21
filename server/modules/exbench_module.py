@@ -19,7 +19,7 @@ from modules.execution_evaluators import (
     eval_result_compare,
 )
 from utils import parse_markdown_backticks
-from modules import ollama_llm, anthropic_llm, deepseek_llm
+from modules import ollama_llm, anthropic_llm, deepseek_llm, gemini_llm
 
 provider_delimiter = "~"
 
@@ -45,8 +45,8 @@ def parse_model_string(model: str) -> tuple[str, str]:
         "anthropic",
         "deepseek",
         "openai",
+        "gemini",
         # "mlx",
-        # "gemini",
         # "groq",
         # "fireworks",
     ]
@@ -126,7 +126,10 @@ def run_benchmark_for_model(
             bench_response = deepseek_llm.bench_prompt(prompt, model_name)
         elif provider == "openai":
             from modules.openai_llm import bench_prompt
+
             bench_response = bench_prompt(prompt, model_name)
+        elif provider == "gemini":
+            bench_response = gemini_llm.bench_prompt(prompt, model_name)
         else:
             raise ValueError(
                 f"Unsupported model provider: {provider}. "
