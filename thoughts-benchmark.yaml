@@ -1,0 +1,66 @@
+plan_name: "thoughts-benchmark"
+
+pattern: listv1
+
+mode: "architect" # "architect" or "coder"
+
+main_model: "deepseek/deepseek-reasoner"
+
+editor_model: "deepseek/deepseek-chat" # used only if mode is "architect"
+
+editable_context:
+  - "src/App.vue"
+  - "src/pages/ThoughtBench.vue"
+  - "src/stores/thoughtBenchStore.ts"
+  - "src/types.d.ts"
+  - "src/components/thought_bench/ThoughtColumn.vue"
+  - "server/utils.py"
+  
+  - "server/server.py"
+  - "server/modules/ollama_llm.py"
+  - "server/tests/ollama_llm_test.py"
+  - "server/modules/data_types.py"
+
+readonly_context:
+  - "README.md"
+  - "src/stores/toolCallStore.ts"
+  - "src/stores/isoSpeedBenchStore.ts"
+
+high_level_objective: "Add a new thoughts benchmark where we can see model thoughts, reasoning and answers"
+
+implementation_details: |
+    We'll create a new benchmark called "Thought Bench".
+
+    Add it to App.vue as a new route mirror existing benchmarks.
+
+    We'll create the feature in the respective 
+      src/store/thoughtBenchStore.ts, src/pages/ThoughtBench.vue, src/components/thought_bench/* files, src/apis/thoughtBenchApi.ts
+
+    In the thoughtBenchStore.ts mirror src/stores/toolCallStore.ts and src/stores/isoSpeedBenchStore.ts for setup
+      we'll need to keep track of the models we're testing via ThoughtBenchColumnData
+      we'll need to keep track of prompt: string, totalExecutions: number
+
+    src/pages/ThoughtBench.vue will contain a new benchmark that looks like this...
+      we're testing a set of reasoning models.
+      we want to view models thoughts and answers.
+      To do this we'll show one column for each model.
+      Models will be preselected in the thoughtBenchStore.ts file.
+
+      ...qqq complete
+
+    src/apis/thoughtBenchApi.ts will call out to server/server.py
+      we'll need to implement a new endpoint in server/server.py that will accept PromptRequest and return ThoughtResponse
+
+    Types will go in src/types.d.ts and server/modules/data_types.py for frontend and backend respectively
+
+    We'll need to implement deepseek_r1_distil_separate_thoughts_and_response() in utils.py
+
+    ...qqq complete
+
+
+
+# your list of tasks aka prompts that will be executed in order one by one
+tasks:
+  - title: "high level description"
+    prompt: |
+      high to low level coding prompt

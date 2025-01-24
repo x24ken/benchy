@@ -147,3 +147,9 @@ def parse_markdown_backticks(str) -> str:
     str = str.rsplit("```", 1)[0]
     # Remove any leading or trailing whitespace
     return str.strip()
+
+
+def deepseek_r1_distil_separate_thoughts_and_response(
+    str: str, xml_tag: str
+) -> tuple[str, str]:
+    pass

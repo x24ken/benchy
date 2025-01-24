@@ -70,12 +70,12 @@ global {
         relativePricePercent: number;
     }
 
-export type IsoBenchAward =
-  'fastest' |   // model completed all prompts first
-  'slowest' |   // model completed all prompts last
-  'most_accurate' |   // highest accuracy
-  'least_accurate' |   // lowest accuracy
-  'perfection';  // 100% accuracy
+    export type IsoBenchAward =
+        'fastest' |   // model completed all prompts first
+        'slowest' |   // model completed all prompts last
+        'most_accurate' |   // highest accuracy
+        'least_accurate' |   // lowest accuracy
+        'perfection';  // 100% accuracy
 
     export type ModelAlias =
         | "claude-3-5-haiku-latest"
@@ -155,6 +155,21 @@ export interface ExecEvalBenchmarkOutputResult {
     model: string;
     correct: boolean;
     index: number;
+}
+
+export interface ThoughtResponse {
+    thoughts: string;
+    response: string;
+    error?: string;
+}
+
+export type ThoughtBenchColumnState = 'idle' | 'loading' | 'success' | 'error';
+
+export interface ThoughtBenchColumnData {
+    model: string;
+    totalCorrect: number;
+    responses: ThoughtResponse[];
+    state: ThoughtBenchColumnState;
 }
 
 export { };

@@ -75,6 +75,12 @@ class ToolCallResponse(BaseModel):
     inputAndOutputCost: float
 
 
+class ThoughtResponse(BaseModel):
+    thoughts: str
+    response: str
+    error: Optional[str] = None
+
+
 # ------------ Execution Evaluator Benchmarks ------------
 
 
