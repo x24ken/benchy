@@ -12,6 +12,9 @@ async function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+/**
+ * No need for this here
+ */
 async function retryRequest(fn: () => Promise<any>, retries = MAX_RETRIES): Promise<any> {
   try {
     return await fn();
@@ -26,7 +29,7 @@ async function retryRequest(fn: () => Promise<any>, retries = MAX_RETRIES): Prom
 
 export async function runThoughtPrompt(request: ThoughtRequest): Promise<ThoughtResponse> {
   const makeRequest = async () => {
-    const response = await fetch('/thought-bench', {
+    const response = await fetch('/thought-prompt', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -47,7 +50,7 @@ export async function runThoughtPrompt(request: ThoughtRequest): Promise<Thought
   };
 
   try {
-    return await retryRequest(makeRequest);
+    return await makeRequest();
   } catch (error) {
     console.error('Error running thought prompt:', error);
     return {

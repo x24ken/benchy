@@ -9,7 +9,7 @@ const routes = {
   "/autocomplete": AppMultiAutocomplete,
   "/tool-call": AppMultiToolCall,
   "/iso-speed-bench": IsoSpeedBench,
-  "/thought-bench": ThoughtBench,
+  "/thought-prompt": ThoughtBench,
 };
 
 const currentPath = ref(window.location.hash);
@@ -57,7 +57,7 @@ document.title = "BENCHY";
           </div>
         </a>
 
-        <a href="#/thought-bench" class="nav-button thoughtbench-bg">
+        <a href="#/thought-prompt" class="nav-button thoughtbench-bg">
           <div class="nav-button-content">
             <div class="title">Thought Bench</div>
             <div class="desc">Analyze model reasoning and responses</div>

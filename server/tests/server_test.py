@@ -89,7 +89,7 @@ def test_tool_prompt(client, prompt, expected_tool_calls, model):
 def test_thought_bench_ollama(client):
     """Test thought bench endpoint with Ollama DeepSeek model"""
     response = client.post(
-        "/thought-bench",
+        "/thought-prompt",
         json={
             "prompt": "What is the capital of France?",
             "model": "ollama:deepseek-r1:8b",
@@ -109,7 +109,7 @@ def test_thought_bench_ollama(client):
 def test_thought_bench_deepseek(client):
     """Test thought bench endpoint with DeepSeek Reasoner model"""
     response = client.post(
-        "/thought-bench",
+        "/thought-prompt",
         json={
             "prompt": "What is the capital of France?",
             "model": "deepseek:deepseek-reasoner",

@@ -72,7 +72,7 @@ def handle_tool_prompt():
     )
 
 
-@app.route("/thought-bench", methods=["POST"])
+@app.route("/thought-prompt", methods=["POST"])
 def handle_thought_bench():
     """Handle a thought bench request and return the model's response."""
     data = request.get_json()

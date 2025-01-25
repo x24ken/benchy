@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <h1>Thought Bench</h1>
+    <h1 v-if="store.settings.modelStatDetail !== 'hide'">Thought Bench</h1>
     
-    <div class="benchmark-info">
+    <div class="benchmark-info" v-if="store.settings.modelStatDetail !== 'hide'">
       <p>Analyze model reasoning processes and response quality through structured thought visualization.</p>
     </div>
 
