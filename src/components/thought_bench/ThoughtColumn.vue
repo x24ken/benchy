@@ -5,7 +5,28 @@
     :style="{ width: `${store.settings.columnWidth}px` }"
   >
     <div class="column-header">
-      <h3>{{ columnData.model }}</h3>
+      <div
+        class="provider-logo-wrapper"
+        style="display: flex; align-items: center; width: 100%"
+      >
+        <div class="provider-logo" v-if="getProviderFromModel">
+          <img
+            class="provider-logo-img"
+            :src="getProviderLogo"
+            :alt="getProviderFromModel"
+          />
+        </div>
+        <h3
+          :style="{
+            margin: 0,
+            width: '100%',
+            lineHeight: 2,
+            backgroundColor: stringToColor(columnData.model),
+          }"
+        >
+          {{ columnData.model }}
+        </h3>
+      </div>
       <div class="stats">
         <span>
           <!-- optional spot for stats -->
@@ -77,15 +98,48 @@ import { store } from "../../stores/thoughtBenchStore";
 import type { ThoughtBenchColumnData } from "../../types";
 import { copyToClipboard } from "../../utils";
 import VueMarkdown from "vue-markdown-render";
+import { computed } from "vue";
+import { stringToColor } from "../../utils";
+import anthropicLogo from "../../assets/anthropic.svg";
+import ollamaLogo from "../../assets/ollama.svg";
+import openaiLogo from "../../assets/openai.svg";
+import googleLogo from "../../assets/google.svg";
+import groqLogo from "../../assets/groq.svg";
+import deepseekLogo from "../../assets/deepseek.svg";
 
-defineProps<{
+const props = defineProps<{
   columnData: ThoughtBenchColumnData;
   columnHeight: number;
 }>();
 
-defineEmits<{
+const emit = defineEmits<{
   (e: "retry", model: string): void;
 }>();
+
+const getProviderFromModel = computed(() => {
+  const provider = props.columnData.model.split(":")[0];
+  return provider ? provider.toLowerCase() : null;
+});
+
+const getProviderLogo = computed(() => {
+  const provider = getProviderFromModel.value;
+  switch (provider) {
+    case "anthropic":
+      return anthropicLogo;
+    case "openai":
+      return openaiLogo;
+    case "google":
+      return googleLogo;
+    case "groq":
+      return groqLogo;
+    case "ollama":
+      return ollamaLogo;
+    case "deepseek":
+      return deepseekLogo;
+    default:
+      return null;
+  }
+});
 </script>
 
 <style scoped>
@@ -114,10 +168,32 @@ defineEmits<{
   border-bottom: 1px solid #eee;
 }
 
+.provider-logo {
+  width: 40px;
+  height: 40px;
+  margin-right: 5px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.provider-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 .column-header h3 {
+  display: inline-block;
+  vertical-align: middle;
   margin: 0;
-  font-size: 1rem;
+  font-size: 1.2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   color: #333;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  transition: all 0.2s ease;
 }
 
 .stats {

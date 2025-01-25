@@ -16,24 +16,6 @@ function loadDefaultState() {
                 responses: [],
                 state: "idle" as ThoughtBenchColumnState
             },
-            // {
-            //     model: "ollama:deepseek-r1:14b",
-            //     totalCorrect: 0,
-            //     responses: [],
-            //     state: "idle" as ThoughtBenchColumnState
-            // },
-            // {
-            //     model: "ollama:deepseek-r1:32b",
-            //     totalCorrect: 0,
-            //     responses: [],
-            //     state: "idle" as ThoughtBenchColumnState
-            // },
-            // {
-            //     model: "ollama:deepseek-r1:70b",
-            //     totalCorrect: 0,
-            //     responses: [],
-            //     state: "idle" as ThoughtBenchColumnState
-            // },
             {
                 model: "deepseek:deepseek-reasoner",
                 totalCorrect: 0,
@@ -42,6 +24,7 @@ function loadDefaultState() {
             }
         ] as ThoughtBenchColumnData[],
         prompt: "",
+        newModel: "", // Add new model input field
         totalExecutions: 0,
         apiCallInProgress: false,
         settings: {
@@ -74,6 +57,7 @@ export function resetState() {
 function setState(state: any) {
     store.dataColumns = state.dataColumns;
     store.prompt = state.prompt;
+    store.newModel = state.newModel; // Add this line
     store.totalExecutions = state.totalExecutions;
     store.apiCallInProgress = state.apiCallInProgress;
     store.settings = state.settings;

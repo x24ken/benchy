@@ -18,7 +18,7 @@ from modules import anthropic_llm
 load_dotenv()
 
 
-def prompt(prompt_str: str, model_alias_str: str) -> PromptResponse:
+def simple_prompt(prompt_str: str, model_alias_str: str) -> PromptResponse:
     parts = model_alias_str.split(":", 1)
     if len(parts) < 2:
         raise ValueError("No provider prefix found in model string")
@@ -69,9 +69,11 @@ def tool_prompt(prompt: PromptWithToolCalls) -> ToolCallResponse:
     else:
         raise ValueError(f"Unsupported provider for tool calls: {provider}")
 
+
 def thought_prompt(prompt: str, model: str) -> ThoughtResponse:
     """
     Handle thought prompt requests with specialized parsing for supported models.
+    Fall back to standard text prompts for other models.
     """
     parts = model.split(":", 1)
     if len(parts) < 2:
@@ -82,20 +84,36 @@ def thought_prompt(prompt: str, model: str) -> ThoughtResponse:
     try:
         if provider == "deepseek":
             if model_name != "deepseek-reasoner":
-                raise ValueError(f"Unsupported DeepSeek model for thought prompts: {model_name}")
-            return deepseek_llm.thought_prompt(prompt, model_name)
-            
+                # Fallback to standard text prompt for non-reasoner models
+                text_response = simple_prompt(prompt, model)
+                return ThoughtResponse(
+                    thoughts="", response=text_response.response, error=None
+                )
+
+            # Proceed with reasoner-specific processing
+            response = deepseek_llm.thought_prompt(prompt, model_name)
+            return response
+
         elif provider == "ollama":
             if "deepseek-r1" not in model_name:
-                raise ValueError(f"Ollama model {model_name} not supported for thought prompts")
-            return ollama_llm.thought_prompt(prompt, model_name)
-            
+                # Fallback to standard text prompt for non-R1 models
+                text_response = simple_prompt(prompt, model)
+                return ThoughtResponse(
+                    thoughts="", response=text_response.response, error=None
+                )
+
+            # Proceed with R1-specific processing
+            response = ollama_llm.thought_prompt(prompt, model_name)
+            return response
+
         else:
-            raise ValueError(f"Unsupported provider for thought prompts: {provider}")
-            
+            # For all other providers, use standard text prompt and wrap in ThoughtResponse
+            text_response = simple_prompt(prompt, model)
+            return ThoughtResponse(
+                thoughts="", response=text_response.response, error=None
+            )
+
     except Exception as e:
         return ThoughtResponse(
-            thoughts=f"Error processing request: {str(e)}",
-            response="",
-            error=str(e)
+            thoughts=f"Error processing request: {str(e)}", response="", error=str(e)
         )

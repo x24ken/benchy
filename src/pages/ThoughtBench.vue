@@ -7,8 +7,8 @@
       v-if="store.settings.modelStatDetail !== 'hide'"
     >
       <p>
-        Analyze model reasoning processes and response quality through
-        structured thought visualization.
+        Analyze models reasoning processes and response quality through thought
+        visualization.
       </p>
     </div>
 
@@ -65,11 +65,54 @@
         placeholder="Enter your reasoning prompt..."
         class="prompt-input"
       ></textarea>
+
+      <div class="model-input-container">
+        <div class="model-pills">
+          <div
+            v-for="model in store.dataColumns"
+            :key="model.model"
+            class="model-pill"
+            :style="{
+              backgroundColor: stringToColor(model.model),
+              borderColor: isSoloed(model.model) ? '#0e4491' : 'transparent',
+            }"
+          >
+            <span class="model-name">{{ model.model }}</span>
+            <div class="pill-controls">
+              <span
+                class="solo-icon"
+                @click="toggleSolo(model.model)"
+                :title="
+                  isSoloed(model.model) ? 'Show all models' : 'Solo this model'
+                "
+              >
+                {{ isSoloed(model.model) ? "👀" : "👁️" }}
+              </span>
+              <span
+                class="delete-icon"
+                @click="removeModel(model.model)"
+                title="Remove model"
+              >
+                🗑️
+              </span>
+            </div>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.5rem">
+          <input
+            v-model="store.newModel"
+            @keyup.enter="addModel"
+            placeholder="Add model (provider:model-name)"
+            class="model-input"
+          />
+          <button @click="addModel" class="add-model-button">Add</button>
+        </div>
+      </div>
     </div>
 
     <div class="response-grid">
       <ThoughtColumn
-        v-for="(column, index) in store.dataColumns"
+        v-for="(column, index) in filteredColumns"
         :key="index"
         :columnData="column"
         :columnHeight="store.settings.columnHeight"
@@ -81,6 +124,7 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
+import { stringToColor } from "../utils";
 import { store, resetState } from "../stores/thoughtBenchStore";
 
 // Add reset handler
@@ -91,6 +135,35 @@ import ThoughtColumn from "../components/thought_bench/ThoughtColumn.vue";
 import { runThoughtPrompt } from "../apis/thoughtBenchApi";
 
 const showSettings = ref(false);
+const soloedModels = ref<string[]>([]);
+function toggleSolo(model: string) {
+  const index = soloedModels.value.indexOf(model);
+  if (index === -1) {
+    soloedModels.value.push(model);
+  } else {
+    soloedModels.value = [];
+  }
+}
+
+function isSoloed(model: string) {
+  return soloedModels.value.includes(model);
+}
+
+const filteredColumns = computed(() => {
+  if (soloedModels.value.length === 0) return store.dataColumns;
+  return store.dataColumns.filter((c) => soloedModels.value.includes(c.model));
+});
+
+function removeModel(model: string) {
+  const index = store.dataColumns.findIndex((c) => c.model === model);
+  if (index !== -1) {
+    store.dataColumns.splice(index, 1);
+  }
+  const soloIndex = soloedModels.value.indexOf(model);
+  if (soloIndex !== -1) {
+    soloedModels.value.splice(soloIndex, 1);
+  }
+}
 
 const isAnyColumnLoading = computed(() =>
   store.dataColumns.some((c) => c.state === "loading")
@@ -105,6 +178,31 @@ const runButtonText = computed(() => {
   }
   return "Run Benchmark";
 });
+
+function addModel() {
+  if (!store.newModel.trim()) return;
+
+  // Validate model format
+  if (!store.newModel.includes(":")) {
+    alert('Model must be in format "provider:model-name"');
+    return;
+  }
+
+  // Check for duplicates
+  if (store.dataColumns.some((c) => c.model === store.newModel)) {
+    alert("Model already exists in benchmark");
+    return;
+  }
+
+  store.dataColumns.push({
+    model: store.newModel.trim(),
+    totalCorrect: 0,
+    responses: [],
+    state: "idle",
+  });
+
+  store.newModel = "";
+}
 
 async function runBenchmark() {
   if (store.apiCallInProgress || isAnyColumnLoading.value) return;
@@ -177,7 +275,7 @@ h1 {
 }
 
 .prompt-input {
-  width: 100%;
+  width: calc(100% - 2rem);
   height: 150px;
   padding: 1rem;
   border: 2px solid #ccc;
@@ -242,7 +340,87 @@ button:disabled:hover {
   background: #f0f0f0;
 }
 
+.model-pills {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.model-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.model-pill:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.model-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.pill-controls {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.solo-icon,
+.delete-icon {
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.solo-icon:hover,
+.delete-icon:hover {
+  opacity: 1;
+}
+
+.delete-icon {
+  color: #ff4444;
+}
+
 .prompt-input:focus {
   outline: 2px solid #0e4491;
+}
+
+/* New styles for model input */
+.model-input-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.model-input {
+  padding: 0.5rem;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  width: 300px;
+}
+
+.add-model-button {
+  padding: 0.5rem 1rem;
+  background: #0e4491;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.add-model-button:hover {
+  background: #0d3a7d;
 }
 </style>

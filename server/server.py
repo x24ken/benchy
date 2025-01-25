@@ -30,7 +30,7 @@ def handle_prompt():
     model = data["model"]  # store as string
 
     start_time = time()
-    prompt_response = llm_models.prompt(prompt, model)
+    prompt_response = llm_models.simple_prompt(prompt, model)
     run_time_ms = int((time() - start_time) * 1000)
 
     # Update the runtime in the response

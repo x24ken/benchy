@@ -31,7 +31,7 @@ readonly_context:
   - "src/stores/isoSpeedBenchStore.ts"
   - "src/pages/IsoSpeedBench.vue"
   - "src/components/iso_speed_bench/IsoSpeedBenchRow.vue"
-  - "server/modules/anthorpic_llm.py"
+  - "server/modules/anthropic_llm.py"
   - "server/modules/openai_llm.py"
   - "server/modules/gemini_llm.py"
   - "src/utils.ts"
