@@ -1,17 +1,23 @@
 <template>
   <div class="container">
     <h1 v-if="store.settings.modelStatDetail !== 'hide'">Thought Bench</h1>
-    
-    <div class="benchmark-info" v-if="store.settings.modelStatDetail !== 'hide'">
-      <p>Analyze model reasoning processes and response quality through structured thought visualization.</p>
+
+    <div
+      class="benchmark-info"
+      v-if="store.settings.modelStatDetail !== 'hide'"
+    >
+      <p>
+        Analyze model reasoning processes and response quality through
+        structured thought visualization.
+      </p>
     </div>
 
     <div class="controls">
       <button @click="runBenchmark" :disabled="store.apiCallInProgress">
-        {{ store.apiCallInProgress ? 'Running...' : 'Run Benchmark' }}
+        {{ store.apiCallInProgress ? "Running..." : "Run Benchmark" }}
       </button>
       <button @click="showSettings = !showSettings">
-        {{ showSettings ? 'Hide' : 'Show' }} Settings
+        {{ showSettings ? "Hide" : "Show" }} Settings
       </button>
 
       <div v-if="showSettings" class="settings-row">
@@ -57,11 +63,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { store, resetState } from '../stores/thoughtBenchStore';
-import ThoughtColumn from '../components/thought_bench/ThoughtColumn.vue';
-import { runThoughtPrompt } from '../apis/thoughtBenchApi';
-import { copyToClipboard } from '../utils';
+import { ref } from "vue";
+import { store, resetState } from "../stores/thoughtBenchStore";
+import ThoughtColumn from "../components/thought_bench/ThoughtColumn.vue";
+import { runThoughtPrompt } from "../apis/thoughtBenchApi";
 
 const showSettings = ref(false);
 const responseHeight = ref<number>(300);
@@ -69,7 +74,7 @@ const responseHeight = ref<number>(300);
 async function runBenchmark() {
   store.apiCallInProgress = true;
   try {
-    const promises = store.dataColumns.map(column => 
+    const promises = store.dataColumns.map((column) =>
       runSingleBenchmark(column.model)
     );
     await Promise.allSettled(promises);
@@ -79,29 +84,30 @@ async function runBenchmark() {
 }
 
 async function runSingleBenchmark(model: string) {
-  const column = store.dataColumns.find(c => c.model === model);
+  const column = store.dataColumns.find((c) => c.model === model);
   if (!column) return;
 
-  column.state = 'loading';
+  column.state = "loading";
   try {
+    store.totalExecutions++;
     const response = await runThoughtPrompt({
       prompt: store.prompt,
-      model: model
+      model: model,
     });
-    
+
     column.responses.unshift(response);
     if (!response.error) column.totalCorrect++;
-    column.state = 'success';
-    store.totalExecutions++;
-    
+    column.state = "success";
   } catch (error) {
     console.error(`Error running benchmark for ${model}:`, error);
     column.responses.unshift({
-      thoughts: '',
+      thoughts: "",
       response: `Error: ${(error as Error).message}`,
-      error: (error as Error).message
+      error: (error as Error).message,
     });
-    column.state = 'error';
+    column.state = "error";
+  } finally {
+    store.apiCallInProgress = false;
   }
 }
 </script>
