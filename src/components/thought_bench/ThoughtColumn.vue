@@ -66,7 +66,12 @@
               </button>
             </div>
             <div class="content" :style="{ maxHeight: columnHeight + 'px' }">
-              {{ response.thoughts || "No thoughts provided" }}
+              <VueMarkdown
+                v-if="response.thoughts"
+                :source="response.thoughts"
+                class="markdown-content"
+              />
+              <span v-else>No thoughts provided</span>
             </div>
           </div>
 
