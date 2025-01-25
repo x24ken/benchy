@@ -47,6 +47,13 @@ implementation_details: |
     In the thoughtBenchStore.ts mirror src/stores/toolCallStore.ts and src/stores/isoSpeedBenchStore.ts for setup
       we'll need to keep track of the models we're testing via ThoughtBenchColumnData
       we'll need to keep track of prompt: string, totalExecutions: number
+      for our ThoughtBenchColumnData fill up the data with the following objects
+        {model: "ollama:deepseek-r1:1.5b", totalCorrect: 0, responses: [], state: "idle"},
+        {model: "ollama:deepseek-r1:8b", totalCorrect: 0, responses: [], state: "idle"},
+        {model: "ollama:deepseek-r1:14b", totalCorrect: 0, responses: [], state: "idle"}
+        {model: "ollama:deepseek-r1:32b", totalCorrect: 0, responses: [], state: "idle"},
+        {model: "ollama:deepseek-r1:70b", totalCorrect: 0, responses: [], state: "idle"},
+        {model: "deepseek:deepseek-reasoner", totalCorrect: 0, responses: [], state: "idle"}
 
     src/pages/ThoughtBench.vue will contain a new benchmark that looks like this...
       We're testing a set of reasoning models.
@@ -62,6 +69,10 @@ implementation_details: |
       Now when we click "Prompt" we'll call the api (thoughtBenchApi.ts) and get a ThoughtResponse[]
       We'll then update the dataColumns with their new responses under their respective ThoughtBenchColumnData.responses
       We're going to run these in parallel, whenever results come back in live update so we can see the results as they come in.
+        so we'll live update the state of the column to "loading" or "success" or "error" based on the response.
+        when we kick off the api call we'll set the state to "loading"
+        when we get a response we'll set the state to "success" or "error"
+        when we get a response we'll update the totalCorrect for the column
 
     src/apis/thoughtBenchApi.ts will call out to server/server.py
       we'll need to implement a new endpoint in server/server.py that will accept PromptRequest and return ThoughtResponse
@@ -82,12 +93,14 @@ implementation_details: |
       "index": 0,
       "logprobs": null,
       "message": {
+        # This is the response
         "content": "The most likely next word after \"hello my name i\" is **is**, completing the phrase as:  \n**\"Hello my name is\"**  \n\nCommon follow-ups would then include a name (e.g., *\"Hello my name is John\"*).",
         "refusal": null,
         "role": "assistant",
         "audio": null,
         "function_call": null,
         "tool_calls": null,
+        # This is the thoughts
         "reasoning_content": "Okay, so the user wants an autocomplete suggestion for the next word after \"hello my name i\". Let me think about this. The phrase starts with \"hello my name i\", and the user is probably trying to say \"Hello, my name is...\". Since the last word they typed is \"i\", which is likely a typo or an incomplete \"is\".\n\nFirst, check if \"i\" is followed by \"s\" to make \"is\". That's the most common structure. So the next word would be \"is\". Then after that, typically a name follows, like \"John\" or \"Alice\". But since the query is specifically asking for the next word, it's probably \"is\".\n\nBut wait, maybe the user typed \"i\" instead of \"is\" by accident. Autocomplete might correct that. Alternatively, sometimes people might start with \"I\" as in \"Hello, my name I...\", but that's less common. In standard English, it should be \"is\". So the most probable next word is \"is\". Let me confirm by thinking of similar phrases. \"Hello, my name is...\" is the standard introduction. If someone types \"i\" instead of \"is\", the system should still suggest \"is\" as the next word. So the answer is \"is\"."
       }
     }
@@ -150,6 +163,29 @@ The capital of France is Paris. Despite historical events such as the German occ
 
 # your list of tasks aka prompts that will be executed in order one by one
 tasks:
-  - title: "high level description"
+  - title: "Add new benchmark to App.vue"
     prompt: |
-      high to low level coding prompt
+      UPDATE src/App.vue:
+        Add a new route called "thought-bench"
+        Add a new card for it after the "iso-speed-bench" card
+  - title: "Build out the store"
+    prompt: |
+      UPDATE src/stores/thoughtBenchStore.ts:
+        Add a new store with the following properties:
+          dataColumns: ThoughtBenchColumnData[]
+          prompt: string
+          totalExecutions: number
+          apiCallInProgress: boolean
+          settings: {
+            modelStatDetail: 'verbose' | 'hide' # show / hide the header + description based on this
+          }
+        Update dataColumns to have the following objects:
+          {model: "ollama:deepseek-r1:1.5b", totalCorrect: 0, responses: [], state: "idle"},
+          {model: "ollama:deepseek-r1:8b", totalCorrect: 0, responses: [], state: "idle"},
+          {model: "ollama:deepseek-r1:14b", totalCorrect: 0, responses: [], state: "idle"}
+          {model: "ollama:deepseek-r1:32b", totalCorrect: 0, responses: [], state: "idle"},
+          {model: "ollama:deepseek-r1:70b", totalCorrect: 0, responses: [], state: "idle"},
+          {model: "deepseek:deepseek-reasoner", totalCorrect: 0, responses: [], state: "idle"}
+  - title: "Build out the page"
+    prompt: |
+      ...
