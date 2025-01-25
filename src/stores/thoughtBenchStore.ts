@@ -21,7 +21,19 @@ function loadDefaultState() {
                 totalCorrect: 0,
                 responses: [],
                 state: "idle" as ThoughtBenchColumnState
-            }
+            },
+            {
+                model: "anthropic:claude-3-5-haiku-latest",
+                totalCorrect: 0,
+                responses: [],
+                state: "idle" as ThoughtBenchColumnState
+            },
+            {
+                model: "gemini:gemini-2.0-flash-thinking-exp-01-21",
+                totalCorrect: 0,
+                responses: [],
+                state: "idle" as ThoughtBenchColumnState
+            },
         ] as ThoughtBenchColumnData[],
         prompt: "",
         newModel: "", // Add new model input field
