@@ -16,18 +16,18 @@ function loadDefaultState() {
                 responses: [],
                 state: "idle" as ThoughtBenchColumnState
             },
-            // {
-            //     model: "ollama:deepseek-r1:14b", 
-            //     totalCorrect: 0,
-            //     responses: [],
-            //     state: "idle" as ThoughtBenchColumnState
-            // },
             {
-                model: "ollama:deepseek-r1:32b",
+                model: "ollama:deepseek-r1:14b",
                 totalCorrect: 0,
                 responses: [],
                 state: "idle" as ThoughtBenchColumnState
             },
+            // {
+            //     model: "ollama:deepseek-r1:32b",
+            //     totalCorrect: 0,
+            //     responses: [],
+            //     state: "idle" as ThoughtBenchColumnState
+            // },
             // {
             //     model: "ollama:deepseek-r1:70b",
             //     totalCorrect: 0,
@@ -46,7 +46,8 @@ function loadDefaultState() {
         apiCallInProgress: false,
         settings: {
             modelStatDetail: 'verbose' as 'verbose' | 'hide',
-            columnWidth: 400
+            columnWidth: 400,
+            columnHeight: 300
         }
     };
 }

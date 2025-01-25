@@ -1,6 +1,6 @@
 <template>
-  <div 
-    class="thought-column" 
+  <div
+    class="thought-column"
     :class="columnData.state"
     :style="{ width: `${store.settings.columnWidth}px` }"
   >
@@ -23,23 +23,37 @@
       </div>
 
       <template v-else>
-        <div v-for="(response, index) in columnData.responses" :key="index" class="response-card">
+        <div
+          v-for="(response, index) in columnData.responses"
+          :key="index"
+          class="response-card"
+        >
           <div class="thought-section">
             <div class="section-header">
               <h4>Thoughts</h4>
-              <button @click="copyToClipboard(response.thoughts)" class="copy-button">Copy</button>
+              <button
+                @click="copyToClipboard(response.thoughts)"
+                class="copy-button"
+              >
+                Copy
+              </button>
             </div>
-            <div class="content" :style="{ maxHeight: responseHeight + 'px' }">
-              {{ response.thoughts || 'No thoughts provided' }}
+            <div class="content" :style="{ maxHeight: columnHeight + 'px' }">
+              {{ response.thoughts || "No thoughts provided" }}
             </div>
           </div>
 
           <div class="response-section">
             <div class="section-header">
               <h4>Response</h4>
-              <button @click="copyToClipboard(response.response)" class="copy-button">Copy</button>
+              <button
+                @click="copyToClipboard(response.response)"
+                class="copy-button"
+              >
+                Copy
+              </button>
             </div>
-            <div class="content" :style="{ maxHeight: responseHeight + 'px' }">
+            <div class="content" :style="{ maxHeight: columnHeight + 'px' }">
               {{ response.response }}
             </div>
           </div>
@@ -50,23 +64,23 @@
 </template>
 
 <script setup lang="ts">
-import { store } from '../../stores/thoughtBenchStore';
-import type { ThoughtBenchColumnData } from '../../types';
-import { copyToClipboard } from '../../utils';
+import { store } from "../../stores/thoughtBenchStore";
+import type { ThoughtBenchColumnData } from "../../types";
+import { copyToClipboard } from "../../utils";
 
 defineProps<{
   columnData: ThoughtBenchColumnData;
-  responseHeight: number;
+  columnHeight: number;
 }>();
 
 defineEmits<{
-  (e: 'retry', model: string): void;
+  (e: "retry", model: string): void;
 }>();
 </script>
 
 <style scoped>
 .thought-column {
-  border: 1px solid #ddd;
+  /* border: 1px solid #ddd; */
   border-radius: 8px;
   padding: 1rem;
   background: white;
@@ -86,7 +100,6 @@ defineEmits<{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid #eee;
 }
@@ -115,13 +128,81 @@ defineEmits<{
   overflow: hidden;
 }
 
-.thought-section, .response-section {
-  padding: 0.5rem;
+.thought-section {
+  background: #f8fbff;
+  border-left: 4px solid #0e4491;
+  margin: 0.5rem 0;
+  border-radius: 4px;
+  transition: all 0.2s ease;
 }
 
-.thought-section {
-  background: #f8f9fa;
-  border-bottom: 1px solid #eee;
+.thought-section:hover {
+  transform: translateX(2px);
+  box-shadow: 0 2px 8px rgba(14, 68, 145, 0.1);
+}
+
+.thought-section .section-header {
+  padding: 0.5rem;
+  background: rgba(14, 68, 145, 0.05);
+  border-radius: 4px 4px 0 0;
+}
+
+.thought-section h4 {
+  color: #0e4491;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.thought-section h4::before {
+  content: "💡";
+  font-size: 1.1em;
+}
+
+.response-section {
+  background: #fff5f8; /* Light pink background */
+  border-left: 4px solid #e91e63; /* Pink accent border */
+  margin: 0.5rem 0;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.response-section:hover {
+  transform: translateX(2px);
+  box-shadow: 0 2px 8px rgba(233, 30, 99, 0.1);
+}
+
+.response-section .section-header {
+  padding: 0.5rem;
+  background: rgba(233, 30, 99, 0.05);
+  border-radius: 4px 4px 0 0;
+}
+
+.response-section h4 {
+  color: #e91e63; /* Pink color */
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.response-section h4::before {
+  content: "💬"; /* Speech bubble emoji */
+  font-size: 1.1em;
+}
+
+.response-section .copy-button {
+  background: rgba(233, 30, 99, 0.1);
+  color: #e91e63;
+}
+
+.response-section .copy-button:hover {
+  background: rgba(233, 30, 99, 0.2);
 }
 
 .section-header {
@@ -143,22 +224,34 @@ defineEmits<{
   font-family: monospace;
   font-size: 0.9rem;
   line-height: 1.4;
-  padding: 0.5rem;
+  padding: 1rem;
   background: white;
-  border-radius: 4px;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .copy-button {
-  padding: 2px 8px;
+  padding: 4px 12px;
   font-size: 0.8rem;
-  background: #eee;
+  background: rgba(14, 68, 145, 0.1);
+  color: #0e4491;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: background 0.2s;
 }
 
 .copy-button:hover {
-  background: #ddd;
+  background: rgba(14, 68, 145, 0.2);
+}
+
+.response-card {
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.response-card:hover {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
 
 .loading-indicator {
@@ -199,7 +292,11 @@ defineEmits<{
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>

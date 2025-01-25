@@ -13,13 +13,13 @@
     </div>
 
     <div class="controls">
-      <button 
-        @click="runBenchmark" 
+      <button
+        @click="runBenchmark"
         :disabled="store.apiCallInProgress || isAnyColumnLoading"
       >
         {{ runButtonText }}
       </button>
-      <button @click="resetState">Reset</button>
+      <button @click="clickResetState">Reset</button>
       <button @click="showSettings = !showSettings">
         {{ showSettings ? "Hide" : "Show" }} Settings
       </button>
@@ -33,15 +33,15 @@
           </select>
         </div>
         <div class="setting">
-          <label>Thought Height:</label>
+          <label>Column Height:</label>
           <input
             type="range"
-            v-model.number="thoughtHeight"
+            v-model.number="store.settings.columnHeight"
             min="100"
-            max="500"
+            max="1500"
             class="slider"
           />
-          <span>{{ thoughtHeight }}px</span>
+          <span>{{ store.settings.columnHeight }}px</span>
         </div>
         <div class="setting">
           <label>Column Width:</label>
@@ -49,7 +49,7 @@
             type="range"
             v-model.number="store.settings.columnWidth"
             min="200"
-            max="600"
+            max="1500"
             class="slider"
           />
           <span>{{ store.settings.columnWidth }}px</span>
@@ -72,7 +72,7 @@
         v-for="(column, index) in store.dataColumns"
         :key="index"
         :columnData="column"
-        :responseHeight="thoughtHeight"
+        :columnHeight="store.settings.columnHeight"
         @retry="runSingleBenchmark(column.model)"
       />
     </div>
@@ -84,24 +84,23 @@ import { ref, computed } from "vue";
 import { store, resetState } from "../stores/thoughtBenchStore";
 
 // Add reset handler
-function resetState() {
-  if (confirm("Are you sure you want to reset all progress?")) {
-    resetState();
-  }
+function clickResetState() {
+  resetState();
 }
 import ThoughtColumn from "../components/thought_bench/ThoughtColumn.vue";
 import { runThoughtPrompt } from "../apis/thoughtBenchApi";
 
 const showSettings = ref(false);
-const thoughtHeight = ref<number>(300);
 
-const isAnyColumnLoading = computed(() => 
-  store.dataColumns.some(c => c.state === 'loading')
+const isAnyColumnLoading = computed(() =>
+  store.dataColumns.some((c) => c.state === "loading")
 );
 
 const runButtonText = computed(() => {
   if (store.apiCallInProgress) {
-    const runningCount = store.dataColumns.filter(c => c.state === 'loading').length;
+    const runningCount = store.dataColumns.filter(
+      (c) => c.state === "loading"
+    ).length;
     return `Running (${runningCount}/${store.dataColumns.length})`;
   }
   return "Run Benchmark";
@@ -109,7 +108,7 @@ const runButtonText = computed(() => {
 
 async function runBenchmark() {
   if (store.apiCallInProgress || isAnyColumnLoading.value) return;
-  
+
   store.apiCallInProgress = true;
   try {
     const promises = store.dataColumns.map((column) =>
@@ -123,10 +122,10 @@ async function runBenchmark() {
 
 async function runSingleBenchmark(model: string) {
   const column = store.dataColumns.find((c) => c.model === model);
-  if (!column || column.state === 'loading') return;
+  if (!column || column.state === "loading") return;
 
   try {
-    column.state = 'loading';
+    column.state = "loading";
     store.totalExecutions++;
     const response = await runThoughtPrompt({
       prompt: store.prompt,
@@ -145,7 +144,7 @@ async function runSingleBenchmark(model: string) {
     });
     column.state = "error";
   } finally {
-    column.state = 'idle';
+    column.state = "idle";
   }
 }
 </script>
