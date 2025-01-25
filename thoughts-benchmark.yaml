@@ -162,32 +162,116 @@ implementation_details: |
 
 
 # your list of tasks aka prompts that will be executed in order one by one
-tasks:
-  - title: "Add new benchmark to App.vue"
-    prompt: |
-      UPDATE src/App.vue:
-        Add a new route called "thought-bench"
-        Add a new card for it after the "iso-speed-bench" card
-  - title: "Build out the store"
-    prompt: |
-      UPDATE src/stores/thoughtBenchStore.ts:
-        Add a new store with the following properties:
-          dataColumns: ThoughtBenchColumnData[]
-          prompt: string
-          totalExecutions: number
-          apiCallInProgress: boolean
-          settings: {
-            modelStatDetail: 'verbose' | 'hide' # show / hide the header + description based on this
-          }
-        Update dataColumns to have the following objects:
-          {model: "ollama:deepseek-r1:1.5b", totalCorrect: 0, responses: [], state: "idle"},
-          {model: "ollama:deepseek-r1:8b", totalCorrect: 0, responses: [], state: "idle"},
-          {model: "ollama:deepseek-r1:14b", totalCorrect: 0, responses: [], state: "idle"}
-          {model: "ollama:deepseek-r1:32b", totalCorrect: 0, responses: [], state: "idle"},
-          {model: "ollama:deepseek-r1:70b", totalCorrect: 0, responses: [], state: "idle"},
-          {model: "deepseek:deepseek-reasoner", totalCorrect: 0, responses: [], state: "idle"}
-  - title: "Build out the page"
-    prompt: |
-      ...
-
-# eof
+tasks:                                                                                                                                                                                        
+   - title: "Add new benchmark to App.vue"                                                                                                                                                     
+     prompt: |                                                                                                                                                                                 
+       UPDATE src/App.vue:                                                                                                                                                                     
+         Add a new route called "thought-bench"                                                                                                                                                
+         Add a new card for it after the "iso-speed-bench" card                                                                                                                                
+                                                                                                                                                                                               
+   - title: "Build out the store"                                                                                                                                                              
+     prompt: |                                                                                                                                                                                 
+       UPDATE src/stores/thoughtBenchStore.ts:                                                                                                                                                 
+         Add a new store with the following properties:                                                                                                                                        
+           dataColumns: ThoughtBenchColumnData[]                                                                                                                                               
+           prompt: string                                                                                                                                                                      
+           totalExecutions: number                                                                                                                                                             
+           apiCallInProgress: boolean                                                                                                                                                          
+           settings: {                                                                                                                                                                         
+             modelStatDetail: 'verbose' | 'hide'                                                                                                                                               
+           }                                                                                                                                                                                   
+         Update dataColumns to have the following objects:                                                                                                                                     
+           {model: "ollama:deepseek-r1:1.5b", totalCorrect: 0, responses: [], state: "idle"},                                                                                                  
+           {model: "ollama:deepseek-r1:8b", totalCorrect: 0, responses: [], state: "idle"},                                                                                                    
+           {model: "ollama:deepseek-r1:14b", totalCorrect: 0, responses: [], state: "idle"},                                                                                                   
+           {model: "ollama:deepseek-r1:32b", totalCorrect: 0, responses: [], state: "idle"},                                                                                                   
+           {model: "ollama:deepseek-r1:70b", totalCorrect: 0, responses: [], state: "idle"},                                                                                                   
+           {model: "deepseek:deepseek-reasoner", totalCorrect: 0, responses: [], state: "idle"}                                                                                                
+                                                                                                                                                                                               
+   - title: "Build Thought Bench page"                                                                                                                                                         
+     prompt: |                                                                                                                                                                                 
+       CREATE src/pages/ThoughtBench.vue:                                                                                                                                                      
+         - Title "Thought Bench" with gradient styling                                                                                                                                         
+         - Description section explaining purpose                                                                                                                                              
+         - Toggleable settings panel                                                                                                                                                           
+         - Textarea for prompt input (v-model="store.prompt")                                                                                                                                  
+         - "Run Benchmark" button triggering API calls                                                                                                                                         
+         - Grid of columns for each model in store.dataColumns                                                                                                                                 
+         - Response cards showing thoughts/response pairs                                                                                                                                      
+         - Copy buttons for each content section                                                                                                                                               
+         - Loading/error state indicators                                                                                                                                                      
+         - Styling matching IsoSpeedBench.vue                                                                                                                                                  
+                                                                                                                                                                                               
+   - title: "Implement API client"                                                                                                                                                             
+     prompt: |                                                                                                                                                                                 
+       UPDATE src/apis/thoughtBenchApi.ts:                                                                                                                                                     
+         - Axios POST to /thought-bench endpoint                                                                                                                                               
+         - Type definitions for ThoughtRequest/Response                                                                                                                                        
+         - Error handling matching autocompleteApi.ts                                                                                                                                          
+         - Response transformation for store format                                                                                                                                            
+         - Automatic retry logic for failed requests                                                                                                                                           
+                                                                                                                                                                                               
+   - title: "Add server endpoint"                                                                                                                                                              
+     prompt: |                                                                                                                                                                                 
+       UPDATE server/server.py:                                                                                                                                                                
+         @app.route("/thought-bench", methods=["POST"])                                                                                                                                        
+         def handle_thought_prompt():                                                                                                                                                          
+             Validate JSON payload {prompt: str, models: list[str]}                                                                                                                            
+             Concurrently call llm_models.thought_prompt()                                                                                                                                     
+             Aggregate responses from all models                                                                                                                                               
+             Return JSON array of ThoughtResponses                                                                                                                                             
+                                                                                                                                                                                               
+   - title: "Add LLM model routing"                                                                                                                                                            
+     prompt: |                                                                                                                                                                                 
+       UPDATE server/modules/llm_models.py:                                                                                                                                                    
+         def thought_prompt(prompt: str, model: str) -> ThoughtResponse:                                                                                                                       
+             Parse provider prefix (deepseek/ollama)                                                                                                                                           
+             Route to correct implementation                                                                                                                                                   
+             Validate response format                                                                                                                                                          
+             Add error handling for unsupported models                                                                                                                                         
+                                                                                                                                                                                               
+   - title: "Implement DeepSeek thoughts"                                                                                                                                                      
+     prompt: |                                                                                                                                                                                 
+       UPDATE server/modules/deepseek_llm.py:                                                                                                                                                  
+         def thought_prompt(prompt: str, model: str) -> ThoughtResponse:                                                                                                                       
+             Verify model == "deepseek-reasoner"                                                                                                                                               
+             Call API with reasoning_content=True                                                                                                                                              
+             Extract thoughts from response.choices[0].message.reasoning_content                                                                                                               
+             Parse response from response.choices[0].message.content                                                                                                                           
+             Validate both fields exist                                                                                                                                                        
+             Return ThoughtResponse object                                                                                                                                                     
+                                                                                                                                                                                               
+   - title: "Implement Ollama thoughts"                                                                                                                                                        
+     prompt: |                                                                                                                                                                                 
+       UPDATE server/modules/ollama_llm.py:                                                                                                                                                    
+         def thought_prompt(prompt: str, model: str) -> ThoughtResponse:                                                                                                                       
+             Verify "deepseek-r1" in model name                                                                                                                                                
+             Call Ollama API with model parameter                                                                                                                                              
+             Use utils.deepseek_r1_distil_separate_thoughts_and_response()                                                                                                                     
+             Handle XML parsing errors                                                                                                                                                         
+             Return parsed thoughts/response                                                                                                                                                   
+                                                                                                                                                                                               
+   - title: "Implement response parser"                                                                                                                                                        
+     prompt: |                                                                                                                                                                                 
+       UPDATE server/utils.py:                                                                                                                                                                 
+         def deepseek_r1_distil_separate_thoughts_and_response(response: str) -> tuple[str, str]:                                                                                              
+             Parse <think> tags for thoughts                                                                                                                                                   
+             Remove XML tags from final response                                                                                                                                               
+             Handle multiple think blocks                                                                                                                                                      
+             Fallback to empty thoughts if no tags                                                                                                                                             
+             Add error logging for malformed XML                                                                                                                                               
+                                                                                                                                                                                               
+   - title: "Add test coverage"                                                                                                                                                                
+     prompt: |                                                                                                                                                                                 
+       UPDATE server/tests/deepseek_llm_test.py:                                                                                                                                               
+         Add test_thought_prompt_happy_path()                                                                                                                                                  
+         Add test_thought_prompt_missing_thoughts()                                                                                                                                            
+                                                                                                                                                                                               
+       UPDATE server/tests/ollama_llm_test.py:                                                                                                                                                 
+         Add test_valid_xml_parsing()                                                                                                                                                          
+         Add test_missing_xml_handling()                                                                                                                                                       
+                                                                                                                                                                                               
+       UPDATE server/tests/utils_test.py:                                                                                                                                                      
+         Add test_think_tag_parsing()                                                                                                                                                          
+         Add test_partial_xml_handling()                                                                                                                                                       
+                             
