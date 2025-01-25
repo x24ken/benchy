@@ -417,6 +417,18 @@ const getProviderLogo = computed(() => {
   }
 }
 
+.markdown-content ul,
+.markdown-content ol {
+  margin: 0.5rem 0;
+  padding-left: 1rem;
+}
+
+.markdown-content li {
+  margin: 0.5rem 0;
+}
+</style>
+
+<style>
 /* Add markdown styling */
 .markdown-content {
   color: #333;
@@ -450,7 +462,7 @@ const getProviderLogo = computed(() => {
 }
 
 .markdown-content pre code {
-  background: none;
+  background: #f5f7ff;
   padding: 0;
   color: inherit;
 }
@@ -470,15 +482,5 @@ const getProviderLogo = computed(() => {
 
 .markdown-content a:hover {
   text-decoration: underline;
-}
-
-.markdown-content ul,
-.markdown-content ol {
-  margin: 0.5rem 0;
-  padding-left: 1rem;
-}
-
-.markdown-content li {
-  margin: 0.5rem 0;
 }
 </style>
