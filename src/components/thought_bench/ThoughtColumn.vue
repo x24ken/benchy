@@ -33,8 +33,8 @@
           <div class="response-header">
             <span>Prompt #{{ columnData.responses.length - index }}</span>
             <span class="prompt-preview">
-              {{ store.prompt.slice(0, 15)
-              }}{{ store.prompt.length > 15 ? "..." : "" }}
+              {{ store.prompt.slice(0, 25)
+              }}{{ store.prompt.length > 25 ? "..." : "" }}
             </span>
           </div>
 
