@@ -26,7 +26,7 @@
           <label>Response Height:</label>
           <input
             type="range"
-            v-model="responseHeight"
+            v-model.number="responseHeight"
             min="100"
             max="500"
             class="slider"
@@ -64,7 +64,7 @@ import { runThoughtPrompt } from '../apis/thoughtBenchApi';
 import { copyToClipboard } from '../utils';
 
 const showSettings = ref(false);
-const responseHeight = ref(300);
+const responseHeight = ref<number>(300);
 
 async function runBenchmark() {
   store.apiCallInProgress = true;
