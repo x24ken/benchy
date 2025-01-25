@@ -45,7 +45,8 @@ function loadDefaultState() {
         totalExecutions: 0,
         apiCallInProgress: false,
         settings: {
-            modelStatDetail: 'verbose' as 'verbose' | 'hide'
+            modelStatDetail: 'verbose' as 'verbose' | 'hide',
+            columnWidth: 400
         }
     };
 }

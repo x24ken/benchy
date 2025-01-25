@@ -1,8 +1,12 @@
 <template>
-  <div class="thought-column" :class="columnData.state">
+  <div 
+    class="thought-column" 
+    :class="columnData.state"
+    :style="{ width: `${store.settings.columnWidth}px` }"
+  >
     <div class="column-header">
       <h3>{{ columnData.model }}</h3>
-      <div class="stats" v-if="store.settings.modelStatDetail === 'verbose'">
+      <div class="stats">
         <span>{{ columnData.totalCorrect }} / {{ store.totalExecutions }}</span>
       </div>
     </div>
@@ -67,6 +71,7 @@ defineEmits<{
   padding: 1rem;
   background: white;
   transition: all 0.3s ease;
+  flex-shrink: 0;
 }
 
 .thought-column.loading {
@@ -101,6 +106,7 @@ defineEmits<{
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  min-width: 100%;
 }
 
 .response-card {

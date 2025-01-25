@@ -29,15 +29,26 @@
           </select>
         </div>
         <div class="setting">
-          <label>Response Height:</label>
+          <label>Thought Height:</label>
           <input
             type="range"
-            v-model.number="responseHeight"
+            v-model.number="thoughtHeight"
             min="100"
             max="500"
             class="slider"
           />
-          <span>{{ responseHeight }}px</span>
+          <span>{{ thoughtHeight }}px</span>
+        </div>
+        <div class="setting">
+          <label>Column Width:</label>
+          <input
+            type="range"
+            v-model.number="store.settings.columnWidth"
+            min="200"
+            max="600"
+            class="slider"
+          />
+          <span>{{ store.settings.columnWidth }}px</span>
         </div>
       </div>
     </div>
@@ -55,7 +66,7 @@
         v-for="(column, index) in store.dataColumns"
         :key="index"
         :columnData="column"
-        :responseHeight="responseHeight"
+        :responseHeight="thoughtHeight"
         @retry="runSingleBenchmark(column.model)"
       />
     </div>
@@ -69,7 +80,7 @@ import ThoughtColumn from "../components/thought_bench/ThoughtColumn.vue";
 import { runThoughtPrompt } from "../apis/thoughtBenchApi";
 
 const showSettings = ref(false);
-const responseHeight = ref<number>(300);
+const thoughtHeight = ref<number>(300);
 
 async function runBenchmark() {
   store.apiCallInProgress = true;
