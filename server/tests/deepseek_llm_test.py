@@ -31,3 +31,27 @@ def test_deepseek_error_handling():
     assert "Error" in response.response
     assert response.total_duration_ms == 0
     assert response.errored
+
+def test_thought_prompt_happy_path():
+    from modules.deepseek_llm import thought_prompt
+    from modules.data_types import ThoughtResponse
+    
+    # Test with valid model and mock response
+    response = thought_prompt("What is the capital of France?", "deepseek-reasoner")
+    
+    assert isinstance(response, ThoughtResponse)
+    assert response.thoughts != ""
+    assert response.response != ""
+    assert not response.error
+    assert "Paris" in response.response  # Basic sanity check
+
+def test_thought_prompt_missing_thoughts():
+    from modules.deepseek_llm import thought_prompt
+    from modules.data_types import ThoughtResponse
+    
+    # Test error handling for invalid model
+    response = thought_prompt("test", "invalid-model")
+    
+    assert isinstance(response, ThoughtResponse)
+    assert "Error" in response.thoughts
+    assert response.error

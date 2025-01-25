@@ -149,7 +149,44 @@ def parse_markdown_backticks(str) -> str:
     return str.strip()
 
 
-def deepseek_r1_distil_separate_thoughts_and_response(
-    str: str, xml_tag: str
-) -> tuple[str, str]:
-    pass
+def deepseek_r1_distil_separate_thoughts_and_response(response: str, xml_tag: str = "think") -> tuple[str, str]:
+    """
+    Parse DeepSeek R1 responses containing <think> blocks and separate thoughts from final response.
+    
+    Args:
+        response: Raw model response string
+        xml_tag: XML tag to look for (default: 'think')
+        
+    Returns:
+        tuple: (thoughts, response) where:
+            - thoughts: concatenated content from all <think> blocks
+            - response: cleaned response with <think> blocks removed
+    """
+    import re
+    from io import StringIO
+    import logging
+    
+    thoughts = []
+    cleaned_response = response
+    
+    try:
+        # Find all think blocks using regex (more fault-tolerant than XML parsing)
+        pattern = re.compile(rf'<{xml_tag}>(.*?)</{xml_tag}>', re.DOTALL)
+        matches = pattern.findall(response)
+        
+        if matches:
+            # Extract and clean thoughts
+            thoughts = [m.strip() for m in matches]
+            
+            # Remove think blocks from response
+            cleaned_response = pattern.sub('', response).strip()
+            
+            # Remove any remaining XML tags if they exist
+            cleaned_response = re.sub(r'<\/?[a-zA-Z]+>', '', cleaned_response).strip()
+            
+        return '\n\n'.join(thoughts), cleaned_response
+        
+    except Exception as e:
+        logging.error(f"Error parsing DeepSeek R1 response: {str(e)}")
+        # Fallback - return empty thoughts and full response
+        return '', response.strip()

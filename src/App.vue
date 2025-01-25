@@ -3,11 +3,13 @@ import { ref, computed, onMounted } from "vue";
 import AppMultiAutocomplete from "./pages/AppMultiAutocomplete.vue";
 import AppMultiToolCall from "./pages/AppMultiToolCall.vue";
 import IsoSpeedBench from "./pages/IsoSpeedBench.vue";
+import ThoughtBench from "./pages/ThoughtBench.vue";
 
 const routes = {
   "/autocomplete": AppMultiAutocomplete,
   "/tool-call": AppMultiToolCall,
   "/iso-speed-bench": IsoSpeedBench,
+  "/thought-bench": ThoughtBench,
 };
 
 const currentPath = ref(window.location.hash);
@@ -52,6 +54,13 @@ document.title = "BENCHY";
           <div class="nav-button-content">
             <div class="title">ISO Speed Bench</div>
             <div class="desc">Compare performance on a timeline</div>
+          </div>
+        </a>
+
+        <a href="#/thought-bench" class="nav-button thoughtbench-bg">
+          <div class="nav-button-content">
+            <div class="title">Thought Bench</div>
+            <div class="desc">Analyze model reasoning and responses</div>
           </div>
         </a>
       </nav>
@@ -138,6 +147,10 @@ document.title = "BENCHY";
 }
 .isospeed-bg {
   background-color: #fffbf0;
+}
+
+.thoughtbench-bg {
+  background-color: #f7e6ff;
 }
 
 .nav-button {

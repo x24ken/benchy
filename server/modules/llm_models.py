@@ -7,6 +7,7 @@ from modules.data_types import (
     PromptResponse,
     PromptWithToolCalls,
     ToolCallResponse,
+    ThoughtResponse,
 )
 from modules import openai_llm, gemini_llm, deepseek_llm
 from utils import MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS
@@ -67,3 +68,34 @@ def tool_prompt(prompt: PromptWithToolCalls) -> ToolCallResponse:
         raise ValueError("Ollama does not support tool calls")
     else:
         raise ValueError(f"Unsupported provider for tool calls: {provider}")
+
+def thought_prompt(prompt: str, model: str) -> ThoughtResponse:
+    """
+    Handle thought prompt requests with specialized parsing for supported models.
+    """
+    parts = model.split(":", 1)
+    if len(parts) < 2:
+        raise ValueError("No provider prefix found in model string")
+    provider = parts[0]
+    model_name = parts[1]
+
+    try:
+        if provider == "deepseek":
+            if model_name != "deepseek-reasoner":
+                raise ValueError(f"Unsupported DeepSeek model for thought prompts: {model_name}")
+            return deepseek_llm.thought_prompt(prompt, model_name)
+            
+        elif provider == "ollama":
+            if "deepseek-r1" not in model_name:
+                raise ValueError(f"Ollama model {model_name} not supported for thought prompts")
+            return ollama_llm.thought_prompt(prompt, model_name)
+            
+        else:
+            raise ValueError(f"Unsupported provider for thought prompts: {provider}")
+            
+    except Exception as e:
+        return ThoughtResponse(
+            thoughts=f"Error processing request: {str(e)}",
+            response="",
+            error=str(e)
+        )

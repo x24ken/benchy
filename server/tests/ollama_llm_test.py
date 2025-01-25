@@ -61,3 +61,33 @@ def test_bench_prompt_metrics(model):
     assert (
         response.load_duration_ms < response.total_duration_ms
     )  # load time should be less than total time
+
+def test_valid_xml_parsing():
+    from modules.ollama_llm import thought_prompt
+    from modules.data_types import ThoughtResponse
+    from utils import deepseek_r1_distil_separate_thoughts_and_response
+    
+    # Test with valid XML structure
+    test_response = """<think>
+This is test reasoning content
+</think>
+
+Final response here"""
+    
+    thoughts, response = deepseek_r1_distil_separate_thoughts_and_response(test_response)
+    
+    assert thoughts == "This is test reasoning content"
+    assert response == "Final response here"
+
+def test_missing_xml_handling():
+    from modules.ollama_llm import thought_prompt
+    from modules.data_types import ThoughtResponse
+    from utils import deepseek_r1_distil_separate_thoughts_and_response
+    
+    # Test response without XML tags
+    test_response = "Simple response without any XML formatting"
+    
+    thoughts, response = deepseek_r1_distil_separate_thoughts_and_response(test_response)
+    
+    assert thoughts == ""
+    assert response == test_response

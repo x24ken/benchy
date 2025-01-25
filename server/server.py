@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify
 from time import time
 import yaml
+import concurrent.futures
+from modules.data_types import ThoughtResponse
 from modules.data_types import (
     ExecEvalBenchmarkReport,
     ModelAlias,
@@ -69,6 +71,48 @@ def handle_tool_prompt():
         }
     )
 
+
+@app.route("/thought-bench", methods=["POST"])
+def handle_thought_bench():
+    """Handle a thought bench request and return responses from multiple models."""
+    data = request.get_json()
+    if not data:
+        return jsonify({"error": "Missing JSON payload"}), 400
+    
+    prompt = data.get("prompt")
+    models = data.get("models")
+    
+    if not prompt or not models:
+        return jsonify({"error": "Missing 'prompt' or 'models' in request"}), 400
+
+    responses = []
+    
+    with concurrent.futures.ThreadPoolExecutor(max_workers=6) as executor:
+        # Create future for each model
+        future_to_model = {
+            executor.submit(llm_models.thought_prompt, prompt, model): model
+            for model in models
+        }
+        
+        for future in concurrent.futures.as_completed(future_to_model):
+            model = future_to_model[future]
+            try:
+                response = future.result()
+                responses.append({
+                    "model": model,
+                    "thoughts": response.thoughts,
+                    "response": response.response,
+                    "error": response.error
+                })
+            except Exception as e:
+                responses.append({
+                    "model": model,
+                    "thoughts": "",
+                    "response": f"Error: {str(e)}",
+                    "error": str(e)
+                })
+
+    return jsonify(responses), 200
 
 @app.route("/iso-speed-bench", methods=["POST"])
 def handle_iso_speed_bench():

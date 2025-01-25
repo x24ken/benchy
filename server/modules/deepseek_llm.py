@@ -1,6 +1,6 @@
 from openai import OpenAI
 from utils import MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS, timeit
-from modules.data_types import BenchPromptResponse, PromptResponse
+from modules.data_types import BenchPromptResponse, PromptResponse, ThoughtResponse
 import os
 from dotenv import load_dotenv
 
@@ -95,4 +95,51 @@ def text_prompt(prompt: str, model: str) -> PromptResponse:
             response=f"Error: {str(e)}",
             runTimeMs=0.0,
             inputAndOutputCost=0.0,
+        )
+
+def thought_prompt(prompt: str, model: str) -> ThoughtResponse:
+    """
+    Send a thought prompt to DeepSeek and parse structured response.
+    """
+    try:
+        # Validate model
+        if model != "deepseek-reasoner":
+            raise ValueError(f"Invalid model for thought prompts: {model}. Must use 'deepseek-reasoner'")
+
+        # Make API call with reasoning_content=True
+        with timeit() as t:
+            response = client.chat.completions.create(
+                model=model,
+                messages=[{"role": "user", "content": prompt}],
+                extra_body={"reasoning_content": True},  # Enable structured reasoning
+                stream=False,
+            )
+            elapsed_ms = t()
+
+        # Extract content and reasoning
+        message = response.choices[0].message
+        thoughts = getattr(message, "reasoning_content", "")
+        response_content = message.content
+
+        # Validate required fields
+        if not thoughts or not response_content:
+            raise ValueError("Missing thoughts or response in API response")
+
+        # Calculate costs
+        input_tokens = response.usage.prompt_tokens
+        output_tokens = response.usage.completion_tokens
+        cost = get_deepseek_cost("deepseek-reasoner", input_tokens, output_tokens)
+
+        return ThoughtResponse(
+            thoughts=thoughts,
+            response=response_content,
+            error=None,
+        )
+
+    except Exception as e:
+        print(f"DeepSeek thought error: {str(e)}")
+        return ThoughtResponse(
+            thoughts=f"Error processing request: {str(e)}",
+            response="",
+            error=str(e)
         )
