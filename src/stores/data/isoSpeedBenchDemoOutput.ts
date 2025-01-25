@@ -1,4 +1,4 @@
-import { ExecEvalBenchmarkReport } from "../../types";
+import type { ExecEvalBenchmarkReport } from "../../types";
 
 export const inMemoryBenchmarkReport: ExecEvalBenchmarkReport = {
     "benchmark_name": "Simple Function Coder",

@@ -32,10 +32,6 @@
         >
           <div class="response-header">
             <span>Prompt #{{ columnData.responses.length - index }}</span>
-            <span class="prompt-preview">
-              {{ store.prompt.slice(0, 25)
-              }}{{ store.prompt.length > 25 ? "..." : "" }}
-            </span>
           </div>
 
           <div class="thought-section">
@@ -64,7 +60,10 @@
               </button>
             </div>
             <div class="content" :style="{ maxHeight: columnHeight + 'px' }">
-              {{ response.response }}
+              <VueMarkdown
+                :source="response.response"
+                class="markdown-content"
+              />
             </div>
           </div>
         </div>
@@ -77,6 +76,7 @@
 import { store } from "../../stores/thoughtBenchStore";
 import type { ThoughtBenchColumnData } from "../../types";
 import { copyToClipboard } from "../../utils";
+import VueMarkdown from "vue-markdown-render";
 
 defineProps<{
   columnData: ThoughtBenchColumnData;
@@ -235,7 +235,6 @@ defineEmits<{
   font-size: 0.9rem;
   line-height: 1.4;
   padding: 1rem;
-  background: white;
   border-radius: 0 0 4px 4px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
@@ -338,5 +337,70 @@ defineEmits<{
   100% {
     transform: rotate(360deg);
   }
+}
+
+/* Add markdown styling */
+.markdown-content {
+  color: #333;
+  line-height: 1.6;
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3 {
+  color: #0e4491;
+  margin: 1.5rem 0 1rem;
+}
+
+.markdown-content p {
+  margin: 1rem 0;
+}
+
+.markdown-content code {
+  background: #f5f7ff;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  color: #e91e63;
+}
+
+.markdown-content pre {
+  background: #f5f7ff;
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.markdown-content pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+.markdown-content blockquote {
+  border-left: 4px solid #0e4491;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  color: #666;
+  font-style: italic;
+}
+
+.markdown-content a {
+  color: #0e4491;
+  text-decoration: none;
+}
+
+.markdown-content a:hover {
+  text-decoration: underline;
+}
+
+.markdown-content ul,
+.markdown-content ol {
+  margin: 0.5rem 0;
+  padding-left: 1rem;
+}
+
+.markdown-content li {
+  margin: 0.5rem 0;
 }
 </style>

@@ -16,12 +16,12 @@ function loadDefaultState() {
                 responses: [],
                 state: "idle" as ThoughtBenchColumnState
             },
-            {
-                model: "ollama:deepseek-r1:14b",
-                totalCorrect: 0,
-                responses: [],
-                state: "idle" as ThoughtBenchColumnState
-            },
+            // {
+            //     model: "ollama:deepseek-r1:14b",
+            //     totalCorrect: 0,
+            //     responses: [],
+            //     state: "idle" as ThoughtBenchColumnState
+            // },
             // {
             //     model: "ollama:deepseek-r1:32b",
             //     totalCorrect: 0,

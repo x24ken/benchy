@@ -68,17 +68,19 @@
             <span>{{ modelReport.average_tokens_per_second.toFixed(2) }}</span>
           </div>
         </template>
-        
+
         <div class="awards">
-          <div 
-            v-for="award in awards" 
-            :key="award" 
+          <div
+            v-for="award in awards"
+            :key="award"
             :class="['award-badge', award]"
           >
             <span v-if="award === 'fastest'">⚡ Fastest Overall</span>
             <span v-else-if="award === 'slowest'">🐢 Slowest Overall</span>
             <span v-else-if="award === 'most_accurate'">🎯 Most Accurate</span>
-            <span v-else-if="award === 'least_accurate'">🤔 Least Accurate</span>
+            <span v-else-if="award === 'least_accurate'"
+              >🤔 Least Accurate</span
+            >
             <span v-else-if="award === 'perfection'">🏆 Perfect Score</span>
           </div>
         </div>
@@ -129,39 +131,40 @@
 
 <script setup lang="ts">
 import { store } from "../../stores/isoSpeedBenchStore";
-import { IsoBenchAward } from "../../types.d";
 
 const awards = computed<IsoBenchAward[]>(() => {
   const arr: IsoBenchAward[] = [];
   if (!store.benchmarkReport) return arr;
 
   // Find fastest/slowest
-  const allDurations = store.benchmarkReport.models.map(m => m.average_total_duration_ms);
+  const allDurations = store.benchmarkReport.models.map(
+    (m) => m.average_total_duration_ms
+  );
   const minDuration = Math.min(...allDurations);
   const maxDuration = Math.max(...allDurations);
-  
+
   if (props.modelReport.average_total_duration_ms === minDuration) {
-    arr.push('fastest');
+    arr.push("fastest");
   }
   if (props.modelReport.average_total_duration_ms === maxDuration) {
-    arr.push('slowest');
+    arr.push("slowest");
   }
 
   // Find most/least accurate
-  const allAccuracies = store.benchmarkReport.models.map(m => m.accuracy);
+  const allAccuracies = store.benchmarkReport.models.map((m) => m.accuracy);
   const maxAccuracy = Math.max(...allAccuracies);
   const minAccuracy = Math.min(...allAccuracies);
-  
+
   if (props.modelReport.accuracy === maxAccuracy) {
-    arr.push('most_accurate');
+    arr.push("most_accurate");
   }
   if (props.modelReport.accuracy === minAccuracy) {
-    arr.push('least_accurate');
+    arr.push("least_accurate");
   }
 
   // Check for perfection
   if (props.modelReport.accuracy === 1) {
-    arr.push('perfection');
+    arr.push("perfection");
   }
 
   return arr;
