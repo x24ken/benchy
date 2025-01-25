@@ -136,6 +136,8 @@ const getProviderLogo = computed(() => {
       return ollamaLogo;
     case "deepseek":
       return deepseekLogo;
+    case "gemini":
+      return googleLogo;
     default:
       return null;
   }
