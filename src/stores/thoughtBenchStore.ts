@@ -23,7 +23,7 @@ function loadDefaultState() {
                 state: "idle" as ThoughtBenchColumnState
             },
             {
-                model: "anthropic:claude-3-5-haiku-latest",
+                model: "openai:o1",
                 totalCorrect: 0,
                 responses: [],
                 state: "idle" as ThoughtBenchColumnState

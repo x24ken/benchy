@@ -94,6 +94,18 @@ def thought_prompt(prompt: str, model: str) -> ThoughtResponse:
             response = deepseek_llm.thought_prompt(prompt, model_name)
             return response
 
+        elif provider == "gemini":
+            if model_name != "gemini-2.0-flash-thinking-exp-01-21":
+                # Fallback to standard text prompt for non-thinking models
+                text_response = simple_prompt(prompt, model)
+                return ThoughtResponse(
+                    thoughts="", response=text_response.response, error=None
+                )
+
+            # Proceed with thinking-specific processing
+            response = gemini_llm.thought_prompt(prompt, model_name)
+            return response
+
         elif provider == "ollama":
             if "deepseek-r1" not in model_name:
                 # Fallback to standard text prompt for non-R1 models
