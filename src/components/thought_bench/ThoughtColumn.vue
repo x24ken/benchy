@@ -7,7 +7,9 @@
     <div class="column-header">
       <h3>{{ columnData.model }}</h3>
       <div class="stats">
-        <span>{{ columnData.totalCorrect }} / {{ store.totalExecutions }}</span>
+        <span>
+          <!-- optional spot for stats -->
+        </span>
       </div>
     </div>
 
@@ -28,6 +30,14 @@
           :key="index"
           class="response-card"
         >
+          <div class="response-header">
+            <span>Prompt #{{ columnData.responses.length - index }}</span>
+            <span class="prompt-preview">
+              {{ store.prompt.slice(0, 15)
+              }}{{ store.prompt.length > 15 ? "..." : "" }}
+            </span>
+          </div>
+
           <div class="thought-section">
             <div class="section-header">
               <h4>Thoughts</h4>
@@ -248,10 +258,40 @@ defineEmits<{
 .response-card {
   transition: all 0.3s ease;
   overflow: hidden;
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .response-card:hover {
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.response-card:not(:last-child) {
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.response-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background: #f8f9fa;
+  border-bottom: 1px solid #eee;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.prompt-preview {
+  font-style: italic;
+  color: #999;
+  max-width: 40%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .loading-indicator {
