@@ -130,6 +130,7 @@ import { store, resetState } from "../stores/thoughtBenchStore";
 // Add reset handler
 function clickResetState() {
   resetState();
+  soloedModels.value = [];
 }
 import ThoughtColumn from "../components/thought_bench/ThoughtColumn.vue";
 import { runThoughtPrompt } from "../apis/thoughtBenchApi";
