@@ -13,9 +13,13 @@
     </div>
 
     <div class="controls">
-      <button @click="runBenchmark" :disabled="store.apiCallInProgress">
-        {{ store.apiCallInProgress ? "Running..." : "Run Benchmark" }}
+      <button 
+        @click="runBenchmark" 
+        :disabled="store.apiCallInProgress || isAnyColumnLoading"
+      >
+        {{ runButtonText }}
       </button>
+      <button @click="resetState">Reset</button>
       <button @click="showSettings = !showSettings">
         {{ showSettings ? "Hide" : "Show" }} Settings
       </button>
@@ -56,6 +60,8 @@
     <div class="prompt-area">
       <textarea
         v-model="store.prompt"
+        @keydown.ctrl.enter.prevent="runBenchmark"
+        @keydown.meta.enter.prevent="runBenchmark"
         placeholder="Enter your reasoning prompt..."
         class="prompt-input"
       ></textarea>
@@ -74,15 +80,36 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { store, resetState } from "../stores/thoughtBenchStore";
+
+// Add reset handler
+function resetState() {
+  if (confirm("Are you sure you want to reset all progress?")) {
+    resetState();
+  }
+}
 import ThoughtColumn from "../components/thought_bench/ThoughtColumn.vue";
 import { runThoughtPrompt } from "../apis/thoughtBenchApi";
 
 const showSettings = ref(false);
 const thoughtHeight = ref<number>(300);
 
+const isAnyColumnLoading = computed(() => 
+  store.dataColumns.some(c => c.state === 'loading')
+);
+
+const runButtonText = computed(() => {
+  if (store.apiCallInProgress) {
+    const runningCount = store.dataColumns.filter(c => c.state === 'loading').length;
+    return `Running (${runningCount}/${store.dataColumns.length})`;
+  }
+  return "Run Benchmark";
+});
+
 async function runBenchmark() {
+  if (store.apiCallInProgress || isAnyColumnLoading.value) return;
+  
   store.apiCallInProgress = true;
   try {
     const promises = store.dataColumns.map((column) =>
@@ -96,10 +123,10 @@ async function runBenchmark() {
 
 async function runSingleBenchmark(model: string) {
   const column = store.dataColumns.find((c) => c.model === model);
-  if (!column) return;
+  if (!column || column.state === 'loading') return;
 
-  column.state = "loading";
   try {
+    column.state = 'loading';
     store.totalExecutions++;
     const response = await runThoughtPrompt({
       prompt: store.prompt,
@@ -118,7 +145,7 @@ async function runSingleBenchmark(model: string) {
     });
     column.state = "error";
   } finally {
-    store.apiCallInProgress = false;
+    column.state = 'idle';
   }
 }
 </script>
@@ -209,5 +236,14 @@ button:hover {
 button:disabled {
   opacity: 0.7;
   cursor: not-allowed;
+  background: #f0f0f0;
+}
+
+button:disabled:hover {
+  background: #f0f0f0;
+}
+
+.prompt-input:focus {
+  outline: 2px solid #0e4491;
 }
 </style>

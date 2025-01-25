@@ -1,4 +1,4 @@
-import { reactive } from "vue";
+import { reactive, watch } from "vue";
 import type { ThoughtBenchColumnData, ThoughtBenchColumnState } from "../types";
 
 function loadDefaultState() {
@@ -16,24 +16,24 @@ function loadDefaultState() {
                 responses: [],
                 state: "idle" as ThoughtBenchColumnState
             },
-            {
-                model: "ollama:deepseek-r1:14b", 
-                totalCorrect: 0,
-                responses: [],
-                state: "idle" as ThoughtBenchColumnState
-            },
+            // {
+            //     model: "ollama:deepseek-r1:14b", 
+            //     totalCorrect: 0,
+            //     responses: [],
+            //     state: "idle" as ThoughtBenchColumnState
+            // },
             {
                 model: "ollama:deepseek-r1:32b",
                 totalCorrect: 0,
                 responses: [],
                 state: "idle" as ThoughtBenchColumnState
             },
-            {
-                model: "ollama:deepseek-r1:70b",
-                totalCorrect: 0,
-                responses: [],
-                state: "idle" as ThoughtBenchColumnState
-            },
+            // {
+            //     model: "ollama:deepseek-r1:70b",
+            //     totalCorrect: 0,
+            //     responses: [],
+            //     state: "idle" as ThoughtBenchColumnState
+            // },
             {
                 model: "deepseek:deepseek-reasoner",
                 totalCorrect: 0,
@@ -79,3 +79,12 @@ function setState(state: any) {
 }
 
 export const store = reactive(loadState());
+
+// Add automatic save watcher
+watch(
+    store,
+    (state) => {
+        localStorage.setItem('thoughtBenchState', JSON.stringify(state));
+    },
+    { deep: true }
+);
