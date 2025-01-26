@@ -54,6 +54,14 @@
           />
           <span>{{ store.settings.columnWidth }}px</span>
         </div>
+        <div class="setting">
+          <label>Display:</label>
+          <select v-model="store.settings.columnDisplay">
+            <option value="both">Both Sections</option>
+            <option value="thoughts">Only Thoughts</option>
+            <option value="response">Only Response</option>
+          </select>
+        </div>
       </div>
     </div>
 
@@ -177,7 +185,7 @@ const runButtonText = computed(() => {
     ).length;
     return `Running (${runningCount}/${store.dataColumns.length})`;
   }
-  return "Run Benchmark";
+  return "Thought Prompt";
 });
 
 function addModel() {

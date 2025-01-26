@@ -42,7 +42,8 @@ function loadDefaultState() {
         settings: {
             modelStatDetail: 'verbose' as 'verbose' | 'hide',
             columnWidth: 400,
-            columnHeight: 300
+            columnHeight: 300,
+            columnDisplay: 'both' as 'both' | 'thoughts' | 'response'
         }
     };
 }

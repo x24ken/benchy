@@ -55,7 +55,7 @@
             <span>Prompt #{{ columnData.responses.length - index }}</span>
           </div>
 
-          <div class="thought-section">
+          <div class="thought-section" v-if="store.settings.columnDisplay !== 'response'">
             <div class="section-header">
               <h4>Thoughts</h4>
               <button
@@ -75,7 +75,7 @@
             </div>
           </div>
 
-          <div class="response-section">
+          <div class="response-section" v-if="store.settings.columnDisplay !== 'thoughts'">
             <div class="section-header">
               <h4>Response</h4>
               <button
