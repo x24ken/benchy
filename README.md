@@ -5,7 +5,7 @@
 > 
 > Enter BENCHY. A chill, live benchmark tool that lets you see the performance, price, and speed of LLMs in a side by side comparison for SPECIFIC use cases.
 >
-> Watch the latest development [video here](qqq)
+> Watch the latest development [video here](https://youtu.be/UgSGtBZnwEo)
 
 <img src="./images/deepseek-r1.png" alt="deepseek-r1" style="max-width: 800px;">
 
@@ -18,9 +18,9 @@
 <img src="./images/perf-price-speed-pick-two.png" alt="pick-two" style="max-width: 800px;">
 
 ## Benchy Micro Apps
-- [Thought Bench](qqq)
+- [Thought Bench](https://youtu.be/UgSGtBZnwEo)
   - Goal: Compare multiple reasoning models (Deepseek R1, Gemini 2.0 Flash Thinking, OpenAI o1, ,etc) thoughts side by side in parallel.
-  - Watch the walk through [video here](qqq)
+  - Watch the walk through [video here](https://youtu.be/UgSGtBZnwEo)
   - Front end: [src/pages/ThoughtBench.vue](src/pages/ThoughtBench.vue)
 - [BIG AI Coding Updates to Benchy](https://youtu.be/y_ywOVQyafE)
   - Watch the walk through [video here](https://youtu.be/y_ywOVQyafE)
