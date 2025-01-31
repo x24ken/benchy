@@ -1,0 +1,194 @@
+{
+    "benchmark_name": "Fine Tuning: Target Math",
+    "purpose": "Evaluate the model's ability to create an arithmetic equation that reaches a given target-number using provided numbers.",
+    "models": [
+        {
+            "model": "ollama~mistral-small:latest",
+            "results": [
+                {
+                    "prompt_response": {
+                        "response": "(19 * 44 + 35) / (1 - (1/1)) = 98",
+                        "tokens_per_second": 29.988465974625143,
+                        "provider": "ollama",
+                        "total_duration_ms": 1369.478417,
+                        "load_duration_ms": 27.14225,
+                        "errored": null
+                    },
+                    "execution_result": "Error:   File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmpnv62nelh.py\", line 1\n    print((19 * 44 + 35) / (1 - (1/1)) = 98)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: expression cannot contain assignment, perhaps you meant \"==\"?\n",
+                    "expected_result": "98",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>98</target-number>\n\n<numbers-provided>44,19,35</numbers-provided>\n",
+                    "model": "ollama~mistral-small:latest",
+                    "correct": false,
+                    "index": 1
+                },
+                {
+                    "prompt_response": {
+                        "response": "(95 - 96) * 63",
+                        "tokens_per_second": 31.25,
+                        "provider": "ollama",
+                        "total_duration_ms": 607.274625,
+                        "load_duration_ms": 10.495833,
+                        "errored": null
+                    },
+                    "execution_result": "-63.0",
+                    "expected_result": "64",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>64</target-number>\n\n<numbers-provided>63,95,96</numbers-provided>\n",
+                    "model": "ollama~mistral-small:latest",
+                    "correct": false,
+                    "index": 2
+                },
+                {
+                    "prompt_response": {
+                        "response": "56 + 11 * (95 / 3)",
+                        "tokens_per_second": 30.991735537190085,
+                        "provider": "ollama",
+                        "total_duration_ms": 674.728333,
+                        "load_duration_ms": 10.676,
+                        "errored": null
+                    },
+                    "execution_result": "404.33333333333337",
+                    "expected_result": "28",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>28</target-number>\n\n<numbers-provided>95,11,56</numbers-provided>\n",
+                    "model": "ollama~mistral-small:latest",
+                    "correct": false,
+                    "index": 3
+                },
+                {
+                    "prompt_response": {
+                        "response": "(74 / 45) * 19 = 3.2",
+                        "tokens_per_second": 30.612244897959187,
+                        "provider": "ollama",
+                        "total_duration_ms": 778.937709,
+                        "load_duration_ms": 10.851042,
+                        "errored": null
+                    },
+                    "execution_result": "Error:   File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmp1nv6x61g.py\", line 1\n    print((74 / 45) * 19 = 3.2)\n          ^^^^^^^^^^^^^^^^\nSyntaxError: expression cannot contain assignment, perhaps you meant \"==\"?\n",
+                    "expected_result": "48",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>48</target-number>\n\n<numbers-provided>19,74,45</numbers-provided>\n",
+                    "model": "ollama~mistral-small:latest",
+                    "correct": false,
+                    "index": 4
+                },
+                {
+                    "prompt_response": {
+                        "response": "49 + 41 - 26 = 17",
+                        "tokens_per_second": 30.8641975308642,
+                        "provider": "ollama",
+                        "total_duration_ms": 676.716916,
+                        "load_duration_ms": 10.464375,
+                        "errored": null
+                    },
+                    "execution_result": "Error:   File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmpf9z_0tl3.py\", line 1\n    print(49 + 41 - 26 = 17)\n          ^^^^^^^^^^^^^^\nSyntaxError: expression cannot contain assignment, perhaps you meant \"==\"?\n",
+                    "expected_result": "17",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>17</target-number>\n\n<numbers-provided>49,41,73</numbers-provided>\n",
+                    "model": "ollama~mistral-small:latest",
+                    "correct": false,
+                    "index": 5
+                }
+            ],
+            "correct_count": 0,
+            "incorrect_count": 5,
+            "accuracy": 0.0,
+            "average_tokens_per_second": 30.741328788127724,
+            "average_total_duration_ms": 821.4272000000001,
+            "average_load_duration_ms": 13.925900000000002
+        },
+        {
+            "model": "anthropic~claude-3-5-sonnet-latest",
+            "results": [
+                {
+                    "prompt_response": {
+                        "response": "44 + 35 + 19",
+                        "tokens_per_second": 0.0,
+                        "provider": "anthropic",
+                        "total_duration_ms": 805.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "98.0",
+                    "expected_result": "98",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>98</target-number>\n\n<numbers-provided>44,19,35</numbers-provided>\n",
+                    "model": "anthropic~claude-3-5-sonnet-latest",
+                    "correct": true,
+                    "index": 1
+                },
+                {
+                    "prompt_response": {
+                        "response": "96 - 63 + 31",
+                        "tokens_per_second": 0.0,
+                        "provider": "anthropic",
+                        "total_duration_ms": 1413.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "64.0",
+                    "expected_result": "64",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>64</target-number>\n\n<numbers-provided>63,95,96</numbers-provided>\n",
+                    "model": "anthropic~claude-3-5-sonnet-latest",
+                    "correct": true,
+                    "index": 2
+                },
+                {
+                    "prompt_response": {
+                        "response": "56/11*5.5",
+                        "tokens_per_second": 0.0,
+                        "provider": "anthropic",
+                        "total_duration_ms": 928.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "28.0",
+                    "expected_result": "28",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>28</target-number>\n\n<numbers-provided>95,11,56</numbers-provided>\n",
+                    "model": "anthropic~claude-3-5-sonnet-latest",
+                    "correct": true,
+                    "index": 3
+                },
+                {
+                    "prompt_response": {
+                        "response": "74 - 45 + 19",
+                        "tokens_per_second": 0.0,
+                        "provider": "anthropic",
+                        "total_duration_ms": 613.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "48.0",
+                    "expected_result": "48",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>48</target-number>\n\n<numbers-provided>19,74,45</numbers-provided>\n",
+                    "model": "anthropic~claude-3-5-sonnet-latest",
+                    "correct": true,
+                    "index": 4
+                },
+                {
+                    "prompt_response": {
+                        "response": "73 - 41 - 15",
+                        "tokens_per_second": 0.0,
+                        "provider": "anthropic",
+                        "total_duration_ms": 905.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "17.0",
+                    "expected_result": "17",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>17</target-number>\n\n<numbers-provided>49,41,73</numbers-provided>\n",
+                    "model": "anthropic~claude-3-5-sonnet-latest",
+                    "correct": true,
+                    "index": 5
+                }
+            ],
+            "correct_count": 5,
+            "incorrect_count": 0,
+            "accuracy": 1.0,
+            "average_tokens_per_second": 0.0,
+            "average_total_duration_ms": 932.8,
+            "average_load_duration_ms": 0.0
+        }
+    ],
+    "overall_correct_count": 5,
+    "overall_incorrect_count": 5,
+    "overall_accuracy": 0.5,
+    "average_tokens_per_second": 15.370664394063862,
+    "average_total_duration_ms": 877.1136,
+    "average_load_duration_ms": 6.962950000000001
+}

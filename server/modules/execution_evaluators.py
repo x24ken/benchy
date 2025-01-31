@@ -8,7 +8,10 @@ def eval_result_compare(evalType: ExeEvalType, expected: str, actual: str) -> bo
     For numeric outputs, compare with a small epsilon tolerance.
     """
     try:
-        if evalType == ExeEvalType.execute_python_code_with_num_output:
+        if (
+            evalType == ExeEvalType.execute_python_code_with_num_output
+            or evalType == ExeEvalType.python_print_execution_with_num_output
+        ):
             # Convert both values to float for numeric comparison
             expected_num = float(expected)
             actual_num = float(actual)
@@ -33,6 +36,8 @@ def execute_python_code(code: str) -> str:
     # Remove any surrounding quotes and whitespace
     code = code.strip().strip("'").strip('"')
 
+    print(f"Code: {code}")
+
     # Create a temporary file with the code
     import tempfile
 
@@ -47,6 +52,7 @@ def execute_python_code(code: str) -> str:
         try:
             # Remove any extra whitespace or newlines
             cleaned_result = result.strip()
+            print(f"Cleaned result: {cleaned_result}")
             # Convert to float and back to string to normalize format
             return str(float(cleaned_result))
         except (ValueError, TypeError):

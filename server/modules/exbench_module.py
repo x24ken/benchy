@@ -96,9 +96,12 @@ provider_bench_functions = {
     "gemini": gemini_llm.bench_prompt,
 }
 
-def process_single_prompt(prompt_row, benchmark_file, provider, model_name, index, total_tests):
+
+def process_single_prompt(
+    prompt_row, benchmark_file, provider, model_name, index, total_tests
+):
     print(f"  Running test {index}/{total_tests}...")
-    
+
     prompt = benchmark_file.base_prompt
     if prompt_row.dynamic_variables:
         for key, value in prompt_row.dynamic_variables.items():
@@ -130,23 +133,45 @@ def process_single_prompt(prompt_row, benchmark_file, provider, model_name, inde
     execution_result = ""
     expected_result = str(prompt_row.expectation).strip()
     correct = False
-    
+
     try:
         if benchmark_file.evaluator == ExeEvalType.execute_python_code_with_num_output:
             execution_result = execute_python_code(cleaned_code)
             parsed_execution_result = str(execution_result).strip()
+            print(
+                f"Execution result ({ExeEvalType.execute_python_code_with_num_output.value}): {parsed_execution_result}"
+            )
             correct = eval_result_compare(
                 benchmark_file.evaluator, expected_result, parsed_execution_result
             )
-        elif benchmark_file.evaluator == ExeEvalType.execute_python_code_with_string_output:
+        elif (
+            benchmark_file.evaluator
+            == ExeEvalType.execute_python_code_with_string_output
+        ):
             execution_result = execute_python_code(cleaned_code)
+            print(
+                f"Execution result ({ExeEvalType.execute_python_code_with_num_output.value}): {execution_result}"
+            )
+
             correct = eval_result_compare(
                 benchmark_file.evaluator, expected_result, execution_result
             )
         elif benchmark_file.evaluator == ExeEvalType.raw_string_evaluator:
             execution_result = cleaned_code
+            print(
+                f"Execution result ({ExeEvalType.raw_string_evaluator.value}): {execution_result}"
+            )
             correct = eval_result_compare(
                 benchmark_file.evaluator, expected_result, execution_result
+            )
+        elif benchmark_file.evaluator == ExeEvalType.python_print_execution_with_num_output:
+            wrapped_code = f"print({cleaned_code})"
+            execution_result = execute_python_code(wrapped_code)
+            print(f"Execution result ({ExeEvalType.python_print_execution_with_num_output.value}): {execution_result}")
+            correct = eval_result_compare(
+                ExeEvalType.execute_python_code_with_num_output,
+                expected_result,
+                execution_result.strip()
             )
         else:
             raise ValueError(f"Unsupported evaluator: {benchmark_file.evaluator}")
@@ -192,16 +217,18 @@ def run_benchmark_for_model(
         with ThreadPoolExecutor() as executor:
             futures = []
             for i, prompt_row in enumerate(benchmark_file.prompts, 1):
-                futures.append(executor.submit(
-                    process_single_prompt,
-                    prompt_row,
-                    benchmark_file,
-                    provider,
-                    model_name,
-                    i,
-                    total_tests
-                ))
-            
+                futures.append(
+                    executor.submit(
+                        process_single_prompt,
+                        prompt_row,
+                        benchmark_file,
+                        provider,
+                        model_name,
+                        i,
+                        total_tests,
+                    )
+                )
+
             for future in futures:
                 results.append(future.result())
 

@@ -102,6 +102,7 @@ class ExeEvalType(str, Enum):
     execute_python_code_with_num_output = "execute_python_code_with_num_output"
     execute_python_code_with_string_output = "execute_python_code_with_string_output"
     raw_string_evaluator = "raw_string_evaluator"  # New evaluator type
+    python_print_execution_with_num_output = "python_print_execution_with_num_output"
 
 
 class ExeEvalBenchmarkInputRow(BaseModel):
