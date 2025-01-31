@@ -1,0 +1,425 @@
+{
+    "benchmark_name": "Fine Tuning: Target Math",
+    "purpose": "Evaluate the model's ability to create an arithmetic equation that reaches a given target-number using provided numbers.",
+    "models": [
+        {
+            "model": "ollama~mistral-small:latest",
+            "results": [
+                {
+                    "prompt_response": {
+                        "response": "(44*2)-((19+35)/2)",
+                        "tokens_per_second": 30.65134099616858,
+                        "provider": "ollama",
+                        "total_duration_ms": 2167.583292,
+                        "load_duration_ms": 572.454,
+                        "errored": null
+                    },
+                    "execution_result": "61.0",
+                    "expected_result": "98",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>98</target-number>\n\n<numbers-provided>44,19,35</numbers-provided>\n",
+                    "model": "ollama~mistral-small:latest",
+                    "correct": false,
+                    "index": 1
+                },
+                {
+                    "prompt_response": {
+                        "response": "(95*96-63)/2",
+                        "tokens_per_second": 31.33159268929504,
+                        "provider": "ollama",
+                        "total_duration_ms": 576.434,
+                        "load_duration_ms": 12.021208,
+                        "errored": null
+                    },
+                    "execution_result": "4528.5",
+                    "expected_result": "64",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>64</target-number>\n\n<numbers-provided>63,95,96</numbers-provided>\n",
+                    "model": "ollama~mistral-small:latest",
+                    "correct": false,
+                    "index": 2
+                },
+                {
+                    "prompt_response": {
+                        "response": "(95 - 11) * 56",
+                        "tokens_per_second": 31.17505995203837,
+                        "provider": "ollama",
+                        "total_duration_ms": 609.518375,
+                        "load_duration_ms": 12.071,
+                        "errored": null
+                    },
+                    "execution_result": "4704.0",
+                    "expected_result": "28",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>28</target-number>\n\n<numbers-provided>95,11,56</numbers-provided>\n",
+                    "model": "ollama~mistral-small:latest",
+                    "correct": false,
+                    "index": 3
+                }
+            ],
+            "correct_count": 0,
+            "incorrect_count": 3,
+            "accuracy": 0.0,
+            "average_tokens_per_second": 31.052664545833995,
+            "average_total_duration_ms": 1117.8452223333331,
+            "average_load_duration_ms": 198.848736
+        },
+        {
+            "model": "anthropic~claude-3-5-sonnet-latest",
+            "results": [
+                {
+                    "prompt_response": {
+                        "response": "44+35+19",
+                        "tokens_per_second": 0.0,
+                        "provider": "anthropic",
+                        "total_duration_ms": 753.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "98.0",
+                    "expected_result": "98",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>98</target-number>\n\n<numbers-provided>44,19,35</numbers-provided>\n",
+                    "model": "anthropic~claude-3-5-sonnet-latest",
+                    "correct": true,
+                    "index": 1
+                },
+                {
+                    "prompt_response": {
+                        "response": "96-95+63",
+                        "tokens_per_second": 0.0,
+                        "provider": "anthropic",
+                        "total_duration_ms": 748.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "64.0",
+                    "expected_result": "64",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>64</target-number>\n\n<numbers-provided>63,95,96</numbers-provided>\n",
+                    "model": "anthropic~claude-3-5-sonnet-latest",
+                    "correct": true,
+                    "index": 2
+                },
+                {
+                    "prompt_response": {
+                        "response": "95/11*56/95*11",
+                        "tokens_per_second": 0.0,
+                        "provider": "anthropic",
+                        "total_duration_ms": 746.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "56.0",
+                    "expected_result": "28",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>28</target-number>\n\n<numbers-provided>95,11,56</numbers-provided>\n",
+                    "model": "anthropic~claude-3-5-sonnet-latest",
+                    "correct": false,
+                    "index": 3
+                }
+            ],
+            "correct_count": 2,
+            "incorrect_count": 1,
+            "accuracy": 0.6666666666666666,
+            "average_tokens_per_second": 0.0,
+            "average_total_duration_ms": 749.0,
+            "average_load_duration_ms": 0.0
+        },
+        {
+            "model": "fireworks~accounts/fireworks/models/deepseek-r1",
+            "results": [
+                {
+                    "prompt_response": {
+                        "response": "{\"id\":\"8a819aa7-90be-4126-9fb5-139e498249ae\",\"object\":\"text_completion\",\"created\":1738342294,\"model\":\"accounts/fireworks/models/deepseek-r1\",\"choices\":[{\"index\":0,\"text\":\"Well, let's see... My goal is to create an equation using 44, 19, and 35 with basic operations to reach 98. Hmm, first, maybe add up some numbers. 44 + 35 is 79, which is less than 98. Adding 19 would give 98, but I can only use each number once. Wait, need to use all three numbers. If I subtract 19 from 44, that's 25. Then 25 * (something with 35?), but 25*4 is 100, but how to use 35. Hmm, or maybe (44 - 19) + 35, which is 25 +35=60, nope. What about multiplying 35 by something. 35*2=70. Let me see. 44 - (35 /19). But 35/19 is around 1.84, so 44 -1.84=42.16, not helpful. Maybe 19* (35 - (44 - something)... Wait, perhaps 44 + 35 =79, subtract 19? 79-19=60, no. 35 +19=54. 44 +54=98! Wait, 44 + (35 +19) equals 44 +54=98. But does that use each number once? 35 +19 is 54, then add 44. So all numbers are used once. So the equation is 44 +35 +19=98.\\n</think>\\n\\n44 + 35 + 19\",\"logprobs\":null,\"finish_reason\":\"stop\"}],\"usage\":{\"prompt_tokens\":146,\"total_tokens\":470,\"completion_tokens\":324}}",
+                        "tokens_per_second": 0.0,
+                        "provider": "fireworks",
+                        "total_duration_ms": 13064.247608184814,
+                        "load_duration_ms": 0.0,
+                        "errored": false
+                    },
+                    "execution_result": "Error: Traceback (most recent call last):\n  File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmp11xfh9rs.py\", line 1, in <module>\n    print({\"id\":\"8a819aa7-90be-4126-9fb5-139e498249ae\",\"object\":\"text_completion\",\"created\":1738342294,\"model\":\"accounts/fireworks/models/deepseek-r1\",\"choices\":[{\"index\":0,\"text\":\"Well, let's see... My goal is to create an equation using 44, 19, and 35 with basic operations to reach 98. Hmm, first, maybe add up some numbers. 44 + 35 is 79, which is less than 98. Adding 19 would give 98, but I can only use each number once. Wait, need to use all three numbers. If I subtract 19 from 44, that's 25. Then 25 * (something with 35?), but 25*4 is 100, but how to use 35. Hmm, or maybe (44 - 19) + 35, which is 25 +35=60, nope. What about multiplying 35 by something. 35*2=70. Let me see. 44 - (35 /19). But 35/19 is around 1.84, so 44 -1.84=42.16, not helpful. Maybe 19* (35 - (44 - something)... Wait, perhaps 44 + 35 =79, subtract 19? 79-19=60, no. 35 +19=54. 44 +54=98! Wait, 44 + (35 +19) equals 44 +54=98. But does that use each number once? 35 +19 is 54, then add 44. So all numbers are used once. So the equation is 44 +35 +19=98.\\n</think>\\n\\n44 + 35 + 19\",\"logprobs\":null,\"finish_reason\":\"stop\"}],\"usage\":{\"prompt_tokens\":146,\"total_tokens\":470,\"completion_tokens\":324}})\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ^^^^\nNameError: name 'null' is not defined\n",
+                    "expected_result": "98",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>98</target-number>\n\n<numbers-provided>44,19,35</numbers-provided>\n",
+                    "model": "fireworks~accounts/fireworks/models/deepseek-r1",
+                    "correct": false,
+                    "index": 1
+                },
+                {
+                    "prompt_response": {
+                        "response": "{\"id\":\"5a8b5f6d-cad9-4e6b-9aac-7c0405a4ede0\",\"object\":\"text_completion\",\"created\":1738342294,\"model\":\"accounts/fireworks/models/deepseek-r1\",\"choices\":[{\"index\":0,\"text\":\"\",\"logprobs\":null,\"finish_reason\":\"stop\"}],\"usage\":{\"prompt_tokens\":146,\"total_tokens\":147,\"completion_tokens\":1}}",
+                        "tokens_per_second": 0.0,
+                        "provider": "fireworks",
+                        "total_duration_ms": 1591.7341709136963,
+                        "load_duration_ms": 0.0,
+                        "errored": false
+                    },
+                    "execution_result": "Error: Traceback (most recent call last):\n  File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmp7bowsw3r.py\", line 1, in <module>\n    print({\"id\":\"5a8b5f6d-cad9-4e6b-9aac-7c0405a4ede0\",\"object\":\"text_completion\",\"created\":1738342294,\"model\":\"accounts/fireworks/models/deepseek-r1\",\"choices\":[{\"index\":0,\"text\":\"\",\"logprobs\":null,\"finish_reason\":\"stop\"}],\"usage\":{\"prompt_tokens\":146,\"total_tokens\":147,\"completion_tokens\":1}})\n                                                                                                                                                                                                  ^^^^\nNameError: name 'null' is not defined\n",
+                    "expected_result": "64",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>64</target-number>\n\n<numbers-provided>63,95,96</numbers-provided>\n",
+                    "model": "fireworks~accounts/fireworks/models/deepseek-r1",
+                    "correct": false,
+                    "index": 2
+                },
+                {
+                    "prompt_response": {
+                        "response": "{\"id\":\"48704b87-90af-43d2-8e8f-766e25882895\",\"object\":\"text_completion\",\"created\":1738342294,\"model\":\"accounts/fireworks/models/deepseek-r1\",\"choices\":[{\"index\":0,\"text\":\" \\n<example-input>\\n    Target:  5\\n    Numbers: 12,7,3,100\\n    Solution: (100 - 7) / (12 + 3)\\n</example-input>\\n\\nNow create a solution for Target: 28 with Numbers: 95,11,56\\n<answer>\\n(56 - 11) + (95 - 72). Hmm wait, but 72 isn't among the numbers. Let me reconsider. The numbers available are 95, 11, 56.\\n\\nPossible steps: 56 divided by something. Let's see. 56 / 11 is ~5.09. Doesn't help. 95 - 56 = 39. Then 39 - 11 = 28! Ah, that works. So:\\n\\n95 - 56 - 11 =\\n\\nTesting: 95-56=39; 39-11=28. Correct.\\n\\nAlternatively, 56 - (95 / (something)), but 95/11 is about 8.63; 56 -8.63=47.37. Not useful.\\n\\nSo best equation: 95 - 56 - 11 = 28\\n</answer>\\n\\nNow, here's the final answer formatted correctly:\\n95 - 56 - 11\",\"logprobs\":null,\"finish_reason\":\"stop\"}],\"usage\":{\"prompt_tokens\":146,\"total_tokens\":409,\"completion_tokens\":263}}",
+                        "tokens_per_second": 0.0,
+                        "provider": "fireworks",
+                        "total_duration_ms": 13062.912940979004,
+                        "load_duration_ms": 0.0,
+                        "errored": false
+                    },
+                    "execution_result": "Error: Traceback (most recent call last):\n  File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmpamez57ix.py\", line 1, in <module>\n    print({\"id\":\"48704b87-90af-43d2-8e8f-766e25882895\",\"object\":\"text_completion\",\"created\":1738342294,\"model\":\"accounts/fireworks/models/deepseek-r1\",\"choices\":[{\"index\":0,\"text\":\" \\n<example-input>\\n    Target:  5\\n    Numbers: 12,7,3,100\\n    Solution: (100 - 7) / (12 + 3)\\n</example-input>\\n\\nNow create a solution for Target: 28 with Numbers: 95,11,56\\n<answer>\\n(56 - 11) + (95 - 72). Hmm wait, but 72 isn't among the numbers. Let me reconsider. The numbers available are 95, 11, 56.\\n\\nPossible steps: 56 divided by something. Let's see. 56 / 11 is ~5.09. Doesn't help. 95 - 56 = 39. Then 39 - 11 = 28! Ah, that works. So:\\n\\n95 - 56 - 11 =\\n\\nTesting: 95-56=39; 39-11=28. Correct.\\n\\nAlternatively, 56 - (95 / (something)), but 95/11 is about 8.63; 56 -8.63=47.37. Not useful.\\n\\nSo best equation: 95 - 56 - 11 = 28\\n</answer>\\n\\nNow, here's the final answer formatted correctly:\\n95 - 56 - 11\",\"logprobs\":null,\"finish_reason\":\"stop\"}],\"usage\":{\"prompt_tokens\":146,\"total_tokens\":409,\"completion_tokens\":263}})\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ^^^^\nNameError: name 'null' is not defined\n",
+                    "expected_result": "28",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>28</target-number>\n\n<numbers-provided>95,11,56</numbers-provided>\n",
+                    "model": "fireworks~accounts/fireworks/models/deepseek-r1",
+                    "correct": false,
+                    "index": 3
+                }
+            ],
+            "correct_count": 0,
+            "incorrect_count": 3,
+            "accuracy": 0.0,
+            "average_tokens_per_second": 0.0,
+            "average_total_duration_ms": 9239.631573359171,
+            "average_load_duration_ms": 0.0
+        },
+        {
+            "model": "fireworks~accounts/fireworks/models/deepseek-v3",
+            "results": [
+                {
+                    "prompt_response": {
+                        "response": "{\"id\":\"24007a84-dc87-4b4d-9d4e-9d557c1545e4\",\"object\":\"text_completion\",\"created\":1738342307,\"model\":\"accounts/fireworks/models/deepseek-v3\",\"choices\":[{\"index\":0,\"text\":\"44 + 19 + 35\",\"logprobs\":null,\"finish_reason\":\"stop\"}],\"usage\":{\"prompt_tokens\":146,\"total_tokens\":154,\"completion_tokens\":8}}",
+                        "tokens_per_second": 0.0,
+                        "provider": "fireworks",
+                        "total_duration_ms": 960.7770442962646,
+                        "load_duration_ms": 0.0,
+                        "errored": false
+                    },
+                    "execution_result": "Error: Traceback (most recent call last):\n  File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmpb5_sk6q2.py\", line 1, in <module>\n    print({\"id\":\"24007a84-dc87-4b4d-9d4e-9d557c1545e4\",\"object\":\"text_completion\",\"created\":1738342307,\"model\":\"accounts/fireworks/models/deepseek-v3\",\"choices\":[{\"index\":0,\"text\":\"44 + 19 + 35\",\"logprobs\":null,\"finish_reason\":\"stop\"}],\"usage\":{\"prompt_tokens\":146,\"total_tokens\":154,\"completion_tokens\":8}})\n                                                                                                                                                                                                              ^^^^\nNameError: name 'null' is not defined\n",
+                    "expected_result": "98",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>98</target-number>\n\n<numbers-provided>44,19,35</numbers-provided>\n",
+                    "model": "fireworks~accounts/fireworks/models/deepseek-v3",
+                    "correct": false,
+                    "index": 1
+                },
+                {
+                    "prompt_response": {
+                        "response": "{\"id\":\"7a81fb7a-e4b1-4410-bb74-68b0823a6ff0\",\"object\":\"text_completion\",\"created\":1738342307,\"model\":\"accounts/fireworks/models/deepseek-v3\",\"choices\":[{\"index\":0,\"text\":\"96 - 95 + 63\",\"logprobs\":null,\"finish_reason\":\"stop\"}],\"usage\":{\"prompt_tokens\":146,\"total_tokens\":154,\"completion_tokens\":8}}",
+                        "tokens_per_second": 0.0,
+                        "provider": "fireworks",
+                        "total_duration_ms": 1002.3212432861328,
+                        "load_duration_ms": 0.0,
+                        "errored": false
+                    },
+                    "execution_result": "Error: Traceback (most recent call last):\n  File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmpdye8bq4_.py\", line 1, in <module>\n    print({\"id\":\"7a81fb7a-e4b1-4410-bb74-68b0823a6ff0\",\"object\":\"text_completion\",\"created\":1738342307,\"model\":\"accounts/fireworks/models/deepseek-v3\",\"choices\":[{\"index\":0,\"text\":\"96 - 95 + 63\",\"logprobs\":null,\"finish_reason\":\"stop\"}],\"usage\":{\"prompt_tokens\":146,\"total_tokens\":154,\"completion_tokens\":8}})\n                                                                                                                                                                                                              ^^^^\nNameError: name 'null' is not defined\n",
+                    "expected_result": "64",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>64</target-number>\n\n<numbers-provided>63,95,96</numbers-provided>\n",
+                    "model": "fireworks~accounts/fireworks/models/deepseek-v3",
+                    "correct": false,
+                    "index": 2
+                },
+                {
+                    "prompt_response": {
+                        "response": "{\"id\":\"e3000f97-e119-4154-9460-822182f43dc6\",\"object\":\"text_completion\",\"created\":1738342307,\"model\":\"accounts/fireworks/models/deepseek-v3\",\"choices\":[{\"index\":0,\"text\":\"56 - 11 - 95 / 5\",\"logprobs\":null,\"finish_reason\":\"stop\"}],\"usage\":{\"prompt_tokens\":146,\"total_tokens\":157,\"completion_tokens\":11}}",
+                        "tokens_per_second": 0.0,
+                        "provider": "fireworks",
+                        "total_duration_ms": 1129.2872428894043,
+                        "load_duration_ms": 0.0,
+                        "errored": false
+                    },
+                    "execution_result": "Error: Traceback (most recent call last):\n  File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmpe8p9u57q.py\", line 1, in <module>\n    print({\"id\":\"e3000f97-e119-4154-9460-822182f43dc6\",\"object\":\"text_completion\",\"created\":1738342307,\"model\":\"accounts/fireworks/models/deepseek-v3\",\"choices\":[{\"index\":0,\"text\":\"56 - 11 - 95 / 5\",\"logprobs\":null,\"finish_reason\":\"stop\"}],\"usage\":{\"prompt_tokens\":146,\"total_tokens\":157,\"completion_tokens\":11}})\n                                                                                                                                                                                                                  ^^^^\nNameError: name 'null' is not defined\n",
+                    "expected_result": "28",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>28</target-number>\n\n<numbers-provided>95,11,56</numbers-provided>\n",
+                    "model": "fireworks~accounts/fireworks/models/deepseek-v3",
+                    "correct": false,
+                    "index": 3
+                }
+            ],
+            "correct_count": 0,
+            "incorrect_count": 3,
+            "accuracy": 0.0,
+            "average_tokens_per_second": 0.0,
+            "average_total_duration_ms": 1030.7951768239338,
+            "average_load_duration_ms": 0.0
+        },
+        {
+            "model": "openai~gpt-4o-mini",
+            "results": [
+                {
+                    "prompt_response": {
+                        "response": "44 * 2 + 10 = 98",
+                        "tokens_per_second": 0.0,
+                        "provider": "openai",
+                        "total_duration_ms": 618.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "Error:   File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmpsre9uxua.py\", line 1\n    print(44 * 2 + 10 = 98)\n          ^^^^^^^^^^^^^\nSyntaxError: expression cannot contain assignment, perhaps you meant \"==\"?\n",
+                    "expected_result": "98",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>98</target-number>\n\n<numbers-provided>44,19,35</numbers-provided>\n",
+                    "model": "openai~gpt-4o-mini",
+                    "correct": false,
+                    "index": 1
+                },
+                {
+                    "prompt_response": {
+                        "response": "63 + 96 - 95",
+                        "tokens_per_second": 0.0,
+                        "provider": "openai",
+                        "total_duration_ms": 1228.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "64.0",
+                    "expected_result": "64",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>64</target-number>\n\n<numbers-provided>63,95,96</numbers-provided>\n",
+                    "model": "openai~gpt-4o-mini",
+                    "correct": true,
+                    "index": 2
+                },
+                {
+                    "prompt_response": {
+                        "response": "(95 - 56) * 11 / 11 + 28",
+                        "tokens_per_second": 0.0,
+                        "provider": "openai",
+                        "total_duration_ms": 1225.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "67.0",
+                    "expected_result": "28",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>28</target-number>\n\n<numbers-provided>95,11,56</numbers-provided>\n",
+                    "model": "openai~gpt-4o-mini",
+                    "correct": false,
+                    "index": 3
+                }
+            ],
+            "correct_count": 1,
+            "incorrect_count": 2,
+            "accuracy": 0.3333333333333333,
+            "average_tokens_per_second": 0.0,
+            "average_total_duration_ms": 1023.6666666666666,
+            "average_load_duration_ms": 0.0
+        },
+        {
+            "model": "openai~o1-mini",
+            "results": [
+                {
+                    "prompt_response": {
+                        "response": "44+35+19",
+                        "tokens_per_second": 0.0,
+                        "provider": "openai",
+                        "total_duration_ms": 2608.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "98.0",
+                    "expected_result": "98",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>98</target-number>\n\n<numbers-provided>44,19,35</numbers-provided>\n",
+                    "model": "openai~o1-mini",
+                    "correct": true,
+                    "index": 1
+                },
+                {
+                    "prompt_response": {
+                        "response": "96-(95-63)",
+                        "tokens_per_second": 0.0,
+                        "provider": "openai",
+                        "total_duration_ms": 3133.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "64.0",
+                    "expected_result": "64",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>64</target-number>\n\n<numbers-provided>63,95,96</numbers-provided>\n",
+                    "model": "openai~o1-mini",
+                    "correct": true,
+                    "index": 2
+                },
+                {
+                    "prompt_response": {
+                        "response": "95-56-11",
+                        "tokens_per_second": 0.0,
+                        "provider": "openai",
+                        "total_duration_ms": 4845.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "28.0",
+                    "expected_result": "28",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>28</target-number>\n\n<numbers-provided>95,11,56</numbers-provided>\n",
+                    "model": "openai~o1-mini",
+                    "correct": true,
+                    "index": 3
+                }
+            ],
+            "correct_count": 3,
+            "incorrect_count": 0,
+            "accuracy": 1.0,
+            "average_tokens_per_second": 0.0,
+            "average_total_duration_ms": 3528.6666666666665,
+            "average_load_duration_ms": 0.0
+        },
+        {
+            "model": "openai~o1",
+            "results": [
+                {
+                    "prompt_response": {
+                        "response": "44+35+19",
+                        "tokens_per_second": 0.0,
+                        "provider": "openai",
+                        "total_duration_ms": 5948.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "98.0",
+                    "expected_result": "98",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>98</target-number>\n\n<numbers-provided>44,19,35</numbers-provided>\n",
+                    "model": "openai~o1",
+                    "correct": true,
+                    "index": 1
+                },
+                {
+                    "prompt_response": {
+                        "response": "63+(96-95)",
+                        "tokens_per_second": 0.0,
+                        "provider": "openai",
+                        "total_duration_ms": 8850.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "64.0",
+                    "expected_result": "64",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>64</target-number>\n\n<numbers-provided>63,95,96</numbers-provided>\n",
+                    "model": "openai~o1",
+                    "correct": true,
+                    "index": 2
+                },
+                {
+                    "prompt_response": {
+                        "response": "95-56-11",
+                        "tokens_per_second": 0.0,
+                        "provider": "openai",
+                        "total_duration_ms": 5244.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "28.0",
+                    "expected_result": "28",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>28</target-number>\n\n<numbers-provided>95,11,56</numbers-provided>\n",
+                    "model": "openai~o1",
+                    "correct": true,
+                    "index": 3
+                }
+            ],
+            "correct_count": 3,
+            "incorrect_count": 0,
+            "accuracy": 1.0,
+            "average_tokens_per_second": 0.0,
+            "average_total_duration_ms": 6680.666666666667,
+            "average_load_duration_ms": 0.0
+        }
+    ],
+    "overall_correct_count": 9,
+    "overall_incorrect_count": 12,
+    "overall_accuracy": 0.42857142857142855,
+    "average_tokens_per_second": 4.436094935119142,
+    "average_total_duration_ms": 3338.610281788063,
+    "average_load_duration_ms": 28.406962285714286
+}

@@ -20,16 +20,16 @@ base_prompt: |
 evaluator: "python_print_execution_with_num_output"
 
 models:
-  - "ollama~mistral-small:latest"
-  - "anthropic~claude-3-5-sonnet-latest"
-  # - "deepseek~deepseek-chat"
-  # - "deepseek~deepseek-reasoner"
+  # - "ollama~mistral-small:latest"
+  # - "anthropic~claude-3-5-sonnet-latest"
   - "fireworks~accounts/fireworks/models/deepseek-r1"
   - "fireworks~accounts/fireworks/models/deepseek-v3"
-  - "openai~gpt-4o-mini"
-  - "openai~o1-mini"
-  - "openai~o1"
-  - "fireworks~fireworks-2-flash-128k"
+  # - "openai~gpt-4o-mini"
+  # - "openai~o1-mini"
+  # - "openai~o1"
+
+  # - "deepseek~deepseek-chat"
+  # - "deepseek~deepseek-reasoner"
 
 prompts:
   - dynamic_variables:
