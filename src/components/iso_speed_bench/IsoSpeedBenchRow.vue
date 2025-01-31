@@ -182,6 +182,7 @@ import openaiLogo from "../../assets/openai.svg";
 import googleLogo from "../../assets/google.svg";
 import groqLogo from "../../assets/groq.svg";
 import deepseekLogo from "../../assets/deepseek.svg";
+import fireworksLogo from "../../assets/fireworks.svg";
 
 const props = defineProps<{
   modelReport: ExecEvalBenchmarkModelReport;
@@ -209,6 +210,8 @@ const getProviderLogo = computed(() => {
       return ollamaLogo;
     case "deepseek":
       return deepseekLogo;
+    case "fireworks":
+      return fireworksLogo;
     default:
       return null;
   }
