@@ -9,7 +9,7 @@ from modules.data_types import (
     ToolCallResponse,
     ThoughtResponse,
 )
-from modules import openai_llm, gemini_llm, deepseek_llm
+from modules import openai_llm, gemini_llm, deepseek_llm, fireworks_llm
 from utils import MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS
 from modules.tools import all_tools_list
 from modules import anthropic_llm
@@ -44,6 +44,8 @@ def simple_prompt(prompt_str: str, model_alias_str: str) -> PromptResponse:
         return gemini_llm.text_prompt(prompt_str, model_name)
     elif provider == "deepseek":
         return deepseek_llm.text_prompt(prompt_str, model_name)
+    elif provider == "fireworks":
+        return fireworks_llm.text_prompt(prompt_str, model_name)
     else:
         raise ValueError(f"Unsupported provider: {provider}")
 
@@ -118,6 +120,11 @@ def thought_prompt(prompt: str, model: str) -> ThoughtResponse:
             response = ollama_llm.thought_prompt(prompt, model_name)
             return response
 
+        elif provider == "fireworks":
+            text_response = simple_prompt(prompt, model)
+            return ThoughtResponse(
+                thoughts="", response=text_response.response, error=None
+            )
         else:
             # For all other providers, use standard text prompt and wrap in ThoughtResponse
             text_response = simple_prompt(prompt, model)
