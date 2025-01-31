@@ -21,7 +21,7 @@ from modules.execution_evaluators import (
     eval_result_compare,
 )
 from utils import parse_markdown_backticks
-from modules import ollama_llm, anthropic_llm, deepseek_llm, gemini_llm, openai_llm
+from modules import ollama_llm, anthropic_llm, deepseek_llm, gemini_llm, openai_llm, fireworks_llm
 
 provider_delimiter = "~"
 
@@ -48,9 +48,9 @@ def parse_model_string(model: str) -> tuple[str, str]:
         "deepseek",
         "openai",
         "gemini",
+        "fireworks",
         # "mlx",
         # "groq",
-        # "fireworks",
     ]
     if provider not in supported_providers:
         raise ValueError(
@@ -94,6 +94,7 @@ provider_bench_functions = {
     "deepseek": deepseek_llm.bench_prompt,
     "openai": openai_llm.bench_prompt,
     "gemini": gemini_llm.bench_prompt,
+    "fireworks": fireworks_llm.bench_prompt,
 }
 
 
@@ -164,14 +165,19 @@ def process_single_prompt(
             correct = eval_result_compare(
                 benchmark_file.evaluator, expected_result, execution_result
             )
-        elif benchmark_file.evaluator == ExeEvalType.python_print_execution_with_num_output:
+        elif (
+            benchmark_file.evaluator
+            == ExeEvalType.python_print_execution_with_num_output
+        ):
             wrapped_code = f"print({cleaned_code})"
             execution_result = execute_python_code(wrapped_code)
-            print(f"Execution result ({ExeEvalType.python_print_execution_with_num_output.value}): {execution_result}")
+            print(
+                f"Execution result ({ExeEvalType.python_print_execution_with_num_output.value}): {execution_result}"
+            )
             correct = eval_result_compare(
                 ExeEvalType.execute_python_code_with_num_output,
                 expected_result,
-                execution_result.strip()
+                execution_result.strip(),
             )
         else:
             raise ValueError(f"Unsupported evaluator: {benchmark_file.evaluator}")
@@ -214,7 +220,7 @@ def run_benchmark_for_model(
             results.append(result)
     else:
         # Parallel processing for other providers
-        with ThreadPoolExecutor() as executor:
+        with ThreadPoolExecutor(max_workers=50) as executor:
             futures = []
             for i, prompt_row in enumerate(benchmark_file.prompts, 1):
                 futures.append(

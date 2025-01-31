@@ -1,0 +1,425 @@
+{
+    "benchmark_name": "Fine Tuning: Target Math",
+    "purpose": "Evaluate the model's ability to create an arithmetic equation that reaches a given target-number using provided numbers.",
+    "models": [
+        {
+            "model": "ollama~mistral-small:latest",
+            "results": [
+                {
+                    "prompt_response": {
+                        "response": "(44+19)/35*2.8",
+                        "tokens_per_second": 31.042128603104214,
+                        "provider": "ollama",
+                        "total_duration_ms": 2046.037334,
+                        "load_duration_ms": 570.486542,
+                        "errored": null
+                    },
+                    "execution_result": "5.04",
+                    "expected_result": "98",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>98</target-number>\n\n<numbers-provided>44,19,35</numbers-provided>\n",
+                    "model": "ollama~mistral-small:latest",
+                    "correct": false,
+                    "index": 1
+                },
+                {
+                    "prompt_response": {
+                        "response": "(95*96-63)/2",
+                        "tokens_per_second": 31.496062992125985,
+                        "provider": "ollama",
+                        "total_duration_ms": 573.24425,
+                        "load_duration_ms": 11.768541,
+                        "errored": null
+                    },
+                    "execution_result": "4528.5",
+                    "expected_result": "64",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>64</target-number>\n\n<numbers-provided>63,95,96</numbers-provided>\n",
+                    "model": "ollama~mistral-small:latest",
+                    "correct": false,
+                    "index": 2
+                },
+                {
+                    "prompt_response": {
+                        "response": "(95/56)*(11+56)",
+                        "tokens_per_second": 30.905077262693155,
+                        "provider": "ollama",
+                        "total_duration_ms": 645.035125,
+                        "load_duration_ms": 11.851917,
+                        "errored": null
+                    },
+                    "execution_result": "113.66071428571428",
+                    "expected_result": "28",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>28</target-number>\n\n<numbers-provided>95,11,56</numbers-provided>\n",
+                    "model": "ollama~mistral-small:latest",
+                    "correct": false,
+                    "index": 3
+                }
+            ],
+            "correct_count": 0,
+            "incorrect_count": 3,
+            "accuracy": 0.0,
+            "average_tokens_per_second": 31.147756285974452,
+            "average_total_duration_ms": 1088.1055696666667,
+            "average_load_duration_ms": 198.03566666666666
+        },
+        {
+            "model": "anthropic~claude-3-5-sonnet-latest",
+            "results": [
+                {
+                    "prompt_response": {
+                        "response": "44+35+19",
+                        "tokens_per_second": 0.0,
+                        "provider": "anthropic",
+                        "total_duration_ms": 774.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "98.0",
+                    "expected_result": "98",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>98</target-number>\n\n<numbers-provided>44,19,35</numbers-provided>\n",
+                    "model": "anthropic~claude-3-5-sonnet-latest",
+                    "correct": true,
+                    "index": 1
+                },
+                {
+                    "prompt_response": {
+                        "response": "96-95+63",
+                        "tokens_per_second": 0.0,
+                        "provider": "anthropic",
+                        "total_duration_ms": 505.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "64.0",
+                    "expected_result": "64",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>64</target-number>\n\n<numbers-provided>63,95,96</numbers-provided>\n",
+                    "model": "anthropic~claude-3-5-sonnet-latest",
+                    "correct": true,
+                    "index": 2
+                },
+                {
+                    "prompt_response": {
+                        "response": "95/11*56/95-28+28",
+                        "tokens_per_second": 0.0,
+                        "provider": "anthropic",
+                        "total_duration_ms": 1081.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "5.09090909090909",
+                    "expected_result": "28",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>28</target-number>\n\n<numbers-provided>95,11,56</numbers-provided>\n",
+                    "model": "anthropic~claude-3-5-sonnet-latest",
+                    "correct": false,
+                    "index": 3
+                }
+            ],
+            "correct_count": 2,
+            "incorrect_count": 1,
+            "accuracy": 0.6666666666666666,
+            "average_tokens_per_second": 0.0,
+            "average_total_duration_ms": 786.6666666666666,
+            "average_load_duration_ms": 0.0
+        },
+        {
+            "model": "deepseek~deepseek-chat",
+            "results": [
+                {
+                    "prompt_response": {
+                        "response": "44 + 35 + 19",
+                        "tokens_per_second": 0.0,
+                        "provider": "deepseek",
+                        "total_duration_ms": 4073.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "98.0",
+                    "expected_result": "98",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>98</target-number>\n\n<numbers-provided>44,19,35</numbers-provided>\n",
+                    "model": "deepseek~deepseek-chat",
+                    "correct": true,
+                    "index": 1
+                },
+                {
+                    "prompt_response": {
+                        "response": "96 - 95 + 63",
+                        "tokens_per_second": 0.0,
+                        "provider": "deepseek",
+                        "total_duration_ms": 3919.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "64.0",
+                    "expected_result": "64",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>64</target-number>\n\n<numbers-provided>63,95,96</numbers-provided>\n",
+                    "model": "deepseek~deepseek-chat",
+                    "correct": true,
+                    "index": 2
+                },
+                {
+                    "prompt_response": {
+                        "response": "95 - 56 - 11",
+                        "tokens_per_second": 0.0,
+                        "provider": "deepseek",
+                        "total_duration_ms": 4467.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "28.0",
+                    "expected_result": "28",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>28</target-number>\n\n<numbers-provided>95,11,56</numbers-provided>\n",
+                    "model": "deepseek~deepseek-chat",
+                    "correct": true,
+                    "index": 3
+                }
+            ],
+            "correct_count": 3,
+            "incorrect_count": 0,
+            "accuracy": 1.0,
+            "average_tokens_per_second": 0.0,
+            "average_total_duration_ms": 4153.0,
+            "average_load_duration_ms": 0.0
+        },
+        {
+            "model": "deepseek~deepseek-reasoner",
+            "results": [
+                {
+                    "prompt_response": {
+                        "response": "44+19+35",
+                        "tokens_per_second": 0.0,
+                        "provider": "deepseek",
+                        "total_duration_ms": 14881.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "98.0",
+                    "expected_result": "98",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>98</target-number>\n\n<numbers-provided>44,19,35</numbers-provided>\n",
+                    "model": "deepseek~deepseek-reasoner",
+                    "correct": true,
+                    "index": 1
+                },
+                {
+                    "prompt_response": {
+                        "response": "96-(95-63)",
+                        "tokens_per_second": 0.0,
+                        "provider": "deepseek",
+                        "total_duration_ms": 18143.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "64.0",
+                    "expected_result": "64",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>64</target-number>\n\n<numbers-provided>63,95,96</numbers-provided>\n",
+                    "model": "deepseek~deepseek-reasoner",
+                    "correct": true,
+                    "index": 2
+                },
+                {
+                    "prompt_response": {
+                        "response": "Error: Expecting value: line 1 column 1 (char 0)",
+                        "tokens_per_second": 0.0,
+                        "provider": "deepseek",
+                        "total_duration_ms": 0.0,
+                        "load_duration_ms": 0.0,
+                        "errored": true
+                    },
+                    "execution_result": "Error:   File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmptbpydfck.py\", line 1\n    print(Error: Expecting value: line 1 column 1 (char 0))\n               ^\nSyntaxError: invalid syntax\n",
+                    "expected_result": "28",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>28</target-number>\n\n<numbers-provided>95,11,56</numbers-provided>\n",
+                    "model": "deepseek~deepseek-reasoner",
+                    "correct": false,
+                    "index": 3
+                }
+            ],
+            "correct_count": 2,
+            "incorrect_count": 1,
+            "accuracy": 0.6666666666666666,
+            "average_tokens_per_second": 0.0,
+            "average_total_duration_ms": 11008.0,
+            "average_load_duration_ms": 0.0
+        },
+        {
+            "model": "openai~gpt-4o-mini",
+            "results": [
+                {
+                    "prompt_response": {
+                        "response": "44 * 2 + 10 - 1 + 19 = 98",
+                        "tokens_per_second": 0.0,
+                        "provider": "openai",
+                        "total_duration_ms": 1202.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "Error:   File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmpjvl0wawo.py\", line 1\n    print(44 * 2 + 10 - 1 + 19 = 98)\n          ^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: expression cannot contain assignment, perhaps you meant \"==\"?\n",
+                    "expected_result": "98",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>98</target-number>\n\n<numbers-provided>44,19,35</numbers-provided>\n",
+                    "model": "openai~gpt-4o-mini",
+                    "correct": false,
+                    "index": 1
+                },
+                {
+                    "prompt_response": {
+                        "response": "63 + 96 - 95",
+                        "tokens_per_second": 0.0,
+                        "provider": "openai",
+                        "total_duration_ms": 599.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "64.0",
+                    "expected_result": "64",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>64</target-number>\n\n<numbers-provided>63,95,96</numbers-provided>\n",
+                    "model": "openai~gpt-4o-mini",
+                    "correct": true,
+                    "index": 2
+                },
+                {
+                    "prompt_response": {
+                        "response": "95 - 56 + 11",
+                        "tokens_per_second": 0.0,
+                        "provider": "openai",
+                        "total_duration_ms": 886.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "50.0",
+                    "expected_result": "28",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>28</target-number>\n\n<numbers-provided>95,11,56</numbers-provided>\n",
+                    "model": "openai~gpt-4o-mini",
+                    "correct": false,
+                    "index": 3
+                }
+            ],
+            "correct_count": 1,
+            "incorrect_count": 2,
+            "accuracy": 0.3333333333333333,
+            "average_tokens_per_second": 0.0,
+            "average_total_duration_ms": 895.6666666666666,
+            "average_load_duration_ms": 0.0
+        },
+        {
+            "model": "openai~o1-mini",
+            "results": [
+                {
+                    "prompt_response": {
+                        "response": "44+19+35",
+                        "tokens_per_second": 0.0,
+                        "provider": "openai",
+                        "total_duration_ms": 5442.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "98.0",
+                    "expected_result": "98",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>98</target-number>\n\n<numbers-provided>44,19,35</numbers-provided>\n",
+                    "model": "openai~o1-mini",
+                    "correct": true,
+                    "index": 1
+                },
+                {
+                    "prompt_response": {
+                        "response": "63+96-95",
+                        "tokens_per_second": 0.0,
+                        "provider": "openai",
+                        "total_duration_ms": 4211.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "64.0",
+                    "expected_result": "64",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>64</target-number>\n\n<numbers-provided>63,95,96</numbers-provided>\n",
+                    "model": "openai~o1-mini",
+                    "correct": true,
+                    "index": 2
+                },
+                {
+                    "prompt_response": {
+                        "response": "95-56-11",
+                        "tokens_per_second": 0.0,
+                        "provider": "openai",
+                        "total_duration_ms": 4939.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "28.0",
+                    "expected_result": "28",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>28</target-number>\n\n<numbers-provided>95,11,56</numbers-provided>\n",
+                    "model": "openai~o1-mini",
+                    "correct": true,
+                    "index": 3
+                }
+            ],
+            "correct_count": 3,
+            "incorrect_count": 0,
+            "accuracy": 1.0,
+            "average_tokens_per_second": 0.0,
+            "average_total_duration_ms": 4864.0,
+            "average_load_duration_ms": 0.0
+        },
+        {
+            "model": "openai~o1",
+            "results": [
+                {
+                    "prompt_response": {
+                        "response": "44+19+35",
+                        "tokens_per_second": 0.0,
+                        "provider": "openai",
+                        "total_duration_ms": 4414.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "98.0",
+                    "expected_result": "98",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>98</target-number>\n\n<numbers-provided>44,19,35</numbers-provided>\n",
+                    "model": "openai~o1",
+                    "correct": true,
+                    "index": 1
+                },
+                {
+                    "prompt_response": {
+                        "response": "63+96-95",
+                        "tokens_per_second": 0.0,
+                        "provider": "openai",
+                        "total_duration_ms": 7204.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "64.0",
+                    "expected_result": "64",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>64</target-number>\n\n<numbers-provided>63,95,96</numbers-provided>\n",
+                    "model": "openai~o1",
+                    "correct": true,
+                    "index": 2
+                },
+                {
+                    "prompt_response": {
+                        "response": "95-11-56",
+                        "tokens_per_second": 0.0,
+                        "provider": "openai",
+                        "total_duration_ms": 16419.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "28.0",
+                    "expected_result": "28",
+                    "input_prompt": "<purpose>\n    Create an equation that equals the target-number given the numbers-provided.\n</purpose>\n\n<instructions>\n    <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>\n    <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>\n    <instruction>Each number can only be used once</instruction>\n    <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>\n    <instruction>Output your equation without any other text</instruction>\n</instructions>\n\n<target-number>28</target-number>\n\n<numbers-provided>95,11,56</numbers-provided>\n",
+                    "model": "openai~o1",
+                    "correct": true,
+                    "index": 3
+                }
+            ],
+            "correct_count": 3,
+            "incorrect_count": 0,
+            "accuracy": 1.0,
+            "average_tokens_per_second": 0.0,
+            "average_total_duration_ms": 9345.666666666666,
+            "average_load_duration_ms": 0.0
+        }
+    ],
+    "overall_correct_count": 14,
+    "overall_incorrect_count": 7,
+    "overall_accuracy": 0.6666666666666666,
+    "average_tokens_per_second": 4.449679469424922,
+    "average_total_duration_ms": 4591.586509952381,
+    "average_load_duration_ms": 28.29080952380952
+}

@@ -6,8 +6,10 @@ base_prompt: |
   </purpose>
 
   <instructions>
-      <instruction>You can use basic arithmetic operations (+, -, *, /)</instruction>
+      <instruction>You can only use basic arithmetic operations (+, -, *, /)</instruction>
+      <instruction>Do not use = in your equation. Simply output the equation we can paste directly into a calculator.</instruction>
       <instruction>Each number can only be used once</instruction>
+      <instruction>Don't use latex or any fancy formatting. Use basic arithmetic operations.</instruction>
       <instruction>Output your equation without any other text</instruction>
   </instructions>
 
@@ -19,13 +21,14 @@ evaluator: "python_print_execution_with_num_output"
 
 models:
   - "ollama~mistral-small:latest"
-  - "ollama~qwen2.5-coder:32b"
-  - "ollama~phi4:latest"
   - "anthropic~claude-3-5-sonnet-latest"
-  - "deepseek~deepseek-chat"
+  # - "deepseek~deepseek-chat"
+  # - "deepseek~deepseek-reasoner"
+  - "fireworks~accounts/fireworks/models/deepseek-r1"
   - "openai~gpt-4o-mini"
   - "openai~o1-mini"
   - "openai~o1"
+  - "fireworks~fireworks-2-flash-128k"
 
 prompts:
   - dynamic_variables:
@@ -43,40 +46,40 @@ prompts:
       numbers-provided: "95,11,56"
     expectation: "28"
 
-  - dynamic_variables:
-      target-number: "48"
-      numbers-provided: "19,74,45"
-    expectation: "48"
+  # - dynamic_variables:
+  #     target-number: "48"
+  #     numbers-provided: "19,74,45"
+  #   expectation: "48"
 
-  - dynamic_variables:
-      target-number: "17"
-      numbers-provided: "49,41,73"
-    expectation: "17"
+  # - dynamic_variables:
+  #     target-number: "17"
+  #     numbers-provided: "49,41,73"
+  #   expectation: "17"
 
-  - dynamic_variables:
-      target-number: "62"
-      numbers-provided: "48,28,42"
-    expectation: "62"
+  # - dynamic_variables:
+  #     target-number: "62"
+  #     numbers-provided: "48,28,42"
+  #   expectation: "62"
 
-  - dynamic_variables:
-      target-number: "82"
-      numbers-provided: "83,78,1,39"
-    expectation: "82"
+  # - dynamic_variables:
+  #     target-number: "82"
+  #     numbers-provided: "83,78,1,39"
+  #   expectation: "82"
 
-  - dynamic_variables:
-      target-number: "98"
-      numbers-provided: "67,21,31,20"
-    expectation: "98"
+  # - dynamic_variables:
+  #     target-number: "98"
+  #     numbers-provided: "67,21,31,20"
+  #   expectation: "98"
 
-  - dynamic_variables:
-      target-number: "40"
-      numbers-provided: "96,74,94,54"
-    expectation: "40"
+  # - dynamic_variables:
+  #     target-number: "40"
+  #     numbers-provided: "96,74,94,54"
+  #   expectation: "40"
 
-  - dynamic_variables:
-      target-number: "65"
-      numbers-provided: "81,84,62"
-    expectation: "65"
+  # - dynamic_variables:
+  #     target-number: "65"
+  #     numbers-provided: "81,84,62"
+  #   expectation: "65"
 
   # - dynamic_variables:
   #     target-number: "35"
