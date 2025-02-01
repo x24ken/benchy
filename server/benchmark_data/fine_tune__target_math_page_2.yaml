@@ -24,6 +24,8 @@ models:
   
   # - "anthropic~claude-3-5-sonnet-latest"
   - "openai~gpt-4o-mini"
+  - "openai~gpt-4o-2024-08-06"
+  - "openai~ft:gpt-4o-2024-08-06:personal::AvpWC04B"
   - "openai~ft:gpt-4o-mini-2024-07-18:personal::AvpRtnmR"
   # - "openai~o1-mini"
   # - "openai~o1"
