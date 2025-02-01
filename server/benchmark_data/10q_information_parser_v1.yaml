@@ -803,263 +803,263 @@ prompts:
     expectation:
       cfo: "Susan Li"
 
-  # # Test 4: Single key - company
-  # - dynamic_variables:
-  #     information_to_parse: |
-  #       {
-  #         "company": "name of the company exactly as listed in the report"
-  #       }
-  #   expectation:
-  #     company: "Meta Platforms, Inc. (META)"
+  # Test 4: Single key - company
+  - dynamic_variables:
+      information_to_parse: |
+        {
+          "company": "name of the company exactly as listed in the report"
+        }
+    expectation:
+      company: "Meta Platforms, Inc. (META)"
 
-  # # Test 5: Single key - conference_call_title
-  # - dynamic_variables:
-  #     information_to_parse: |
-  #       {
-  #         "conference_call_title": "exact title of the conference call"
-  #       }
-  #   expectation:
-  #     conference_call_title: "Fourth Quarter 2024 Results Conference Call"
+  # Test 5: Single key - conference_call_title
+  - dynamic_variables:
+      information_to_parse: |
+        {
+          "conference_call_title": "exact title of the conference call"
+        }
+    expectation:
+      conference_call_title: "Fourth Quarter 2024 Results Conference Call"
 
-  # # Test 6: Single key - report_date
-  # - dynamic_variables:
-  #     information_to_parse: |
-  #       {
-  #         "report_date": "the date of the conference call as mentioned in the transcript"
-  #       }
-  #   expectation:
-  #     report_date: "January 29th, 2025"
+  # Test 6: Single key - report_date
+  - dynamic_variables:
+      information_to_parse: |
+        {
+          "report_date": "the date of the conference call as mentioned in the transcript"
+        }
+    expectation:
+      report_date: "January 29th, 2025"
 
-  # # Test 7: Single key - quarter
-  # - dynamic_variables:
-  #     information_to_parse: |
-  #       {
-  #         "quarter": "the quarter being reported in this format: QN YYYY"
-  #       }
-  #   expectation:
-  #     quarter: "Q4 2024"
+  # Test 7: Single key - quarter
+  - dynamic_variables:
+      information_to_parse: |
+        {
+          "quarter": "the quarter being reported in this format: QN YYYY"
+        }
+    expectation:
+      quarter: "Q4 2024"
 
-  # # Test 8: Single key - total_revenue
-  # - dynamic_variables:
-  #     information_to_parse: |
-  #       {
-  #         "total_revenue": "Q4 total revenue as stated in the report fully written out with commas and dollar sign"
-  #       }
-  #   expectation:
-  #     total_revenue: "$48,400,000,000"
+  # Test 8: Single key - total_revenue
+  - dynamic_variables:
+      information_to_parse: |
+        {
+          "total_revenue": "Q4 total revenue as stated in the report fully written out with commas and dollar sign"
+        }
+    expectation:
+      total_revenue: "$48,400,000,000"
 
-  # # Test 9: Single key - total_expenses
-  # - dynamic_variables:
-  #     information_to_parse: |
-  #       {
-  #         "total_expenses": "Q4 total expenses as stated in the report fully written out with commas and dollar sign"
-  #       }
-  #   expectation:
-  #     total_expenses: "$25,000,000,000"
+  # Test 9: Single key - total_expenses
+  - dynamic_variables:
+      information_to_parse: |
+        {
+          "total_expenses": "Q4 total expenses as stated in the report fully written out with commas and dollar sign"
+        }
+    expectation:
+      total_expenses: "$25,000,000,000"
 
-  # # Test 10: Single key - operating_income
-  # - dynamic_variables:
-  #     information_to_parse: |
-  #       {
-  #         "operating_income": "Q4 operating income as stated in the report fully written out with commas and dollar sign"
-  #       }
-  #   expectation:
-  #     operating_income: "$23,400,000,000"
+  # Test 10: Single key - operating_income
+  - dynamic_variables:
+      information_to_parse: |
+        {
+          "operating_income": "Q4 operating income as stated in the report fully written out with commas and dollar sign"
+        }
+    expectation:
+      operating_income: "$23,400,000,000"
 
-  # # Test 11: Single key - operating_margin
-  # - dynamic_variables:
-  #     information_to_parse: |
-  #       {
-  #         "operating_margin": "Q4 operating margin percentage as stated in the report with a percentage sign on the last number nothing else"
-  #       }
-  #   expectation:
-  #     operating_margin: "48%"
+  # Test 11: Single key - operating_margin
+  - dynamic_variables:
+      information_to_parse: |
+        {
+          "operating_margin": "Q4 operating margin percentage as stated in the report with a percentage sign on the last number nothing else"
+        }
+    expectation:
+      operating_margin: "48%"
 
-  # # Test 12: Single key - net_income
-  # - dynamic_variables:
-  #     information_to_parse: |
-  #       {
-  #         "net_income": "Q4 net income as stated in the report fully written out with commas and dollar sign"
-  #       }
-  #   expectation:
-  #     net_income: "$20,800,000,000"
+  # Test 12: Single key - net_income
+  - dynamic_variables:
+      information_to_parse: |
+        {
+          "net_income": "Q4 net income as stated in the report fully written out with commas and dollar sign"
+        }
+    expectation:
+      net_income: "$20,800,000,000"
 
-  # # Test 13: Single key - earnings_per_share
-  # - dynamic_variables:
-  #     information_to_parse: |
-  #       {
-  #         "earnings_per_share": "Q4 earnings per share as stated in the report exact number and nothing else with dollar sign"
-  #       }
-  #   expectation:
-  #     earnings_per_share: "$8.02"
+  # Test 13: Single key - earnings_per_share
+  - dynamic_variables:
+      information_to_parse: |
+        {
+          "earnings_per_share": "Q4 earnings per share as stated in the report exact number and nothing else with dollar sign"
+        }
+    expectation:
+      earnings_per_share: "$8.02"
 
-  # # Test 14: Single key - employee_count
-  # - dynamic_variables:
-  #     information_to_parse: |
-  #       {
-  #         "employee_count": "exact number of employees at year end comma separated"
-  #       }
-  #   expectation:
-  #     employee_count: "74,000"
+  # Test 14: Single key - employee_count
+  - dynamic_variables:
+      information_to_parse: |
+        {
+          "employee_count": "exact number of employees at year end comma separated"
+        }
+    expectation:
+      employee_count: "74,000"
 
-  # # Test 15: Single key - family_of_apps_ad_revenue
-  # - dynamic_variables:
-  #     information_to_parse: |
-  #       {
-  #         "family_of_apps_ad_revenue": "Q4 Family of Apps ad revenue as stated in the report fully written out with commas and dollar sign"
-  #       }
-  #   expectation:
-  #     family_of_apps_ad_revenue: "$46,800,000,000"
+  # Test 15: Single key - family_of_apps_ad_revenue
+  - dynamic_variables:
+      information_to_parse: |
+        {
+          "family_of_apps_ad_revenue": "Q4 Family of Apps ad revenue as stated in the report fully written out with commas and dollar sign"
+        }
+    expectation:
+      family_of_apps_ad_revenue: "$46,800,000,000"
 
-  # # Test 16: Single key - family_of_apps_other_revenue
-  # - dynamic_variables:
-  #     information_to_parse: |
-  #       {
-  #         "family_of_apps_other_revenue": "Q4 Family of Apps other revenue as stated in the report fully written out with commas and dollar sign"
-  #       }
-  #   expectation:
-  #     family_of_apps_other_revenue: "$519,000,000"
+  # Test 16: Single key - family_of_apps_other_revenue
+  - dynamic_variables:
+      information_to_parse: |
+        {
+          "family_of_apps_other_revenue": "Q4 Family of Apps other revenue as stated in the report fully written out with commas and dollar sign"
+        }
+    expectation:
+      family_of_apps_other_revenue: "$519,000,000"
 
-  # # Test 17: Single key - reality_labs_revenue
-  # - dynamic_variables:
-  #     information_to_parse: |
-  #       {
-  #         "reality_labs_revenue": "Q4 revenue for Reality Labs as stated in the report fully written out with commas and dollar sign"
-  #       }
-  #   expectation:
-  #     reality_labs_revenue: "$1,100,000,000"
+  # Test 17: Single key - reality_labs_revenue
+  - dynamic_variables:
+      information_to_parse: |
+        {
+          "reality_labs_revenue": "Q4 revenue for Reality Labs as stated in the report fully written out with commas and dollar sign"
+        }
+    expectation:
+      reality_labs_revenue: "$1,100,000,000"
 
-  # # Test 18: Single key - reality_labs_operating_loss
-  # - dynamic_variables:
-  #     information_to_parse: |
-  #       {
-  #         "reality_labs_operating_loss": "operating loss for Reality Labs in Q4 as stated in the report fully written out with commas and dollar sign"
-  #       }
-  #   expectation:
-  #     reality_labs_operating_loss: "$5,000,000,000"
+  # Test 18: Single key - reality_labs_operating_loss
+  - dynamic_variables:
+      information_to_parse: |
+        {
+          "reality_labs_operating_loss": "operating loss for Reality Labs in Q4 as stated in the report fully written out with commas and dollar sign"
+        }
+    expectation:
+      reality_labs_operating_loss: "$5,000,000,000"
 
-  # # Test 19: Single key - future_q1_2025_revenue_range
-  # - dynamic_variables:
-  #     information_to_parse: |
-  #       {
-  #         "future_q1_2025_revenue_range": "Q1 2025 revenue guidance range as stated in the report fully written out with commas with a dash between the range no spaces and dollar sign on both numbers"
-  #       }
-  #   expectation:
-  #     future_q1_2025_revenue_range: "$39,500,000,000-$41,800,000,000"
+  # Test 19: Single key - future_q1_2025_revenue_range
+  - dynamic_variables:
+      information_to_parse: |
+        {
+          "future_q1_2025_revenue_range": "Q1 2025 revenue guidance range as stated in the report fully written out with commas with a dash between the range no spaces and dollar sign on both numbers"
+        }
+    expectation:
+      future_q1_2025_revenue_range: "$39,500,000,000-$41,800,000,000"
 
-  # # Test 20: Double key - future_full_year_2025_expenses and future_full_year_2025_capex
-  # - dynamic_variables:
-  #     information_to_parse: |
-  #       {
-  #         "future_full_year_2025_expenses": "full year 2025 total expenses guidance range fully written out with commas with a dash between the range no spaces and dollar sign on both numbers"
-  #         "future_full_year_2025_capex": "full year 2025 capital expenditures guidance range fully written out with commas with a dash between the range no spaces and dollar sign on both numbers"
-  #       }
-  #   expectation:
-  #     future_full_year_2025_expenses: "$114,000,000,000-$119,000,000,000"
-  #     future_full_year_2025_capex: "$60,000,000,000-$65,000,000,000"
+  # Test 20: Double key - future_full_year_2025_expenses and future_full_year_2025_capex
+  - dynamic_variables:
+      information_to_parse: |
+        {
+          "future_full_year_2025_expenses": "full year 2025 total expenses guidance range fully written out with commas with a dash between the range no spaces and dollar sign on both numbers"
+          "future_full_year_2025_capex": "full year 2025 capital expenditures guidance range fully written out with commas with a dash between the range no spaces and dollar sign on both numbers"
+        }
+    expectation:
+      future_full_year_2025_expenses: "$114,000,000,000-$119,000,000,000"
+      future_full_year_2025_capex: "$60,000,000,000-$65,000,000,000"
 
-  # # Test 21: Double key - tax_rate_range and legal_accrual_reduction
-  # - dynamic_variables:
-  #     information_to_parse: |
-  #       {
-  #         "tax_rate_range": "full year 2025 tax rate guidance range fully written out with commas with a dash between the range no spaces and a percentage sign on the last number"
-  #         "legal_accrual_reduction": "exact reduction in legal accruals as mentioned in Q4 fully written out with commas and dollar sign"
-  #       }
-  #   expectation:
-  #     tax_rate_range: "12-15%"
-  #     legal_accrual_reduction: "$1,550,000,000"
+  # Test 21: Double key - tax_rate_range and legal_accrual_reduction
+  - dynamic_variables:
+      information_to_parse: |
+        {
+          "tax_rate_range": "full year 2025 tax rate guidance range fully written out with commas with a dash between the range no spaces and a percentage sign on the last number"
+          "legal_accrual_reduction": "exact reduction in legal accruals as mentioned in Q4 fully written out with commas and dollar sign"
+        }
+    expectation:
+      tax_rate_range: "12-15%"
+      legal_accrual_reduction: "$1,550,000,000"
 
-  # # Test 22: Double key - llama4_reasoning_model
-  # - dynamic_variables:
-  #     information_to_parse: |
-  #       {
-  #         "llama4_reasoning_model": "yes or no - will Llama 4 be released with a reasoning model?",
-  #       }
-  #   expectation:
-  #     llama4_reasoning_model: "yes"
+  # Test 22: Double key - llama4_reasoning_model
+  - dynamic_variables:
+      information_to_parse: |
+        {
+          "llama4_reasoning_model": "yes or no - will Llama 4 be released with a reasoning model?",
+        }
+    expectation:
+      llama4_reasoning_model: "yes"
 
-  # # Test 23: Double key - andromeda_complexity_increase and andromeda_quality_increase
-  # - dynamic_variables:
-  #     information_to_parse: |
-  #       {
-  #         "andromeda_complexity_increase": "increase in model complexity enabled by Andromeda number only comma separated number",
-  #         "andromeda_quality_increase": "percentage increase in ad quality due to Andromeda number with a percentage sign on the last number nothing else"
-  #       }
-  #   expectation:
-  #     andromeda_complexity_increase: "10,000"
-  #     andromeda_quality_increase: "8%"
+  # Test 23: Double key - andromeda_complexity_increase and andromeda_quality_increase
+  - dynamic_variables:
+      information_to_parse: |
+        {
+          "andromeda_complexity_increase": "increase in model complexity enabled by Andromeda number only comma separated number",
+          "andromeda_quality_increase": "percentage increase in ad quality due to Andromeda number with a percentage sign on the last number nothing else"
+        }
+    expectation:
+      andromeda_complexity_increase: "10,000"
+      andromeda_quality_increase: "8%"
 
-  # # Test 24: Double key - advantage_shopping_revenue and advantage_shopping_growth
-  # - dynamic_variables:
-  #     information_to_parse: |
-  #       {
-  #         "advantage_shopping_revenue": "revenue from Advantage+ shopping campaigns as stated in the report fully written out with commas and dollar sign",
-  #         "advantage_shopping_growth": "year-over-year growth percentage of Advantage+ shopping campaigns as stated in the report with a percentage sign on the last number nothing else"
-  #       }
-  #   expectation:
-  #     advantage_shopping_revenue: "$20,000,000,000"
-  #     advantage_shopping_growth: "70%"
+  # Test 24: Double key - advantage_shopping_revenue and advantage_shopping_growth
+  - dynamic_variables:
+      information_to_parse: |
+        {
+          "advantage_shopping_revenue": "revenue from Advantage+ shopping campaigns as stated in the report fully written out with commas and dollar sign",
+          "advantage_shopping_growth": "year-over-year growth percentage of Advantage+ shopping campaigns as stated in the report with a percentage sign on the last number nothing else"
+        }
+    expectation:
+      advantage_shopping_revenue: "$20,000,000,000"
+      advantage_shopping_growth: "70%"
 
-  # # Test 25: CEO, CFO, and CMO
-  # - dynamic_variables:
-  #     information_to_parse: |
-  #       {
-  #         "ceo": "full name of the CEO"
-  #         "cfo": "full name of the CFO"
-  #       }
-  #   expectation:
-  #     ceo: "Mark Zuckerberg"
-  #     cfo: "Susan Li"
+  # Test 25: CEO, CFO, and CMO
+  - dynamic_variables:
+      information_to_parse: |
+        {
+          "ceo": "full name of the CEO"
+          "cfo": "full name of the CFO"
+        }
+    expectation:
+      ceo: "Mark Zuckerberg"
+      cfo: "Susan Li"
 
-  # # Test 26: Double key - ai_assistant_target_users and meta_ai_current_usage
-  # - dynamic_variables:
-  #     information_to_parse: |
-  #       {
-  #         "ai_assistant_target_users": "number of users that the AI assistant is expected to reach in 2025 fully written out with commas",
-  #         "meta_ai_current_usage": "current number of monthly active users for Meta AI fully written out with commas"
-  #       }
-  #   expectation:
-  #     ai_assistant_target_users: "1,000,000,000"
-  #     meta_ai_current_usage: "700,000,000"
+  # Test 26: Double key - ai_assistant_target_users and meta_ai_current_usage
+  - dynamic_variables:
+      information_to_parse: |
+        {
+          "ai_assistant_target_users": "number of users that the AI assistant is expected to reach in 2025 fully written out with commas",
+          "meta_ai_current_usage": "current number of monthly active users for Meta AI fully written out with commas"
+        }
+    expectation:
+      ai_assistant_target_users: "1,000,000,000"
+      meta_ai_current_usage: "700,000,000"
 
-  # # Test 27: Double key - expected_glasses_units_range and rayban_glasses_description
-  # - dynamic_variables:
-  #     information_to_parse: |
-  #       {
-  #         "expected_glasses_units_range": "range of units sold by breakout consumer electronics products in their third generation, fully written out number only with commas and a dash between the numbers with no spaces",
-  #         "rayban_glasses_description": "exact complete sentence from the report describing the performance and market reception of Ray-Ban Meta AI glasses, including all punctuation and phrasing"
-  #       }
-  #   expectation:
-  #     expected_glasses_units_range: "5,000,000-10,000,000"
-  #     rayban_glasses_description: "Our Ray-Ban Meta AI glasses are a real hit, and this will be the year when we understand the trajectory for AI glasses as a category."
+  # Test 27: Double key - expected_glasses_units_range and rayban_glasses_description
+  - dynamic_variables:
+      information_to_parse: |
+        {
+          "expected_glasses_units_range": "range of units sold by breakout consumer electronics products in their third generation, fully written out number only with commas and a dash between the numbers with no spaces",
+          "rayban_glasses_description": "exact complete sentence from the report describing the performance and market reception of Ray-Ban Meta AI glasses, including all punctuation and phrasing"
+        }
+    expectation:
+      expected_glasses_units_range: "5,000,000-10,000,000"
+      rayban_glasses_description: "Our Ray-Ban Meta AI glasses are a real hit, and this will be the year when we understand the trajectory for AI glasses as a category."
 
-  # # Test 28: Double key - ai_infrastructure_investment and ai_datacenter_capacity
-  # - dynamic_variables:
-  #     information_to_parse: |
-  #       {
-  #         "ai_datacenter_capacity": "exact capacity of the AI datacenter being built as mentioned in the report (in GW, with no additional text)"
-  #       }
-  #   expectation:
-  #     ai_datacenter_capacity: "2GW"
+  # Test 28: Double key - ai_infrastructure_investment and ai_datacenter_capacity
+  - dynamic_variables:
+      information_to_parse: |
+        {
+          "ai_datacenter_capacity": "exact capacity of the AI datacenter being built as mentioned in the report (in GW, with no additional text)"
+        }
+    expectation:
+      ai_datacenter_capacity: "2GW"
 
-  # # Test 29: Double key - free_cash_flow and dividends_paid
-  # - dynamic_variables:
-  #     information_to_parse: |
-  #       {
-  #         "free_cash_flow": "free cash flow as stated in the report fully written out with commas and dollar sign",
-  #         "dividends_paid": "dividends paid to shareholders as stated in the report fully written out with commas and dollar sign"
-  #       }
-  #   expectation:
-  #     free_cash_flow: "$13,200,000,000"
-  #     dividends_paid: "$1,300,000,000"
+  # Test 29: Double key - free_cash_flow and dividends_paid
+  - dynamic_variables:
+      information_to_parse: |
+        {
+          "free_cash_flow": "free cash flow as stated in the report fully written out with commas and dollar sign",
+          "dividends_paid": "dividends paid to shareholders as stated in the report fully written out with commas and dollar sign"
+        }
+    expectation:
+      free_cash_flow: "$13,200,000,000"
+      dividends_paid: "$1,300,000,000"
 
-  # # Test 35: Double key - capital_expenditures and cash_and_marketable_securities
-  # - dynamic_variables:
-  #     information_to_parse: |
-  #       {
-  #         "capital_expenditures": "capital expenditures as stated in the report fully written out with commas and dollar sign",
-  #         "cash_and_marketable_securities": "cash and marketable securities at year end as stated in the report fully written out with commas and dollar sign"
-  #       }
-  #   expectation:
-  #     capital_expenditures: "$14,800,000,000"
-  #     cash_and_marketable_securities: "$77,800,000,000"
+  # Test 35: Double key - capital_expenditures and cash_and_marketable_securities
+  - dynamic_variables:
+      information_to_parse: |
+        {
+          "capital_expenditures": "capital expenditures as stated in the report fully written out with commas and dollar sign",
+          "cash_and_marketable_securities": "cash and marketable securities at year end as stated in the report fully written out with commas and dollar sign"
+        }
+    expectation:
+      capital_expenditures: "$14,800,000,000"
+      cash_and_marketable_securities: "$77,800,000,000"
