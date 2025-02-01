@@ -93,12 +93,14 @@
       <div class="benchmark-info">
         <h2>{{ store.benchmarkReport.benchmark_name }}</h2>
         <p>{{ store.benchmarkReport.purpose }}</p>
-        <button @click="togglePrompt" class="collapse-button">
-          {{ showPrompt ? "Hide Prompt" : "Show Prompt" }}
-        </button>
-        <button @click="toggleTestData" class="collapse-button">
-          {{ showTestData ? "Hide Test Data" : "Show Test Data" }}
-        </button>
+        <div style="display: flex; gap: 10px; margin-top: 10px">
+          <button @click="togglePrompt" class="collapse-button">
+            {{ showPrompt ? "Hide Prompt" : "Show Prompt" }}
+          </button>
+          <button @click="toggleTestData" class="collapse-button">
+            {{ showTestData ? "Hide Test Data" : "Show Test Data" }}
+          </button>
+        </div>
         <div v-if="showPrompt" class="benchmark-prompt">
           <h3>Prompt</h3>
           <pre>{{ store.benchmarkReport.base_prompt }}</pre>
@@ -116,7 +118,7 @@
 
       <div class="controls">
         <button @click="startBenchmark()">Play Benchmark</button>
-        <button @click="store.flashBenchmark()">Flash Benchmark</button>
+        <button @click="flashBenchmark()">Flash Benchmark</button>
         <button @click="fullReset">Reset</button>
         <button @click="showSettings = !showSettings">
           {{ showSettings ? "Hide" : "Show" }} Settings
@@ -183,6 +185,7 @@ import {
   store,
   resetBenchmark,
   startBenchmark,
+  flashBenchmark,
   inMemoryBenchmarkReport,
 } from "../stores/isoSpeedBenchStore";
 import YAML from "yamljs";

@@ -147,9 +147,6 @@ def process_single_prompt(
         if benchmark_file.evaluator == ExeEvalType.execute_python_code_with_num_output:
             execution_result = execute_python_code(cleaned_code)
             parsed_execution_result = str(execution_result).strip()
-            print(
-                f"Execution result ({ExeEvalType.execute_python_code_with_num_output.value}): {parsed_execution_result}"
-            )
             correct = eval_result_compare(
                 benchmark_file.evaluator, expected_result, parsed_execution_result
             )
@@ -158,18 +155,12 @@ def process_single_prompt(
             == ExeEvalType.execute_python_code_with_string_output
         ):
             execution_result = execute_python_code(cleaned_code)
-            print(
-                f"Execution result ({ExeEvalType.execute_python_code_with_num_output.value}): {execution_result}"
-            )
 
             correct = eval_result_compare(
                 benchmark_file.evaluator, expected_result, execution_result
             )
         elif benchmark_file.evaluator == ExeEvalType.raw_string_evaluator:
             execution_result = cleaned_code
-            print(
-                f"Execution result ({ExeEvalType.raw_string_evaluator.value}): {execution_result}"
-            )
             correct = eval_result_compare(
                 benchmark_file.evaluator, expected_result, execution_result
             )
@@ -179,9 +170,6 @@ def process_single_prompt(
         ):
             wrapped_code = f"print({cleaned_code})"
             execution_result = execute_python_code(wrapped_code)
-            print(
-                f"Execution result ({ExeEvalType.python_print_execution_with_num_output.value}): {execution_result}"
-            )
             correct = eval_result_compare(
                 ExeEvalType.execute_python_code_with_num_output,
                 expected_result,
