@@ -22,12 +22,13 @@ evaluator: "python_print_execution_with_num_output"
 models:
   # - "ollama~mistral-small:latest"
   
-  # - "anthropic~claude-3-5-sonnet-latest"
   - "openai~gpt-4o-mini"
   - "openai~gpt-4o-2024-08-06"
   - "openai~ft:gpt-4o-2024-08-06:personal::AvpWC04B"
   - "openai~ft:gpt-4o-mini-2024-07-18:personal::AvpRtnmR"
-  # - "openai~o1-mini"
+  - "openai~o1-mini"
+  - "openai~o3-mini"
+  - "anthropic~claude-3-5-sonnet-latest"
   # - "openai~o1"
 
   # - "deepseek~deepseek-chat"
