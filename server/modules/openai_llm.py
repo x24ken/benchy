@@ -57,9 +57,9 @@ def get_openai_cost(model: str, input_tokens: int, output_tokens: int) -> float:
     input_cost = (input_tokens / 1_000_000) * float(cost_map["input"])
     output_cost = (output_tokens / 1_000_000) * float(cost_map["output"])
 
-    print(
-        f"model: {model}, input_cost: {input_cost}, output_cost: {output_cost}, total_cost: {input_cost + output_cost}, total_cost_rounded: {round(input_cost + output_cost, 6)}"
-    )
+    # print(
+    #     f"model: {model}, input_cost: {input_cost}, output_cost: {output_cost}, total_cost: {input_cost + output_cost}, total_cost_rounded: {round(input_cost + output_cost, 6)}"
+    # )
 
     return round(input_cost + output_cost, 6)
 
