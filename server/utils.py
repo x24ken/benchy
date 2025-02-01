@@ -22,98 +22,78 @@ def timeit() -> Generator[None, None, float]:
 
 
 MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS = {
-    ModelAlias.gpt_4o_mini: {
+    "gpt-4o-mini": {
         "input": 0.15,
         "output": 0.60,
     },
-    ModelAlias.o1_mini_json: {
+    "o1-mini-json": {
         "input": 3.00,
         "output": 15.00,
     },
-    ModelAlias.haiku_3_legacy: {
+    "claude-3-haiku-20240307": {
         "input": 0.25,
         "output": 1.25,
     },
-    ModelAlias.gpt_4o: {
+    "gpt-4o": {
         "input": 2.50,
         "output": 10.00,
     },
-    ModelAlias.gpt_4o_predictive: {
+    "gpt-4o-predictive": {
         "input": 2.50,
         "output": 10.00,
     },
-    ModelAlias.gpt_4o_mini_predictive: {
+    "gpt-4o-mini-predictive": {
         "input": 0.15,
         "output": 0.60,
     },
-    ModelAlias.haiku: {
+    "claude-3-5-haiku-latest": {
         "input": 1.00,
         "output": 5.00,
     },
-    ModelAlias.sonnet: {
+    "claude-3-5-sonnet-20241022": {
         "input": 3.00,
         "output": 15.00,
     },
-    ModelAlias.gemini_pro_2: {
+    "gemini-1.5-pro-002": {
         "input": 1.25,
         "output": 5.00,
     },
-    ModelAlias.gemini_exp_1114_json: {
+    "gemini-exp-1114-json": {
         "input": 1.25,
         "output": 5.00,
     },
-    ModelAlias.gemini_flash_2: {
+    "gemini-1.5-flash-002": {
         "input": 0.075,
         "output": 0.300,
     },
-    ModelAlias.gemini_flash_8b: {
+    "gemini-1.5-flash-8b-latest": {
         "input": 0.0375,
         "output": 0.15,
     },
     # JSON variants with same pricing as base models
-    ModelAlias.gpt_4o_json: {
+    "gpt-4o-json": {
         "input": 2.50,
         "output": 10.00,
     },
-    ModelAlias.gpt_4o_mini_json: {
+    "gpt-4o-mini-json": {
         "input": 0.15,
         "output": 0.60,
     },
-    ModelAlias.gemini_pro_2_json: {
+    "gemini-1.5-pro-002-json": {
         "input": 1.25,
         "output": 5.00,
     },
-    ModelAlias.gemini_flash_2_json: {
+    "gemini-1.5-flash-002-json": {
         "input": 0.075,
         "output": 0.300,
     },
-    ModelAlias.sonnet_json: {
+    "claude-3-5-sonnet-20241022-json": {
         "input": 3.00,
         "output": 15.00,
     },
-    ModelAlias.haiku_json: {
+    "claude-3-5-haiku-latest-json": {
         "input": 1.00,
         "output": 5.00,
-    },
-    ModelAlias.llama3_2_1b: {
-        "input": 0.00,
-        "output": 0.00,
-    },
-    ModelAlias.llama_3_2_3b: {
-        "input": 0.00,
-        "output": 0.00,
-    },
-    ModelAlias.qwen_2_5_coder_14b: {
-        "input": 0.00,
-        "output": 0.00,
-    },
-    ModelAlias.qwq_3db: {
-        "input": 0.00,
-        "output": 0.00,
-    },
-    ModelAlias.phi_4: {
-        "input": 0.00,
-        "output": 0.00,
     },
     "deepseek-chat": {
         "input": 0.14,

@@ -66,6 +66,7 @@ def test_openai_text_prompt():
 
 def test_openai_bench_prompt():
     from modules.openai_llm import bench_prompt
+
     response = bench_prompt("ping", "gpt-4o")
     assert response.response != ""
     assert response.total_duration_ms > 0
@@ -99,9 +100,39 @@ def test_text_prompt_reasoning_effort(model_input, expected_reasoning):
     # Do a real API call
     from modules.openai_llm import text_prompt
 
-    response = text_prompt("ping", model_input)
+    response = text_prompt(
+        "complete: method: def csvs_to_duckdb(csv_paths, duckdb_path)", model_input
+    )
 
     # Validate the actual response received
     assert response.response != "", "Expected non-empty response"
     assert response.runTimeMs > 0, "Expected a positive runtime"
     assert response.inputAndOutputCost >= 0, "Expected non-negative cost"
+
+
+def test_cost_ordering_group1():
+    from modules.openai_llm import get_openai_cost
+
+    input_tokens = 1000000
+    output_tokens = 1000000
+    cost_gpt4o_mini = get_openai_cost("gpt-4o-mini", input_tokens, output_tokens)
+    cost_gpt4o = get_openai_cost("gpt-4o", input_tokens, output_tokens)
+    cost_o1 = get_openai_cost("o1", input_tokens, output_tokens)
+    cost_o1_preview = get_openai_cost("o1-preview", input_tokens, output_tokens)
+    assert cost_gpt4o_mini < cost_gpt4o, f"{cost_gpt4o_mini} !< {cost_gpt4o}"
+    assert cost_gpt4o < cost_o1, f"{cost_gpt4o} !< {cost_o1}"
+    assert cost_o1 <= cost_o1_preview, f"{cost_o1} !<= {cost_o1_preview}"
+
+
+def test_cost_ordering_group2():
+    from modules.openai_llm import get_openai_cost
+
+    input_tokens = 1000000
+    output_tokens = 1000000
+    cost_gpt4o_mini = get_openai_cost("gpt-4o-mini", input_tokens, output_tokens)
+    cost_o1_mini = get_openai_cost("o1-mini", input_tokens, output_tokens)
+    cost_o3_mini = get_openai_cost("o3-mini", input_tokens, output_tokens)
+    cost_o1 = get_openai_cost("o1", input_tokens, output_tokens)
+    assert cost_gpt4o_mini < cost_o1_mini, f"{cost_gpt4o_mini} !< {cost_o1_mini}"
+    assert cost_o1_mini <= cost_o3_mini, f"{cost_o1_mini} !<= {cost_o3_mini}"
+    assert cost_o3_mini < cost_o1, f"{cost_o3_mini} !< {cost_o1}"

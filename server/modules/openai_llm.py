@@ -37,15 +37,29 @@ def get_openai_cost(model: str, input_tokens: int, output_tokens: int) -> float:
     Returns:
         float: Total cost in dollars
     """
-    # Map the OpenAI model name to our ModelAlias
-    model_alias = ModelAlias.gpt_4o if "gpt-4" in model else ModelAlias.gpt_4o_mini
+    # Direct model name lookup first
+    model_alias = model
+
+    # Only do special mapping for gpt-4 variants
+    if "gpt-4" in model:
+        if model == "gpt-4o-mini":
+            model_alias = ModelAlias.gpt_4o_mini
+        elif model == "gpt-4o":
+            model_alias = ModelAlias.gpt_4o
+        else:
+            model_alias = ModelAlias.gpt_4o
 
     cost_map = MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS.get(model_alias)
     if not cost_map:
+        print(f"No cost map found for model: {model}")
         return 0.0
 
-    input_cost = (input_tokens / 1_000_000) * cost_map["input"]
-    output_cost = (output_tokens / 1_000_000) * cost_map["output"]
+    input_cost = (input_tokens / 1_000_000) * float(cost_map["input"])
+    output_cost = (output_tokens / 1_000_000) * float(cost_map["output"])
+
+    print(
+        f"model: {model}, input_cost: {input_cost}, output_cost: {output_cost}, total_cost: {input_cost + output_cost}, total_cost_rounded: {round(input_cost + output_cost, 6)}"
+    )
 
     return round(input_cost + output_cost, 6)
 
@@ -228,7 +242,7 @@ def text_prompt(prompt: str, model: str) -> PromptResponse:
                     model=base_model,
                     messages=[{"role": "user", "content": prompt}],
                 )
-
+            print("completion.usage", completion.usage.model_dump())
             input_tokens = completion.usage.prompt_tokens
             output_tokens = completion.usage.completion_tokens
             cost = get_openai_cost(base_model, input_tokens, output_tokens)
