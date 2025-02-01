@@ -110,6 +110,7 @@ def bench_prompt(prompt: str, model: str) -> BenchPromptResponse:
             provider="anthropic",
             total_duration_ms=0.0,
             load_duration_ms=0.0,
+            inputAndOutputCost=0.0,
             errored=True,
         )
 

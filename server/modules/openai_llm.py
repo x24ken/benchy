@@ -146,7 +146,7 @@ def bench_prompt(prompt: str, model: str) -> BenchPromptResponse:
                     stream=False,
                 )
             elapsed_ms = t()
-            
+
             input_tokens = completion.usage.prompt_tokens
             output_tokens = completion.usage.completion_tokens
             cost = get_openai_cost(model, input_tokens, output_tokens)
@@ -154,7 +154,7 @@ def bench_prompt(prompt: str, model: str) -> BenchPromptResponse:
         return BenchPromptResponse(
             response=completion.choices[0].message.content,
             tokens_per_second=0.0,  # OpenAI doesn't provide timing info
-            provider="openai", 
+            provider="openai",
             total_duration_ms=elapsed_ms,
             load_duration_ms=0.0,
             inputAndOutputCost=cost,
@@ -167,6 +167,7 @@ def bench_prompt(prompt: str, model: str) -> BenchPromptResponse:
             provider="openai",
             total_duration_ms=0.0,
             load_duration_ms=0.0,
+            inputAndOutputCost=0.0,
             errored=True,
         )
 

@@ -138,14 +138,14 @@ def process_single_prompt(
                     errored=True,
                 )
 
-    cleaned_code = parse_markdown_backticks(bench_response.response)
+    backtick_parsed_response = parse_markdown_backticks(bench_response.response)
     execution_result = ""
     expected_result = str(prompt_row.expectation).strip()
     correct = False
 
     try:
         if benchmark_file.evaluator == ExeEvalType.execute_python_code_with_num_output:
-            execution_result = execute_python_code(cleaned_code)
+            execution_result = execute_python_code(backtick_parsed_response)
             parsed_execution_result = str(execution_result).strip()
             correct = eval_result_compare(
                 benchmark_file.evaluator, expected_result, parsed_execution_result
@@ -154,30 +154,30 @@ def process_single_prompt(
             benchmark_file.evaluator
             == ExeEvalType.execute_python_code_with_string_output
         ):
-            execution_result = execute_python_code(cleaned_code)
+            execution_result = execute_python_code(backtick_parsed_response)
 
             correct = eval_result_compare(
                 benchmark_file.evaluator, expected_result, execution_result
             )
         elif benchmark_file.evaluator == ExeEvalType.raw_string_evaluator:
-            execution_result = cleaned_code
+            execution_result = backtick_parsed_response
             correct = eval_result_compare(
                 benchmark_file.evaluator, expected_result, execution_result
             )
         elif benchmark_file.evaluator == "json_validator_eval":
             # For JSON validator, no code execution is needed;
             # use the response directly and compare the JSON objects.
-            execution_result = bench_response.response
+            execution_result = backtick_parsed_response
             # expectation is assumed to be a dict (or JSON string convertible to dict)
             expected_result = prompt_row.expectation
             correct = eval_result_compare(
-                "json_validator_eval", expected_result, bench_response.response
+                "json_validator_eval", expected_result, execution_result
             )
         elif (
             benchmark_file.evaluator
             == ExeEvalType.python_print_execution_with_num_output
         ):
-            wrapped_code = f"print({cleaned_code})"
+            wrapped_code = f"print({backtick_parsed_response})"
             execution_result = execute_python_code(wrapped_code)
             correct = eval_result_compare(
                 ExeEvalType.execute_python_code_with_num_output,
