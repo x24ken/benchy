@@ -2,6 +2,7 @@
   <div class="container" :class="{ 'bench-mode': store.settings.benchMode }">
     <h1 v-if="!store.settings.benchMode">ISO Speed Bench</h1>
 
+    <!-- UPLOAD FILE UI -->
     <div v-if="!store.benchmarkReport">
       <div
         class="file-drop"
@@ -86,6 +87,7 @@
       </template>
     </div>
 
+    <!-- FULL BENCHMARK UI -->
     <div v-else class="benchmark-container">
       <div class="benchmark-info">
         <h2>{{ store.benchmarkReport.benchmark_name }}</h2>
