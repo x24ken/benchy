@@ -164,6 +164,15 @@ def process_single_prompt(
             correct = eval_result_compare(
                 benchmark_file.evaluator, expected_result, execution_result
             )
+        elif benchmark_file.evaluator == "json_validator_eval":
+            # For JSON validator, no code execution is needed;
+            # use the response directly and compare the JSON objects.
+            execution_result = bench_response.response
+            # expectation is assumed to be a dict (or JSON string convertible to dict)
+            expected_result = prompt_row.expectation
+            correct = eval_result_compare(
+                "json_validator_eval", expected_result, bench_response.response
+            )
         elif (
             benchmark_file.evaluator
             == ExeEvalType.python_print_execution_with_num_output
@@ -186,7 +195,7 @@ def process_single_prompt(
         input_prompt=prompt,
         prompt_response=bench_response,
         execution_result=str(execution_result),
-        expected_result=expected_result,
+        expected_result=str(expected_result),
         model=f"{provider}{provider_delimiter}{model_name}",
         correct=correct,
         index=index,

@@ -1,5 +1,7 @@
 import subprocess
 from modules.data_types import ExeEvalType
+import json
+from deepdiff import DeepDiff
 
 
 def eval_result_compare(evalType: ExeEvalType, expected: str, actual: str) -> bool:
@@ -15,14 +17,28 @@ def eval_result_compare(evalType: ExeEvalType, expected: str, actual: str) -> bo
             # Convert both values to float for numeric comparison
             expected_num = float(expected)
             actual_num = float(actual)
-            # Compare with epsilon tolerance for floating point numbers
             epsilon = 1e-6
             return abs(expected_num - actual_num) < epsilon
+
         elif evalType == ExeEvalType.execute_python_code_with_string_output:
             return str(expected).strip() == str(actual).strip()
+
         elif evalType == ExeEvalType.raw_string_evaluator:
-            # Exact string comparison for raw string evaluator
             return str(expected).strip() == str(actual).strip()
+
+        elif evalType == ExeEvalType.json_validator_eval:
+
+            if not isinstance(expected, dict):
+                expected = json.loads(expected)
+            actual_parsed = json.loads(actual) if isinstance(actual, str) else actual
+
+            print(f"Expected: {expected}")
+            print(f"Actual: {actual_parsed}")
+            deepdiffed = DeepDiff(expected, actual_parsed, ignore_order=False)
+            print(f"DeepDiff: {deepdiffed}")
+
+            return not deepdiffed
+
         else:
             return str(expected).strip() == str(actual).strip()
     except (ValueError, TypeError):

@@ -104,11 +104,12 @@ class ExeEvalType(str, Enum):
     execute_python_code_with_string_output = "execute_python_code_with_string_output"
     raw_string_evaluator = "raw_string_evaluator"  # New evaluator type
     python_print_execution_with_num_output = "python_print_execution_with_num_output"
+    json_validator_eval = "json_validator_eval"
 
 
 class ExeEvalBenchmarkInputRow(BaseModel):
     dynamic_variables: Optional[dict]
-    expectation: str
+    expectation: str | dict
 
 
 class ExecEvalBenchmarkFile(BaseModel):
@@ -163,7 +164,7 @@ class ExecEvalBenchmarkModelReport(BaseModel):
 
 class ExecEvalPromptIteration(BaseModel):
     dynamic_variables: dict
-    expectation: str
+    expectation: str | dict
 
 
 class ExecEvalBenchmarkReport(BaseModel):
