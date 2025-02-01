@@ -115,10 +115,16 @@ global {
     }
 }
 
+export interface ExecEvalPromptIteration {
+    dynamic_variables: { [key: string]: any };
+    expectation: any;
+}
+
 export interface ExecEvalBenchmarkReport {
     benchmark_name: string;
     purpose: string;
     base_prompt: string;
+    prompt_iterations: ExecEvalPromptIteration[];
     models: ExecEvalBenchmarkModelReport[];
     overall_correct_count: number;
     overall_incorrect_count: number;
@@ -171,6 +177,17 @@ export interface ThoughtBenchColumnData {
     totalCorrect: number;
     responses: ThoughtResponse[];
     state: ThoughtBenchColumnState;
+}
+
+
+
+export interface ExecEvalBenchmarkFile {
+    base_prompt: string;
+    evaluator: string;
+    prompts: Record<string, any>;
+    benchmark_name: string;
+    purpose: string;
+    models: string[]; // List of model names/aliases
 }
 
 export { };

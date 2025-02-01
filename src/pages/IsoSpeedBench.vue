@@ -33,28 +33,48 @@
         style="display: none"
       />
 
-      <button @click="useSampleData" class="sample-data-button">
-        Or use sample data
-      </button>
+      <template v-if="store.isLoading">
+        <div class="base-prompt-collapsible">
+          <button @click="togglePrompt" class="collapse-button">
+            {{ showPrompt ? "Hide Base Prompt" : "Show Base Prompt" }}
+          </button>
+          <div v-if="showPrompt" class="benchmark-prompt">
+            <pre>{{ inMemoryBenchmarkReport.base_prompt }}</pre>
+          </div>
+        </div>
+        <div class="prompt-iterations" v-if="inMemoryBenchmarkReport.prompt_iterations">
+          <h3>Prompt Iterations</h3>
+          <ul>
+            <li v-for="(iteration, idx) in inMemoryBenchmarkReport.prompt_iterations" :key="idx">
+              <pre>{{ iteration | json }}</pre>
+            </li>
+          </ul>
+        </div>
+      </template>
+      <template v-else>
+        <button @click="useSampleData" class="sample-data-button">
+          Or use sample data
+        </button>
 
-      <!-- how to use -->
-      <div class="how-to-use">
-        <h2>How to use</h2>
-        <p>Drag & Drop a YAML or JSON file into the file drop area.</p>
-        <p>
-          You can find YAML benchmark configuration files in
-          'server/benchmark_data/*.yaml' to run against your own machine. Study
-          this file to see how to structure your own.
-        </p>
-        <p>
-          Or you can find JSON benchmark result files in 'server/reports/*.json'
-          to see how existing/your models performed.
-        </p>
-        <p>
-          Or click the "Or use sample data" button to use a pre-defined dataset.
-        </p>
-        <p></p>
-      </div>
+        <!-- how to use -->
+        <div class="how-to-use">
+          <h2>How to use</h2>
+          <p>Drag & Drop a YAML or JSON file into the file drop area.</p>
+          <p>
+            You can find YAML benchmark configuration files in
+            'server/benchmark_data/*.yaml' to run against your own machine. Study
+            this file to see how to structure your own.
+          </p>
+          <p>
+            Or you can find JSON benchmark result files in 'server/reports/*.json'
+            to see how existing/your models performed.
+          </p>
+          <p>
+            Or click the "Or use sample data" button to use a pre-defined dataset.
+          </p>
+          <p></p>
+        </div>
+      </template>
     </div>
 
     <div v-else class="benchmark-container">

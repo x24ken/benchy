@@ -10,6 +10,7 @@ from modules.data_types import (
     ExeEvalBenchmarkOutputResult,
     ExecEvalBenchmarkModelReport,
     ExecEvalBenchmarkReport,
+    ExecEvalPromptIteration,
     ModelAlias,
     ExeEvalType,
     ModelProvider,
@@ -363,6 +364,12 @@ def generate_report(
         benchmark_name=complete_result.benchmark_file.benchmark_name,
         purpose=complete_result.benchmark_file.purpose,
         base_prompt=complete_result.benchmark_file.base_prompt,
+        prompt_iterations=[
+            ExecEvalPromptIteration(
+                dynamic_variables=(prompt.dynamic_variables if prompt.dynamic_variables is not None else {}),
+                expectation=prompt.expectation
+            ) for prompt in complete_result.benchmark_file.prompts
+        ],
         models=model_reports,
         overall_correct_count=overall_correct,
         overall_incorrect_count=overall_incorrect,

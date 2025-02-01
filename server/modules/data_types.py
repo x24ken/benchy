@@ -159,10 +159,15 @@ class ExecEvalBenchmarkModelReport(BaseModel):
     average_load_duration_ms: float
 
 
+class ExecEvalPromptIteration(BaseModel):
+    dynamic_variables: dict
+    expectation: any
+
 class ExecEvalBenchmarkReport(BaseModel):
     benchmark_name: str
     purpose: str
     base_prompt: str
+    prompt_iterations: list[ExecEvalPromptIteration]
     models: list[ExecEvalBenchmarkModelReport]
 
     overall_correct_count: int
