@@ -756,7 +756,6 @@ evaluator: "json_validator_eval"
 models: 
   - "openai~gpt-4o-mini"
   - "openai~gpt-4o"
-  - "anthropic~claude-3-5-sonnet-latest"
   - "openai~o1-mini"
   - "openai~o1"
   - "openai~o1-preview"
@@ -1027,7 +1026,7 @@ prompts:
   - dynamic_variables:
       information_to_parse: |
         {
-          "expected_glasses_units_range": "range of units sold by breakout consumer electronics products in their third generation, fully written out with commas and a dash between the numbers with no spaces",
+          "expected_glasses_units_range": "range of units sold by breakout consumer electronics products in their third generation, fully written out number only with commas and a dash between the numbers with no spaces",
           "rayban_glasses_description": "exact complete sentence from the report describing the performance and market reception of Ray-Ban Meta AI glasses, including all punctuation and phrasing"
         }
     expectation:
