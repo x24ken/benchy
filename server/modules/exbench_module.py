@@ -271,6 +271,7 @@ def generate_report(
             r.prompt_response.load_duration_ms for r in results
         ) / len(results)
 
+        model_total_cost = sum(r.prompt_response.inputAndOutputCost for r in results)
         model_reports.append(
             ExecEvalBenchmarkModelReport(
                 model=model,
@@ -281,6 +282,7 @@ def generate_report(
                 average_tokens_per_second=avg_tokens_per_second,
                 average_total_duration_ms=avg_total_duration,
                 average_load_duration_ms=avg_load_duration,
+                total_cost=model_total_cost,
             )
         )
 

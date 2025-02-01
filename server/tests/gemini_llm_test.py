@@ -9,6 +9,16 @@ def test_gemini_text_prompt():
     assert response.inputAndOutputCost > 0.0
 
 
+def test_gemini_bench_prompt():
+    from modules.gemini_llm import bench_prompt
+    response = bench_prompt("ping", "gemini-1.5-pro-002")
+    assert response.response != ""
+    assert response.total_duration_ms > 0
+    # Check that inputAndOutputCost exists and is a float (cost might be 0 or greater)
+    assert isinstance(response.inputAndOutputCost, float)
+    assert response.inputAndOutputCost >= 0.0
+
+
 def test_gemini_thought_prompt():
     from modules.gemini_llm import thought_prompt
     from modules.data_types import ThoughtResponse

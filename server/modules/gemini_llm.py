@@ -133,6 +133,7 @@ def bench_prompt(prompt: str, model: str) -> BenchPromptResponse:
 
             input_tokens = response._result.usage_metadata.prompt_token_count
             output_tokens = response._result.usage_metadata.candidates_token_count
+            cost = get_gemini_cost(model, input_tokens, output_tokens)
 
         return BenchPromptResponse(
             response=response.text,
@@ -140,6 +141,7 @@ def bench_prompt(prompt: str, model: str) -> BenchPromptResponse:
             provider="gemini",
             total_duration_ms=elapsed_ms,
             load_duration_ms=0.0,
+            inputAndOutputCost=cost,
         )
     except Exception as e:
         print(f"Gemini error: {str(e)}")

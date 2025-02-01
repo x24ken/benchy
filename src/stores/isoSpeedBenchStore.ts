@@ -115,11 +115,29 @@ function startBenchmark() {
     }, tickRate);
 }
 
-
+function flashBenchmark() {
+    if (store.benchmarkReport) {
+        // Mark every result as complete for each model
+        store.benchmarkReport.models.forEach(modelReport => {
+            for (let i = 0; i < modelReport.results.length; i++) {
+                store.completedResults.add(`${modelReport.model}-${i}`);
+            }
+        });
+        // Set currentTime to a very high value (marking all rows as finished)
+        store.currentTime = Number.MAX_SAFE_INTEGER;
+        // Stop any running interval
+        if (store.intervalId) {
+            clearInterval(store.intervalId);
+            store.intervalId = null;
+        }
+        store.isReplaying = false;
+    }
+}
 
 export {
     store,
     resetBenchmark,
     startBenchmark,
+    flashBenchmark,
     inMemoryBenchmarkReport,
 };

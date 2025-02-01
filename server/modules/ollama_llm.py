@@ -114,6 +114,7 @@ def bench_prompt(prompt: str, model: str) -> BenchPromptResponse:
             / 1_000_000,  # Convert ns to ms
             load_duration_ms=response.get("load_duration", 0)
             / 1_000_000,  # Convert ns to ms
+            inputAndOutputCost=0.0,  # Ollama is free
         )
 
         # print(json.dumps(bench_response.dict(), indent=2))

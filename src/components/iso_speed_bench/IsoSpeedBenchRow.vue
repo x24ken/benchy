@@ -48,6 +48,10 @@
             <span>{{ modelReport.average_tokens_per_second.toFixed(2) }}</span>
           </div>
           <div class="detail-item">
+            <span class="label">Total Cost:</span>
+            <span>${{ modelReport.total_cost.toFixed(2) }}</span>
+          </div>
+          <div class="detail-item">
             <span class="label">Avg Duration:</span>
             <span
               >{{ modelReport.average_total_duration_ms.toFixed(2) }}ms</span

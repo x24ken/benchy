@@ -49,6 +49,10 @@ def test_bench_prompt_metrics(model):
     assert response.total_duration_ms > 0
     assert response.load_duration_ms > 0
 
+    # New assertion: check inputAndOutputCost exists and is a number
+    assert isinstance(response.inputAndOutputCost, float)
+    assert response.inputAndOutputCost == 0.0  # Ollama is free, so cost is 0.0
+
     # Test that the metrics are within reasonable ranges
     assert 0 < response.tokens_per_second < 1000  # tokens/s should be in this range
     assert (

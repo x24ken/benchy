@@ -64,6 +64,16 @@ def test_openai_text_prompt():
     assert response.inputAndOutputCost > 0.0
 
 
+def test_openai_bench_prompt():
+    from modules.openai_llm import bench_prompt
+    response = bench_prompt("ping", "gpt-4o")
+    assert response.response != ""
+    assert response.total_duration_ms > 0
+    # Check that cost is computed correctly (non-negative float)
+    assert isinstance(response.inputAndOutputCost, float)
+    assert response.inputAndOutputCost >= 0.0
+
+
 @pytest.mark.parametrize(
     "model_input,expected_reasoning",
     [

@@ -132,6 +132,7 @@ export interface ExecEvalBenchmarkReport {
     average_tokens_per_second: number;
     average_total_duration_ms: number;
     average_load_duration_ms: number;
+    total_cost: number;
 }
 
 export interface ExecEvalBenchmarkModelReport {
@@ -151,6 +152,7 @@ export interface BenchPromptResponse {
     provider: string;
     total_duration_ms: number;
     load_duration_ms: number;
+    inputAndOutputCost: number;
     errored: boolean | null;
 }
 

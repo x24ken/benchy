@@ -90,6 +90,7 @@ class BenchPromptResponse(BaseModel):
     provider: str
     total_duration_ms: float
     load_duration_ms: float
+    inputAndOutputCost: float
     errored: Optional[bool] = None
 
 
@@ -157,6 +158,7 @@ class ExecEvalBenchmarkModelReport(BaseModel):
     average_tokens_per_second: float
     average_total_duration_ms: float
     average_load_duration_ms: float
+    total_cost: float
 
 
 class ExecEvalPromptIteration(BaseModel):

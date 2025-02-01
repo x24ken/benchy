@@ -49,12 +49,17 @@ def bench_prompt(prompt: str, model: str) -> BenchPromptResponse:
             )
             elapsed_ms = t()
 
+            input_tokens = response.usage.prompt_tokens
+            output_tokens = response.usage.completion_tokens
+            cost = get_deepseek_cost(model, input_tokens, output_tokens)
+
         return BenchPromptResponse(
             response=response.choices[0].message.content,
             tokens_per_second=0.0,  # DeepSeek doesn't provide this info
             provider="deepseek",
             total_duration_ms=elapsed_ms,
             load_duration_ms=0.0,
+            inputAndOutputCost=cost,
         )
     except Exception as e:
         print(f"DeepSeek error: {str(e)}")

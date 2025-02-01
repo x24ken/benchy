@@ -95,13 +95,21 @@
         <button @click="togglePrompt" class="collapse-button">
           {{ showPrompt ? "Hide Prompt" : "Show Prompt" }}
         </button>
+        <button @click="toggleTestData" class="collapse-button">
+          {{ showTestData ? "Hide Test Data" : "Show Test Data" }}
+        </button>
         <div v-if="showPrompt" class="benchmark-prompt">
           <pre>{{ store.benchmarkReport.base_prompt }}</pre>
+        </div>
+        <div v-if="showTestData && store.benchmarkReport?.prompt_iterations" class="test-data">
+          <h3>Test Data</h3>
+          <pre>{{ JSON.stringify(store.benchmarkReport.prompt_iterations, null, 2) }}</pre>
         </div>
       </div>
 
       <div class="controls">
         <button @click="startBenchmark()">Play Benchmark</button>
+        <button @click="store.flashBenchmark()">Flash Benchmark</button>
         <button @click="fullReset">Reset</button>
         <button @click="showSettings = !showSettings">
           {{ showSettings ? "Hide" : "Show" }} Settings
@@ -238,7 +246,9 @@ import IsoSpeedBenchRow from "../components/iso_speed_bench/IsoSpeedBenchRow.vue
 const showSettings = ref(false);
 const { settings } = store;
 const showPrompt = ref(false);
+const showTestData = ref(false);
 const showUploadedTempPrompt = ref(false);
+
 function togglePrompt() {
   showPrompt.value = !showPrompt.value;
 }

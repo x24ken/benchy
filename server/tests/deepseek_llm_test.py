@@ -17,6 +17,9 @@ def test_deepseek_bench_prompt():
     assert response.total_duration_ms > 0
     assert response.provider == "deepseek"
     assert not response.errored
+    # New: check that inputAndOutputCost is present and positive
+    assert isinstance(response.inputAndOutputCost, float)
+    assert response.inputAndOutputCost > 0.0
 
 
 def test_deepseek_error_handling():

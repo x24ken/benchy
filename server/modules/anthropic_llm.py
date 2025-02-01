@@ -90,12 +90,17 @@ def bench_prompt(prompt: str, model: str) -> BenchPromptResponse:
             )
             elapsed_ms = t()
 
+            input_tokens = message.usage.input_tokens
+            output_tokens = message.usage.output_tokens
+            cost = get_anthropic_cost(model, input_tokens, output_tokens)
+
         return BenchPromptResponse(
             response=message.content[0].text,
             tokens_per_second=0.0,  # Anthropic doesn't provide this info
             provider="anthropic",
             total_duration_ms=elapsed_ms,
             load_duration_ms=0.0,
+            inputAndOutputCost=cost,
         )
     except Exception as e:
         print(f"Anthropic error: {str(e)}")
