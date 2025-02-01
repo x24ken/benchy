@@ -173,6 +173,7 @@ def handle_iso_speed_bench():
 
             return report.model_dump_json(), 200, {"Content-Type": "application/json"}
         except Exception as e:
+            print(f"Error generating report: {str(e)}")
             return jsonify({"error": f"Error generating report: {str(e)}"}), 500
 
     except Exception as e:

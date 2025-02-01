@@ -5,19 +5,25 @@ function loadDefaultState() {
     return {
         dataColumns: [
             {
-                model: "ollama:deepseek-r1:1.5b",
+                model: "openai:o3-mini:low",
                 totalCorrect: 0,
                 responses: [],
                 state: "idle" as ThoughtBenchColumnState
             },
             {
-                model: "ollama:deepseek-r1:8b",
+                model: "openai:o3-mini:medium",
                 totalCorrect: 0,
                 responses: [],
                 state: "idle" as ThoughtBenchColumnState
             },
             {
-                model: "deepseek:deepseek-reasoner",
+                model: "openai:o3-mini:high",
+                totalCorrect: 0,
+                responses: [],
+                state: "idle" as ThoughtBenchColumnState
+            },
+            {
+                model: "openai:o1-mini",
                 totalCorrect: 0,
                 responses: [],
                 state: "idle" as ThoughtBenchColumnState
@@ -29,7 +35,19 @@ function loadDefaultState() {
                 state: "idle" as ThoughtBenchColumnState
             },
             {
+                model: "deepseek:deepseek-reasoner",
+                totalCorrect: 0,
+                responses: [],
+                state: "idle" as ThoughtBenchColumnState
+            },
+            {
                 model: "gemini:gemini-2.0-flash-thinking-exp-01-21",
+                totalCorrect: 0,
+                responses: [],
+                state: "idle" as ThoughtBenchColumnState
+            },
+            {
+                model: "ollama:deepseek-r1:32b",
                 totalCorrect: 0,
                 responses: [],
                 state: "idle" as ThoughtBenchColumnState

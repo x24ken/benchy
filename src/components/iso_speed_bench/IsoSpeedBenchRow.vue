@@ -49,7 +49,7 @@
           </div>
           <div class="detail-item">
             <span class="label">Total Cost:</span>
-            <span>${{ modelReport.total_cost.toFixed(2) }}</span>
+            <span>${{ modelReport.total_cost.toFixed(4) }}</span>
           </div>
           <div class="detail-item">
             <span class="label">Avg Duration:</span>

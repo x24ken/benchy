@@ -35,7 +35,8 @@
       />
 
       <!-- UPLOADED SHOW DATA -->
-      <template v-if="store.isLoading">
+      <!-- wip -->
+      <template v-if="false">
         <div class="base-prompt-collapsible">
           <button @click="togglePrompt" class="collapse-button">
             {{
@@ -99,11 +100,17 @@
           {{ showTestData ? "Hide Test Data" : "Show Test Data" }}
         </button>
         <div v-if="showPrompt" class="benchmark-prompt">
+          <h3>Prompt</h3>
           <pre>{{ store.benchmarkReport.base_prompt }}</pre>
         </div>
-        <div v-if="showTestData && store.benchmarkReport?.prompt_iterations" class="test-data">
+        <div
+          v-if="showTestData && store.benchmarkReport?.prompt_iterations"
+          class="test-data"
+        >
           <h3>Test Data</h3>
-          <pre>{{ JSON.stringify(store.benchmarkReport.prompt_iterations, null, 2) }}</pre>
+          <pre>{{
+            JSON.stringify(store.benchmarkReport.prompt_iterations, null, 2)
+          }}</pre>
         </div>
       </div>
 
@@ -231,6 +238,8 @@ function processFile(file: File) {
           body: content,
         });
         const responseText = await response.text();
+
+        store.benchmarkReport = JSON.parse(responseText);
       } catch (error) {
         console.error("Error running benchmark:", error);
         alert("Error processing YAML file");
@@ -251,6 +260,10 @@ const showUploadedTempPrompt = ref(false);
 
 function togglePrompt() {
   showPrompt.value = !showPrompt.value;
+}
+
+function toggleTestData() {
+  showTestData.value = !showTestData.value;
 }
 
 function useSampleData() {

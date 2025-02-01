@@ -22,7 +22,14 @@ from modules.execution_evaluators import (
     eval_result_compare,
 )
 from utils import parse_markdown_backticks
-from modules import ollama_llm, anthropic_llm, deepseek_llm, gemini_llm, openai_llm, fireworks_llm
+from modules import (
+    ollama_llm,
+    anthropic_llm,
+    deepseek_llm,
+    gemini_llm,
+    openai_llm,
+    fireworks_llm,
+)
 
 provider_delimiter = "~"
 
@@ -271,7 +278,21 @@ def generate_report(
             r.prompt_response.load_duration_ms for r in results
         ) / len(results)
 
-        model_total_cost = sum(r.prompt_response.inputAndOutputCost for r in results)
+        model_total_cost = 0
+
+        try:
+            model_total_cost = sum(
+                (
+                    r.prompt_response.inputAndOutputCost
+                    if hasattr(r.prompt_response, "inputAndOutputCost")
+                    else 0.0
+                )
+                for r in results
+            )
+        except:
+            print(f"Error calculating model_total_cost for model: {model}")
+            model_total_cost = 0
+
         model_reports.append(
             ExecEvalBenchmarkModelReport(
                 model=model,
@@ -301,76 +322,20 @@ def generate_report(
         model_reports
     )
 
-    """Generate a comprehensive benchmark report from results.
-    
-    Args:
-        complete_result: Completed benchmark results
-        
-    Returns:
-        ExecEvalBenchmarkReport containing aggregated statistics
-    """
-    model_reports = []
-
-    # Group results by model
-    model_results = {}
-    for result in complete_result.results:
-        if result.model not in model_results:
-            model_results[result.model] = []
-        model_results[result.model].append(result)
-
-    # Create model reports
-    for model, results in model_results.items():
-        correct_count = sum(1 for r in results if r.correct)
-        incorrect_count = len(results) - correct_count
-        accuracy = correct_count / len(results)
-
-        avg_tokens_per_second = sum(
-            r.prompt_response.tokens_per_second for r in results
-        ) / len(results)
-        avg_total_duration = sum(
-            r.prompt_response.total_duration_ms for r in results
-        ) / len(results)
-        avg_load_duration = sum(
-            r.prompt_response.load_duration_ms for r in results
-        ) / len(results)
-
-        model_reports.append(
-            ExecEvalBenchmarkModelReport(
-                model=model,
-                results=results,
-                correct_count=correct_count,
-                incorrect_count=incorrect_count,
-                accuracy=accuracy,
-                average_tokens_per_second=avg_tokens_per_second,
-                average_total_duration_ms=avg_total_duration,
-                average_load_duration_ms=avg_load_duration,
-            )
-        )
-
-    # Calculate overall statistics
-    overall_correct = sum(r.correct_count for r in model_reports)
-    overall_incorrect = sum(r.incorrect_count for r in model_reports)
-    overall_accuracy = overall_correct / (overall_correct + overall_incorrect)
-
-    avg_tokens_per_second = sum(
-        r.average_tokens_per_second for r in model_reports
-    ) / len(model_reports)
-    avg_total_duration = sum(r.average_total_duration_ms for r in model_reports) / len(
-        model_reports
-    )
-    avg_load_duration = sum(r.average_load_duration_ms for r in model_reports) / len(
-        model_reports
-    )
-
     return ExecEvalBenchmarkReport(
         benchmark_name=complete_result.benchmark_file.benchmark_name,
         purpose=complete_result.benchmark_file.purpose,
         base_prompt=complete_result.benchmark_file.base_prompt,
         prompt_iterations=[
             ExecEvalPromptIteration(
-                dynamic_variables=(prompt.dynamic_variables if prompt.dynamic_variables is not None else {}),
-                expectation=prompt.expectation
-            ) for prompt in complete_result.benchmark_file.prompts
+                dynamic_variables=(
+                    prompt.dynamic_variables
+                    if prompt.dynamic_variables is not None
+                    else {}
+                ),
+                expectation=prompt.expectation,
+            )
+            for prompt in complete_result.benchmark_file.prompts
         ],
         models=model_reports,
         overall_correct_count=overall_correct,
