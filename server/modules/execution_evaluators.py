@@ -36,8 +36,6 @@ def execute_python_code(code: str) -> str:
     # Remove any surrounding quotes and whitespace
     code = code.strip().strip("'").strip('"')
 
-    print(f"Code: {code}")
-
     # Create a temporary file with the code
     import tempfile
 
@@ -52,7 +50,6 @@ def execute_python_code(code: str) -> str:
         try:
             # Remove any extra whitespace or newlines
             cleaned_result = result.strip()
-            print(f"Cleaned result: {cleaned_result}")
             # Convert to float and back to string to normalize format
             return str(float(cleaned_result))
         except (ValueError, TypeError):

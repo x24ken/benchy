@@ -117,14 +117,31 @@ function startBenchmark() {
 
 function flashBenchmark() {
     if (store.benchmarkReport) {
+        // Reset the benchmark state first
+        resetBenchmark();
+        
         // Mark every result as complete for each model
         store.benchmarkReport.models.forEach(modelReport => {
             for (let i = 0; i < modelReport.results.length; i++) {
                 store.completedResults.add(`${modelReport.model}-${i}`);
             }
         });
-        // Set currentTime to a very high value (marking all rows as finished)
-        store.currentTime = Number.MAX_SAFE_INTEGER;
+        
+        // Compute the maximum cumulative total duration among all models
+        let maxCumulativeTime = 0;
+        store.benchmarkReport.models.forEach(modelReport => {
+            const cumulativeTime = modelReport.results.reduce(
+                (sum, result) => sum + result.prompt_response.total_duration_ms,
+                0
+            );
+            if (cumulativeTime > maxCumulativeTime) {
+                maxCumulativeTime = cumulativeTime;
+            }
+        });
+        
+        // Update currentTime to reflect the end state based on cumulative durations
+        store.currentTime = maxCumulativeTime;
+        
         // Stop any running interval
         if (store.intervalId) {
             clearInterval(store.intervalId);

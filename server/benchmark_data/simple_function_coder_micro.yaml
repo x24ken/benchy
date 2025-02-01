@@ -28,12 +28,12 @@ models:
   # - "anthropic~claude-3-5-sonnet-latest"
   - "openai~gpt-4o-mini"
   - "openai~gpt-4o"
-  # - "openai~o1-mini"
-  # - "openai~o3-mini:low"
-  # - "openai~o3-mini:medium"
-  # - "openai~o3-mini:high"
-  # - "openai~o1"
-  # - "openai~o1-preview"
+  - "openai~o1-mini"
+  - "openai~o3-mini:low"
+  - "openai~o3-mini:medium"
+  - "openai~o3-mini:high"
+  - "openai~o1"
+  - "openai~o1-preview"
   
 prompts:
   - dynamic_variables:
