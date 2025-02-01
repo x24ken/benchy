@@ -119,6 +119,14 @@ def test_cost_ordering_group1():
     cost_gpt4o = get_openai_cost("gpt-4o", input_tokens, output_tokens)
     cost_o1 = get_openai_cost("o1", input_tokens, output_tokens)
     cost_o1_preview = get_openai_cost("o1-preview", input_tokens, output_tokens)
+    assert (
+        cost_gpt4o_mini > 0.0
+    ), f"cost_gpt4o_mini should be > 0.0, got {cost_gpt4o_mini}"
+    assert cost_gpt4o > 0.0, f"cost_gpt4o should be > 0.0, got {cost_gpt4o}"
+    assert cost_o1 > 0.0, f"cost_o1 should be > 0.0, got {cost_o1}"
+    assert (
+        cost_o1_preview > 0.0
+    ), f"cost_o1_preview should be > 0.0, got {cost_o1_preview}"
     assert cost_gpt4o_mini < cost_gpt4o, f"{cost_gpt4o_mini} !< {cost_gpt4o}"
     assert cost_gpt4o < cost_o1, f"{cost_gpt4o} !< {cost_o1}"
     assert cost_o1 <= cost_o1_preview, f"{cost_o1} !<= {cost_o1_preview}"
@@ -133,6 +141,12 @@ def test_cost_ordering_group2():
     cost_o1_mini = get_openai_cost("o1-mini", input_tokens, output_tokens)
     cost_o3_mini = get_openai_cost("o3-mini", input_tokens, output_tokens)
     cost_o1 = get_openai_cost("o1", input_tokens, output_tokens)
+    assert (
+        cost_gpt4o_mini > 0.0
+    ), f"cost_gpt4o_mini should be > 0.0, got {cost_gpt4o_mini}"
+    assert cost_o1_mini > 0.0, f"cost_o1_mini should be > 0.0, got {cost_o1_mini}"
+    assert cost_o3_mini > 0.0, f"cost_o3_mini should be > 0.0, got {cost_o3_mini}"
+    assert cost_o1 > 0.0, f"cost_o1 should be > 0.0, got {cost_o1}"
     assert cost_gpt4o_mini < cost_o1_mini, f"{cost_gpt4o_mini} !< {cost_o1_mini}"
     assert cost_o1_mini <= cost_o3_mini, f"{cost_o1_mini} !<= {cost_o3_mini}"
     assert cost_o3_mini < cost_o1, f"{cost_o3_mini} !< {cost_o1}"

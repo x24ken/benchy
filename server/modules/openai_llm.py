@@ -163,7 +163,7 @@ def bench_prompt(prompt: str, model: str) -> BenchPromptResponse:
 
             input_tokens = completion.usage.prompt_tokens
             output_tokens = completion.usage.completion_tokens
-            cost = get_openai_cost(model, input_tokens, output_tokens)
+            cost = get_openai_cost(base_model, input_tokens, output_tokens)
 
         return BenchPromptResponse(
             response=completion.choices[0].message.content,
@@ -215,7 +215,7 @@ def predictive_prompt(prompt: str, prediction: str, model: str) -> PromptRespons
     # Process results after timing block
     input_tokens = completion.usage.prompt_tokens
     output_tokens = completion.usage.completion_tokens
-    cost = get_openai_cost(model, input_tokens, output_tokens)
+    cost = get_openai_cost(base_model, input_tokens, output_tokens)
 
     return PromptResponse(
         response=completion.choices[0].message.content,
