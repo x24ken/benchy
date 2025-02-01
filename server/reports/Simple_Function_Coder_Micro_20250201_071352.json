@@ -1,0 +1,763 @@
+{
+    "benchmark_name": "Simple Function Coder Micro",
+    "purpose": "Evaluate the ability of a language model to generate and execute a function.",
+    "base_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    {{function}}\n</function-request>\n\n<function-arguments>\n    {{arguments}}\n</function-arguments>\n",
+    "models": [
+        {
+            "model": "ollama~ollama:mistral-small:latest",
+            "results": [
+                {
+                    "prompt_response": {
+                        "response": "Error: model is required",
+                        "tokens_per_second": 0.0,
+                        "provider": "ollama",
+                        "total_duration_ms": 0.0,
+                        "load_duration_ms": 0.0,
+                        "errored": true
+                    },
+                    "execution_result": "Error: Traceback (most recent call last):\n  File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmp080kfxc3.py\", line 1, in <module>\n    Error: model is required\n           ^^^^^\nNameError: name 'model' is not defined\n",
+                    "expected_result": "3.0",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def add(a, b): int - add two numbers\n</function-request>\n\n<function-arguments>\n    1, 2\n</function-arguments>\n",
+                    "model": "ollama~ollama:mistral-small:latest",
+                    "correct": false,
+                    "index": 1
+                },
+                {
+                    "prompt_response": {
+                        "response": "Error: model is required",
+                        "tokens_per_second": 0.0,
+                        "provider": "ollama",
+                        "total_duration_ms": 0.0,
+                        "load_duration_ms": 0.0,
+                        "errored": true
+                    },
+                    "execution_result": "Error: Traceback (most recent call last):\n  File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmpm85ba0xy.py\", line 1, in <module>\n    Error: model is required\n           ^^^^^\nNameError: name 'model' is not defined\n",
+                    "expected_result": "24.0",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def multiply_list(numbers: list) -> int - multiply all numbers in a list together\n</function-request>\n\n<function-arguments>\n    [2, 3, 4]\n</function-arguments>\n",
+                    "model": "ollama~ollama:mistral-small:latest",
+                    "correct": false,
+                    "index": 2
+                },
+                {
+                    "prompt_response": {
+                        "response": "Error: model is required",
+                        "tokens_per_second": 0.0,
+                        "provider": "ollama",
+                        "total_duration_ms": 0.0,
+                        "load_duration_ms": 0.0,
+                        "errored": true
+                    },
+                    "execution_result": "Error: Traceback (most recent call last):\n  File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmpbqesiso6.py\", line 1, in <module>\n    Error: model is required\n           ^^^^^\nNameError: name 'model' is not defined\n",
+                    "expected_result": "dlrow olleh",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def reverse_string(text: str) -> str - reverse the characters in a string\n</function-request>\n\n<function-arguments>\n    'hello world'\n</function-arguments>\n",
+                    "model": "ollama~ollama:mistral-small:latest",
+                    "correct": false,
+                    "index": 3
+                },
+                {
+                    "prompt_response": {
+                        "response": "Error: model is required",
+                        "tokens_per_second": 0.0,
+                        "provider": "ollama",
+                        "total_duration_ms": 0.0,
+                        "load_duration_ms": 0.0,
+                        "errored": true
+                    },
+                    "execution_result": "Error: Traceback (most recent call last):\n  File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmp_gpmz7fc.py\", line 1, in <module>\n    Error: model is required\n           ^^^^^\nNameError: name 'model' is not defined\n",
+                    "expected_result": "5.0",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def count_vowels(text: str) -> int - count the number of vowels in a string\n</function-request>\n\n<function-arguments>\n    'beautiful'\n</function-arguments>\n",
+                    "model": "ollama~ollama:mistral-small:latest",
+                    "correct": false,
+                    "index": 4
+                }
+            ],
+            "correct_count": 0,
+            "incorrect_count": 4,
+            "accuracy": 0.0,
+            "average_tokens_per_second": 0.0,
+            "average_total_duration_ms": 0.0,
+            "average_load_duration_ms": 0.0
+        },
+        {
+            "model": "anthropic~claude-3-5-sonnet-latest",
+            "results": [
+                {
+                    "prompt_response": {
+                        "response": "def add(a, b):\n    return a + b\n\nprint(add(1, 2))",
+                        "tokens_per_second": 0.0,
+                        "provider": "anthropic",
+                        "total_duration_ms": 815.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "3.0",
+                    "expected_result": "3.0",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def add(a, b): int - add two numbers\n</function-request>\n\n<function-arguments>\n    1, 2\n</function-arguments>\n",
+                    "model": "anthropic~claude-3-5-sonnet-latest",
+                    "correct": true,
+                    "index": 1
+                },
+                {
+                    "prompt_response": {
+                        "response": "def multiply_list(numbers: list) -> int:\n    result = 1\n    for num in numbers:\n        result *= num\n    return result\n\nresult = multiply_list([2, 3, 4])\nprint(result)",
+                        "tokens_per_second": 0.0,
+                        "provider": "anthropic",
+                        "total_duration_ms": 1335.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "24.0",
+                    "expected_result": "24.0",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def multiply_list(numbers: list) -> int - multiply all numbers in a list together\n</function-request>\n\n<function-arguments>\n    [2, 3, 4]\n</function-arguments>\n",
+                    "model": "anthropic~claude-3-5-sonnet-latest",
+                    "correct": true,
+                    "index": 2
+                },
+                {
+                    "prompt_response": {
+                        "response": "def reverse_string(text: str) -> str:\n    return text[::-1]\n\nprint(reverse_string('hello world'))",
+                        "tokens_per_second": 0.0,
+                        "provider": "anthropic",
+                        "total_duration_ms": 990.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "dlrow olleh\n",
+                    "expected_result": "dlrow olleh",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def reverse_string(text: str) -> str - reverse the characters in a string\n</function-request>\n\n<function-arguments>\n    'hello world'\n</function-arguments>\n",
+                    "model": "anthropic~claude-3-5-sonnet-latest",
+                    "correct": true,
+                    "index": 3
+                },
+                {
+                    "prompt_response": {
+                        "response": "def count_vowels(text: str) -> int:\n    vowels = 'aeiouAEIOU'\n    return sum(1 for char in text if char in vowels)\n\nresult = count_vowels('beautiful')\nprint(result)",
+                        "tokens_per_second": 0.0,
+                        "provider": "anthropic",
+                        "total_duration_ms": 1334.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "5.0",
+                    "expected_result": "5.0",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def count_vowels(text: str) -> int - count the number of vowels in a string\n</function-request>\n\n<function-arguments>\n    'beautiful'\n</function-arguments>\n",
+                    "model": "anthropic~claude-3-5-sonnet-latest",
+                    "correct": true,
+                    "index": 4
+                }
+            ],
+            "correct_count": 4,
+            "incorrect_count": 0,
+            "accuracy": 1.0,
+            "average_tokens_per_second": 0.0,
+            "average_total_duration_ms": 1118.5,
+            "average_load_duration_ms": 0.0
+        },
+        {
+            "model": "deepseek~deepseek-chat",
+            "results": [
+                {
+                    "prompt_response": {
+                        "response": "```python\ndef add(a, b):\n    return a + b\n\nresult = add(1, 2)\nprint(result)\n```",
+                        "tokens_per_second": 0.0,
+                        "provider": "deepseek",
+                        "total_duration_ms": 13568.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "3.0",
+                    "expected_result": "3.0",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def add(a, b): int - add two numbers\n</function-request>\n\n<function-arguments>\n    1, 2\n</function-arguments>\n",
+                    "model": "deepseek~deepseek-chat",
+                    "correct": true,
+                    "index": 1
+                },
+                {
+                    "prompt_response": {
+                        "response": "```python\ndef multiply_list(numbers: list) -> int:\n    result = 1\n    for num in numbers:\n        result *= num\n    return result\n\nresult = multiply_list([2, 3, 4])\nprint(result)\n```",
+                        "tokens_per_second": 0.0,
+                        "provider": "deepseek",
+                        "total_duration_ms": 6537.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "24.0",
+                    "expected_result": "24.0",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def multiply_list(numbers: list) -> int - multiply all numbers in a list together\n</function-request>\n\n<function-arguments>\n    [2, 3, 4]\n</function-arguments>\n",
+                    "model": "deepseek~deepseek-chat",
+                    "correct": true,
+                    "index": 2
+                },
+                {
+                    "prompt_response": {
+                        "response": "```python\ndef reverse_string(text: str) -> str:\n    return text[::-1]\n\nresult = reverse_string('hello world')\nprint(result)\n```",
+                        "tokens_per_second": 0.0,
+                        "provider": "deepseek",
+                        "total_duration_ms": 18684.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "dlrow olleh\n",
+                    "expected_result": "dlrow olleh",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def reverse_string(text: str) -> str - reverse the characters in a string\n</function-request>\n\n<function-arguments>\n    'hello world'\n</function-arguments>\n",
+                    "model": "deepseek~deepseek-chat",
+                    "correct": true,
+                    "index": 3
+                },
+                {
+                    "prompt_response": {
+                        "response": "```python\ndef count_vowels(text: str) -> int:\n    vowels = \"aeiouAEIOU\"\n    return sum(1 for char in text if char in vowels)\n\nresult = count_vowels('beautiful')\nprint(result)\n```",
+                        "tokens_per_second": 0.0,
+                        "provider": "deepseek",
+                        "total_duration_ms": 6646.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "5.0",
+                    "expected_result": "5.0",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def count_vowels(text: str) -> int - count the number of vowels in a string\n</function-request>\n\n<function-arguments>\n    'beautiful'\n</function-arguments>\n",
+                    "model": "deepseek~deepseek-chat",
+                    "correct": true,
+                    "index": 4
+                }
+            ],
+            "correct_count": 4,
+            "incorrect_count": 0,
+            "accuracy": 1.0,
+            "average_tokens_per_second": 0.0,
+            "average_total_duration_ms": 11358.75,
+            "average_load_duration_ms": 0.0
+        },
+        {
+            "model": "deepseek~deepseek-reasoner",
+            "results": [
+                {
+                    "prompt_response": {
+                        "response": "def add(a, b):\n    return a + b\n\nresult = add(1, 2)\nprint(result)",
+                        "tokens_per_second": 0.0,
+                        "provider": "deepseek",
+                        "total_duration_ms": 60476.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "3.0",
+                    "expected_result": "3.0",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def add(a, b): int - add two numbers\n</function-request>\n\n<function-arguments>\n    1, 2\n</function-arguments>\n",
+                    "model": "deepseek~deepseek-reasoner",
+                    "correct": true,
+                    "index": 1
+                },
+                {
+                    "prompt_response": {
+                        "response": "def multiply_list(numbers: list) -> int:\n    product = 1\n    for num in numbers:\n        product *= num\n    return product\n\nprint(multiply_list([2, 3, 4]))",
+                        "tokens_per_second": 0.0,
+                        "provider": "deepseek",
+                        "total_duration_ms": 52455.0,
+                        "load_duration_ms": 0.0,
+                        "errored": null
+                    },
+                    "execution_result": "24.0",
+                    "expected_result": "24.0",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def multiply_list(numbers: list) -> int - multiply all numbers in a list together\n</function-request>\n\n<function-arguments>\n    [2, 3, 4]\n</function-arguments>\n",
+                    "model": "deepseek~deepseek-reasoner",
+                    "correct": true,
+                    "index": 2
+                },
+                {
+                    "prompt_response": {
+                        "response": "Error: Expecting value: line 1 column 1 (char 0)",
+                        "tokens_per_second": 0.0,
+                        "provider": "deepseek",
+                        "total_duration_ms": 0.0,
+                        "load_duration_ms": 0.0,
+                        "errored": true
+                    },
+                    "execution_result": "Error:   File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmpligfqj0i.py\", line 1\n    Error: Expecting value: line 1 column 1 (char 0)\n                     ^^^^^\nSyntaxError: invalid syntax\n",
+                    "expected_result": "dlrow olleh",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def reverse_string(text: str) -> str - reverse the characters in a string\n</function-request>\n\n<function-arguments>\n    'hello world'\n</function-arguments>\n",
+                    "model": "deepseek~deepseek-reasoner",
+                    "correct": false,
+                    "index": 3
+                },
+                {
+                    "prompt_response": {
+                        "response": "Error: Expecting value: line 1 column 1 (char 0)",
+                        "tokens_per_second": 0.0,
+                        "provider": "deepseek",
+                        "total_duration_ms": 0.0,
+                        "load_duration_ms": 0.0,
+                        "errored": true
+                    },
+                    "execution_result": "Error:   File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmpngjdzydo.py\", line 1\n    Error: Expecting value: line 1 column 1 (char 0)\n                     ^^^^^\nSyntaxError: invalid syntax\n",
+                    "expected_result": "5.0",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def count_vowels(text: str) -> int - count the number of vowels in a string\n</function-request>\n\n<function-arguments>\n    'beautiful'\n</function-arguments>\n",
+                    "model": "deepseek~deepseek-reasoner",
+                    "correct": false,
+                    "index": 4
+                }
+            ],
+            "correct_count": 2,
+            "incorrect_count": 2,
+            "accuracy": 0.5,
+            "average_tokens_per_second": 0.0,
+            "average_total_duration_ms": 28232.75,
+            "average_load_duration_ms": 0.0
+        },
+        {
+            "model": "ollama~openai:gpt-4o-mini",
+            "results": [
+                {
+                    "prompt_response": {
+                        "response": "Error: model \"openai:gpt-4o-mini\" not found, try pulling it first",
+                        "tokens_per_second": 0.0,
+                        "provider": "ollama",
+                        "total_duration_ms": 0.0,
+                        "load_duration_ms": 0.0,
+                        "errored": true
+                    },
+                    "execution_result": "Error:   File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmplro6htw4.py\", line 1\n    Error: model \"openai:gpt-4o-mini\" not found, try pulling it first\n                 ^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax\n",
+                    "expected_result": "3.0",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def add(a, b): int - add two numbers\n</function-request>\n\n<function-arguments>\n    1, 2\n</function-arguments>\n",
+                    "model": "ollama~openai:gpt-4o-mini",
+                    "correct": false,
+                    "index": 1
+                },
+                {
+                    "prompt_response": {
+                        "response": "Error: model \"openai:gpt-4o-mini\" not found, try pulling it first",
+                        "tokens_per_second": 0.0,
+                        "provider": "ollama",
+                        "total_duration_ms": 0.0,
+                        "load_duration_ms": 0.0,
+                        "errored": true
+                    },
+                    "execution_result": "Error:   File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmpwqlx1p77.py\", line 1\n    Error: model \"openai:gpt-4o-mini\" not found, try pulling it first\n                 ^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax\n",
+                    "expected_result": "24.0",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def multiply_list(numbers: list) -> int - multiply all numbers in a list together\n</function-request>\n\n<function-arguments>\n    [2, 3, 4]\n</function-arguments>\n",
+                    "model": "ollama~openai:gpt-4o-mini",
+                    "correct": false,
+                    "index": 2
+                },
+                {
+                    "prompt_response": {
+                        "response": "Error: model \"openai:gpt-4o-mini\" not found, try pulling it first",
+                        "tokens_per_second": 0.0,
+                        "provider": "ollama",
+                        "total_duration_ms": 0.0,
+                        "load_duration_ms": 0.0,
+                        "errored": true
+                    },
+                    "execution_result": "Error:   File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmpnb3mgkwm.py\", line 1\n    Error: model \"openai:gpt-4o-mini\" not found, try pulling it first\n                 ^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax\n",
+                    "expected_result": "dlrow olleh",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def reverse_string(text: str) -> str - reverse the characters in a string\n</function-request>\n\n<function-arguments>\n    'hello world'\n</function-arguments>\n",
+                    "model": "ollama~openai:gpt-4o-mini",
+                    "correct": false,
+                    "index": 3
+                },
+                {
+                    "prompt_response": {
+                        "response": "Error: model \"openai:gpt-4o-mini\" not found, try pulling it first",
+                        "tokens_per_second": 0.0,
+                        "provider": "ollama",
+                        "total_duration_ms": 0.0,
+                        "load_duration_ms": 0.0,
+                        "errored": true
+                    },
+                    "execution_result": "Error:   File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmpqrj8igqk.py\", line 1\n    Error: model \"openai:gpt-4o-mini\" not found, try pulling it first\n                 ^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax\n",
+                    "expected_result": "5.0",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def count_vowels(text: str) -> int - count the number of vowels in a string\n</function-request>\n\n<function-arguments>\n    'beautiful'\n</function-arguments>\n",
+                    "model": "ollama~openai:gpt-4o-mini",
+                    "correct": false,
+                    "index": 4
+                }
+            ],
+            "correct_count": 0,
+            "incorrect_count": 4,
+            "accuracy": 0.0,
+            "average_tokens_per_second": 0.0,
+            "average_total_duration_ms": 0.0,
+            "average_load_duration_ms": 0.0
+        },
+        {
+            "model": "ollama~openai:gpt-4o",
+            "results": [
+                {
+                    "prompt_response": {
+                        "response": "Error: model \"openai:gpt-4o\" not found, try pulling it first",
+                        "tokens_per_second": 0.0,
+                        "provider": "ollama",
+                        "total_duration_ms": 0.0,
+                        "load_duration_ms": 0.0,
+                        "errored": true
+                    },
+                    "execution_result": "Error:   File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmpm51bt2k7.py\", line 1\n    Error: model \"openai:gpt-4o\" not found, try pulling it first\n                 ^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax\n",
+                    "expected_result": "3.0",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def add(a, b): int - add two numbers\n</function-request>\n\n<function-arguments>\n    1, 2\n</function-arguments>\n",
+                    "model": "ollama~openai:gpt-4o",
+                    "correct": false,
+                    "index": 1
+                },
+                {
+                    "prompt_response": {
+                        "response": "Error: model \"openai:gpt-4o\" not found, try pulling it first",
+                        "tokens_per_second": 0.0,
+                        "provider": "ollama",
+                        "total_duration_ms": 0.0,
+                        "load_duration_ms": 0.0,
+                        "errored": true
+                    },
+                    "execution_result": "Error:   File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmpqhhv4mkl.py\", line 1\n    Error: model \"openai:gpt-4o\" not found, try pulling it first\n                 ^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax\n",
+                    "expected_result": "24.0",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def multiply_list(numbers: list) -> int - multiply all numbers in a list together\n</function-request>\n\n<function-arguments>\n    [2, 3, 4]\n</function-arguments>\n",
+                    "model": "ollama~openai:gpt-4o",
+                    "correct": false,
+                    "index": 2
+                },
+                {
+                    "prompt_response": {
+                        "response": "Error: model \"openai:gpt-4o\" not found, try pulling it first",
+                        "tokens_per_second": 0.0,
+                        "provider": "ollama",
+                        "total_duration_ms": 0.0,
+                        "load_duration_ms": 0.0,
+                        "errored": true
+                    },
+                    "execution_result": "Error:   File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmp5xcqxmws.py\", line 1\n    Error: model \"openai:gpt-4o\" not found, try pulling it first\n                 ^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax\n",
+                    "expected_result": "dlrow olleh",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def reverse_string(text: str) -> str - reverse the characters in a string\n</function-request>\n\n<function-arguments>\n    'hello world'\n</function-arguments>\n",
+                    "model": "ollama~openai:gpt-4o",
+                    "correct": false,
+                    "index": 3
+                },
+                {
+                    "prompt_response": {
+                        "response": "Error: model \"openai:gpt-4o\" not found, try pulling it first",
+                        "tokens_per_second": 0.0,
+                        "provider": "ollama",
+                        "total_duration_ms": 0.0,
+                        "load_duration_ms": 0.0,
+                        "errored": true
+                    },
+                    "execution_result": "Error:   File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmpzu8r0qay.py\", line 1\n    Error: model \"openai:gpt-4o\" not found, try pulling it first\n                 ^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax\n",
+                    "expected_result": "5.0",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def count_vowels(text: str) -> int - count the number of vowels in a string\n</function-request>\n\n<function-arguments>\n    'beautiful'\n</function-arguments>\n",
+                    "model": "ollama~openai:gpt-4o",
+                    "correct": false,
+                    "index": 4
+                }
+            ],
+            "correct_count": 0,
+            "incorrect_count": 4,
+            "accuracy": 0.0,
+            "average_tokens_per_second": 0.0,
+            "average_total_duration_ms": 0.0,
+            "average_load_duration_ms": 0.0
+        },
+        {
+            "model": "ollama~openai:o1-mini",
+            "results": [
+                {
+                    "prompt_response": {
+                        "response": "Error: model \"openai:o1-mini\" not found, try pulling it first",
+                        "tokens_per_second": 0.0,
+                        "provider": "ollama",
+                        "total_duration_ms": 0.0,
+                        "load_duration_ms": 0.0,
+                        "errored": true
+                    },
+                    "execution_result": "Error:   File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmp681h5ple.py\", line 1\n    Error: model \"openai:o1-mini\" not found, try pulling it first\n                 ^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax\n",
+                    "expected_result": "3.0",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def add(a, b): int - add two numbers\n</function-request>\n\n<function-arguments>\n    1, 2\n</function-arguments>\n",
+                    "model": "ollama~openai:o1-mini",
+                    "correct": false,
+                    "index": 1
+                },
+                {
+                    "prompt_response": {
+                        "response": "Error: model \"openai:o1-mini\" not found, try pulling it first",
+                        "tokens_per_second": 0.0,
+                        "provider": "ollama",
+                        "total_duration_ms": 0.0,
+                        "load_duration_ms": 0.0,
+                        "errored": true
+                    },
+                    "execution_result": "Error:   File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmp_n17b8ry.py\", line 1\n    Error: model \"openai:o1-mini\" not found, try pulling it first\n                 ^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax\n",
+                    "expected_result": "24.0",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def multiply_list(numbers: list) -> int - multiply all numbers in a list together\n</function-request>\n\n<function-arguments>\n    [2, 3, 4]\n</function-arguments>\n",
+                    "model": "ollama~openai:o1-mini",
+                    "correct": false,
+                    "index": 2
+                },
+                {
+                    "prompt_response": {
+                        "response": "Error: model \"openai:o1-mini\" not found, try pulling it first",
+                        "tokens_per_second": 0.0,
+                        "provider": "ollama",
+                        "total_duration_ms": 0.0,
+                        "load_duration_ms": 0.0,
+                        "errored": true
+                    },
+                    "execution_result": "Error:   File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmp6xdngsq0.py\", line 1\n    Error: model \"openai:o1-mini\" not found, try pulling it first\n                 ^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax\n",
+                    "expected_result": "dlrow olleh",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def reverse_string(text: str) -> str - reverse the characters in a string\n</function-request>\n\n<function-arguments>\n    'hello world'\n</function-arguments>\n",
+                    "model": "ollama~openai:o1-mini",
+                    "correct": false,
+                    "index": 3
+                },
+                {
+                    "prompt_response": {
+                        "response": "Error: model \"openai:o1-mini\" not found, try pulling it first",
+                        "tokens_per_second": 0.0,
+                        "provider": "ollama",
+                        "total_duration_ms": 0.0,
+                        "load_duration_ms": 0.0,
+                        "errored": true
+                    },
+                    "execution_result": "Error:   File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmpwj2psar6.py\", line 1\n    Error: model \"openai:o1-mini\" not found, try pulling it first\n                 ^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax\n",
+                    "expected_result": "5.0",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def count_vowels(text: str) -> int - count the number of vowels in a string\n</function-request>\n\n<function-arguments>\n    'beautiful'\n</function-arguments>\n",
+                    "model": "ollama~openai:o1-mini",
+                    "correct": false,
+                    "index": 4
+                }
+            ],
+            "correct_count": 0,
+            "incorrect_count": 4,
+            "accuracy": 0.0,
+            "average_tokens_per_second": 0.0,
+            "average_total_duration_ms": 0.0,
+            "average_load_duration_ms": 0.0
+        },
+        {
+            "model": "ollama~openai:o3-mini",
+            "results": [
+                {
+                    "prompt_response": {
+                        "response": "Error: model \"openai:o3-mini\" not found, try pulling it first",
+                        "tokens_per_second": 0.0,
+                        "provider": "ollama",
+                        "total_duration_ms": 0.0,
+                        "load_duration_ms": 0.0,
+                        "errored": true
+                    },
+                    "execution_result": "Error:   File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmpazqcwdht.py\", line 1\n    Error: model \"openai:o3-mini\" not found, try pulling it first\n                 ^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax\n",
+                    "expected_result": "3.0",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def add(a, b): int - add two numbers\n</function-request>\n\n<function-arguments>\n    1, 2\n</function-arguments>\n",
+                    "model": "ollama~openai:o3-mini",
+                    "correct": false,
+                    "index": 1
+                },
+                {
+                    "prompt_response": {
+                        "response": "Error: model \"openai:o3-mini\" not found, try pulling it first",
+                        "tokens_per_second": 0.0,
+                        "provider": "ollama",
+                        "total_duration_ms": 0.0,
+                        "load_duration_ms": 0.0,
+                        "errored": true
+                    },
+                    "execution_result": "Error:   File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmptf9ir0gw.py\", line 1\n    Error: model \"openai:o3-mini\" not found, try pulling it first\n                 ^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax\n",
+                    "expected_result": "24.0",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def multiply_list(numbers: list) -> int - multiply all numbers in a list together\n</function-request>\n\n<function-arguments>\n    [2, 3, 4]\n</function-arguments>\n",
+                    "model": "ollama~openai:o3-mini",
+                    "correct": false,
+                    "index": 2
+                },
+                {
+                    "prompt_response": {
+                        "response": "Error: model \"openai:o3-mini\" not found, try pulling it first",
+                        "tokens_per_second": 0.0,
+                        "provider": "ollama",
+                        "total_duration_ms": 0.0,
+                        "load_duration_ms": 0.0,
+                        "errored": true
+                    },
+                    "execution_result": "Error:   File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmpe6yb9xie.py\", line 1\n    Error: model \"openai:o3-mini\" not found, try pulling it first\n                 ^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax\n",
+                    "expected_result": "dlrow olleh",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def reverse_string(text: str) -> str - reverse the characters in a string\n</function-request>\n\n<function-arguments>\n    'hello world'\n</function-arguments>\n",
+                    "model": "ollama~openai:o3-mini",
+                    "correct": false,
+                    "index": 3
+                },
+                {
+                    "prompt_response": {
+                        "response": "Error: model \"openai:o3-mini\" not found, try pulling it first",
+                        "tokens_per_second": 0.0,
+                        "provider": "ollama",
+                        "total_duration_ms": 0.0,
+                        "load_duration_ms": 0.0,
+                        "errored": true
+                    },
+                    "execution_result": "Error:   File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmppsci3d40.py\", line 1\n    Error: model \"openai:o3-mini\" not found, try pulling it first\n                 ^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax\n",
+                    "expected_result": "5.0",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def count_vowels(text: str) -> int - count the number of vowels in a string\n</function-request>\n\n<function-arguments>\n    'beautiful'\n</function-arguments>\n",
+                    "model": "ollama~openai:o3-mini",
+                    "correct": false,
+                    "index": 4
+                }
+            ],
+            "correct_count": 0,
+            "incorrect_count": 4,
+            "accuracy": 0.0,
+            "average_tokens_per_second": 0.0,
+            "average_total_duration_ms": 0.0,
+            "average_load_duration_ms": 0.0
+        },
+        {
+            "model": "ollama~openai:o1",
+            "results": [
+                {
+                    "prompt_response": {
+                        "response": "Error: model \"openai:o1\" not found, try pulling it first",
+                        "tokens_per_second": 0.0,
+                        "provider": "ollama",
+                        "total_duration_ms": 0.0,
+                        "load_duration_ms": 0.0,
+                        "errored": true
+                    },
+                    "execution_result": "Error:   File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmpgr6mk_ni.py\", line 1\n    Error: model \"openai:o1\" not found, try pulling it first\n                 ^^^^^^^^^^^\nSyntaxError: invalid syntax\n",
+                    "expected_result": "3.0",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def add(a, b): int - add two numbers\n</function-request>\n\n<function-arguments>\n    1, 2\n</function-arguments>\n",
+                    "model": "ollama~openai:o1",
+                    "correct": false,
+                    "index": 1
+                },
+                {
+                    "prompt_response": {
+                        "response": "Error: model \"openai:o1\" not found, try pulling it first",
+                        "tokens_per_second": 0.0,
+                        "provider": "ollama",
+                        "total_duration_ms": 0.0,
+                        "load_duration_ms": 0.0,
+                        "errored": true
+                    },
+                    "execution_result": "Error:   File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmp0idf94vs.py\", line 1\n    Error: model \"openai:o1\" not found, try pulling it first\n                 ^^^^^^^^^^^\nSyntaxError: invalid syntax\n",
+                    "expected_result": "24.0",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def multiply_list(numbers: list) -> int - multiply all numbers in a list together\n</function-request>\n\n<function-arguments>\n    [2, 3, 4]\n</function-arguments>\n",
+                    "model": "ollama~openai:o1",
+                    "correct": false,
+                    "index": 2
+                },
+                {
+                    "prompt_response": {
+                        "response": "Error: model \"openai:o1\" not found, try pulling it first",
+                        "tokens_per_second": 0.0,
+                        "provider": "ollama",
+                        "total_duration_ms": 0.0,
+                        "load_duration_ms": 0.0,
+                        "errored": true
+                    },
+                    "execution_result": "Error:   File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmphkd3drpy.py\", line 1\n    Error: model \"openai:o1\" not found, try pulling it first\n                 ^^^^^^^^^^^\nSyntaxError: invalid syntax\n",
+                    "expected_result": "dlrow olleh",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def reverse_string(text: str) -> str - reverse the characters in a string\n</function-request>\n\n<function-arguments>\n    'hello world'\n</function-arguments>\n",
+                    "model": "ollama~openai:o1",
+                    "correct": false,
+                    "index": 3
+                },
+                {
+                    "prompt_response": {
+                        "response": "Error: model \"openai:o1\" not found, try pulling it first",
+                        "tokens_per_second": 0.0,
+                        "provider": "ollama",
+                        "total_duration_ms": 0.0,
+                        "load_duration_ms": 0.0,
+                        "errored": true
+                    },
+                    "execution_result": "Error:   File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmpv9k0kwhq.py\", line 1\n    Error: model \"openai:o1\" not found, try pulling it first\n                 ^^^^^^^^^^^\nSyntaxError: invalid syntax\n",
+                    "expected_result": "5.0",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def count_vowels(text: str) -> int - count the number of vowels in a string\n</function-request>\n\n<function-arguments>\n    'beautiful'\n</function-arguments>\n",
+                    "model": "ollama~openai:o1",
+                    "correct": false,
+                    "index": 4
+                }
+            ],
+            "correct_count": 0,
+            "incorrect_count": 4,
+            "accuracy": 0.0,
+            "average_tokens_per_second": 0.0,
+            "average_total_duration_ms": 0.0,
+            "average_load_duration_ms": 0.0
+        },
+        {
+            "model": "ollama~openai:o1-preview",
+            "results": [
+                {
+                    "prompt_response": {
+                        "response": "Error: model \"openai:o1-preview\" not found, try pulling it first",
+                        "tokens_per_second": 0.0,
+                        "provider": "ollama",
+                        "total_duration_ms": 0.0,
+                        "load_duration_ms": 0.0,
+                        "errored": true
+                    },
+                    "execution_result": "Error:   File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmpmlv8aqce.py\", line 1\n    Error: model \"openai:o1-preview\" not found, try pulling it first\n                 ^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax\n",
+                    "expected_result": "3.0",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def add(a, b): int - add two numbers\n</function-request>\n\n<function-arguments>\n    1, 2\n</function-arguments>\n",
+                    "model": "ollama~openai:o1-preview",
+                    "correct": false,
+                    "index": 1
+                },
+                {
+                    "prompt_response": {
+                        "response": "Error: model \"openai:o1-preview\" not found, try pulling it first",
+                        "tokens_per_second": 0.0,
+                        "provider": "ollama",
+                        "total_duration_ms": 0.0,
+                        "load_duration_ms": 0.0,
+                        "errored": true
+                    },
+                    "execution_result": "Error:   File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmprrnm26ox.py\", line 1\n    Error: model \"openai:o1-preview\" not found, try pulling it first\n                 ^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax\n",
+                    "expected_result": "24.0",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def multiply_list(numbers: list) -> int - multiply all numbers in a list together\n</function-request>\n\n<function-arguments>\n    [2, 3, 4]\n</function-arguments>\n",
+                    "model": "ollama~openai:o1-preview",
+                    "correct": false,
+                    "index": 2
+                },
+                {
+                    "prompt_response": {
+                        "response": "Error: model \"openai:o1-preview\" not found, try pulling it first",
+                        "tokens_per_second": 0.0,
+                        "provider": "ollama",
+                        "total_duration_ms": 0.0,
+                        "load_duration_ms": 0.0,
+                        "errored": true
+                    },
+                    "execution_result": "Error:   File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmpvjvlirut.py\", line 1\n    Error: model \"openai:o1-preview\" not found, try pulling it first\n                 ^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax\n",
+                    "expected_result": "dlrow olleh",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def reverse_string(text: str) -> str - reverse the characters in a string\n</function-request>\n\n<function-arguments>\n    'hello world'\n</function-arguments>\n",
+                    "model": "ollama~openai:o1-preview",
+                    "correct": false,
+                    "index": 3
+                },
+                {
+                    "prompt_response": {
+                        "response": "Error: model \"openai:o1-preview\" not found, try pulling it first",
+                        "tokens_per_second": 0.0,
+                        "provider": "ollama",
+                        "total_duration_ms": 0.0,
+                        "load_duration_ms": 0.0,
+                        "errored": true
+                    },
+                    "execution_result": "Error:   File \"/var/folders/h4/mz1ggq893rv7cf1cm5f8j95r0000gn/T/tmpaft6nkve.py\", line 1\n    Error: model \"openai:o1-preview\" not found, try pulling it first\n                 ^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax\n",
+                    "expected_result": "5.0",
+                    "input_prompt": "<purpose>\n    Generate a function for a given function-request. Then call the function with the provided arguments. Then print the result.\n</purpose>\n\n<instructions>\n    <instruction>Generate only the function requested by the user.</instruction>\n    <instruction>Fill in the function body with the appropriate code.</instruction>\n    <instruction>Do not include any other text.</instruction>\n    <instruction>Write code in python 3.</instruction>\n    <instruction>Generate the function, call the function, and print the result.</instruction>\n    <instruction>Code should be clean and readable.</instruction>\n    <instruction>Your code be immediately executed as is. Make sure it's runnable.</instruction>\n</instructions>\n\n<function-request>\n    def count_vowels(text: str) -> int - count the number of vowels in a string\n</function-request>\n\n<function-arguments>\n    'beautiful'\n</function-arguments>\n",
+                    "model": "ollama~openai:o1-preview",
+                    "correct": false,
+                    "index": 4
+                }
+            ],
+            "correct_count": 0,
+            "incorrect_count": 4,
+            "accuracy": 0.0,
+            "average_tokens_per_second": 0.0,
+            "average_total_duration_ms": 0.0,
+            "average_load_duration_ms": 0.0
+        }
+    ],
+    "overall_correct_count": 10,
+    "overall_incorrect_count": 30,
+    "overall_accuracy": 0.25,
+    "average_tokens_per_second": 0.0,
+    "average_total_duration_ms": 4071.0,
+    "average_load_duration_ms": 0.0
+}

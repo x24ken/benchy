@@ -362,6 +362,7 @@ def generate_report(
     return ExecEvalBenchmarkReport(
         benchmark_name=complete_result.benchmark_file.benchmark_name,
         purpose=complete_result.benchmark_file.purpose,
+        base_prompt=complete_result.benchmark_file.base_prompt,
         models=model_reports,
         overall_correct_count=overall_correct,
         overall_incorrect_count=overall_incorrect,

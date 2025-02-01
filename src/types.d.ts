@@ -118,6 +118,7 @@ global {
 export interface ExecEvalBenchmarkReport {
     benchmark_name: string;
     purpose: string;
+    base_prompt: string;
     models: ExecEvalBenchmarkModelReport[];
     overall_correct_count: number;
     overall_incorrect_count: number;

@@ -61,11 +61,12 @@
       <div class="benchmark-info">
         <h2>{{ store.benchmarkReport.benchmark_name }}</h2>
         <p>{{ store.benchmarkReport.purpose }}</p>
-        <p style="font-size: 16px; margin-top: 5px">
-          {{
-            store.benchmarkReport.models[0].results[0].prompt_response.provider
-          }}
-        </p>
+        <button @click="togglePrompt" class="collapse-button">
+          {{ showPrompt ? "Hide Prompt" : "Show Prompt" }}
+        </button>
+        <div v-if="showPrompt" class="benchmark-prompt">
+          <pre>{{ store.benchmarkReport.base_prompt }}</pre>
+        </div>
       </div>
 
       <div class="controls">
@@ -200,6 +201,10 @@ import IsoSpeedBenchRow from "../components/iso_speed_bench/IsoSpeedBenchRow.vue
 
 const showSettings = ref(false);
 const { settings } = store;
+const showPrompt = ref(false);
+function togglePrompt() {
+  showPrompt.value = !showPrompt.value;
+}
 
 function useSampleData() {
   store.benchmarkReport = inMemoryBenchmarkReport;

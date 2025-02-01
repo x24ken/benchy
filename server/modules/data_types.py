@@ -162,6 +162,7 @@ class ExecEvalBenchmarkModelReport(BaseModel):
 class ExecEvalBenchmarkReport(BaseModel):
     benchmark_name: str
     purpose: str
+    base_prompt: str
     models: list[ExecEvalBenchmarkModelReport]
 
     overall_correct_count: int
