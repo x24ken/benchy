@@ -2,6 +2,8 @@ import pytest
 from modules.openai_llm import tool_prompt
 from modules.tools import all_tools_list
 from modules.data_types import ToolCallResponse, SimpleToolCall
+import json
+import types
 
 
 @pytest.mark.parametrize(
@@ -17,10 +19,10 @@ from modules.data_types import ToolCallResponse, SimpleToolCall
             "gpt-4o",
         ),
         (
-            "Write some code for me in main.py, and then write code again in utils.py",
+            "Write some code for me in main.py, and then commit it to git",
             [
                 SimpleToolCall(tool_name="run_coder_agent", params={}),
-                SimpleToolCall(tool_name="run_coder_agent", params={}),
+                SimpleToolCall(tool_name="run_git_agent", params={}),
             ],
             "gpt-4o",
         ),
@@ -52,9 +54,44 @@ def test_tool_prompt(
     assert result.runTimeMs > 0
     assert result.inputAndOutputCost >= 0
 
+
 def test_openai_text_prompt():
     from modules.openai_llm import text_prompt
+
     response = text_prompt("ping", "gpt-4o")
     assert response.response != ""
     assert response.runTimeMs > 0
     assert response.inputAndOutputCost > 0.0
+
+
+@pytest.mark.parametrize(
+    "model_input,expected_reasoning",
+    [
+        ("o3-mini:low", "low"),
+        ("o3-mini:medium", "medium"),
+        ("o3-mini:high", "high"),
+        ("o3-mini", None),
+    ],
+)
+def test_text_prompt_reasoning_effort(model_input, expected_reasoning):
+    """
+    Test that text_prompt works with real API calls and that our parsing works.
+    """
+    # Double-check the parsing outcome
+    from utils import parse_reasoning_effort
+
+    base_model, effective = parse_reasoning_effort(model_input)
+    assert base_model == "o3-mini", "Base model should be 'o3-mini'"
+    assert (
+        effective == expected_reasoning
+    ), f"Expected reasoning_effort to be {expected_reasoning}"
+
+    # Do a real API call
+    from modules.openai_llm import text_prompt
+
+    response = text_prompt("ping", model_input)
+
+    # Validate the actual response received
+    assert response.response != "", "Expected non-empty response"
+    assert response.runTimeMs > 0, "Expected a positive runtime"
+    assert response.inputAndOutputCost >= 0, "Expected non-negative cost"

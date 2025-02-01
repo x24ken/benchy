@@ -180,7 +180,7 @@ export interface ThoughtBenchColumnData {
 }
 
 
-
+// simplified version of the server/modules/data_types.py ExecEvalBenchmarkFile
 export interface ExecEvalBenchmarkFile {
     base_prompt: string;
     evaluator: string;

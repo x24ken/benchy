@@ -1,6 +1,6 @@
 import time
 from contextlib import contextmanager
-from typing import Generator
+from typing import Generator, Optional
 from modules.data_types import ModelAlias
 
 
@@ -120,8 +120,12 @@ MAP_MODEL_ALIAS_TO_COST_PER_MILLION_TOKENS = {
         "output": 0.28,
     },
     "o1-mini": {
-        "input": 3.00,
-        "output": 15.00,
+        "input": 1.10,
+        "output": 4.40,
+    },
+    "o3-mini": {
+        "input": 1.10,
+        "output": 4.40,
     },
     "o1-preview": {
         "input": 15.00,
@@ -149,14 +153,16 @@ def parse_markdown_backticks(str) -> str:
     return str.strip()
 
 
-def deepseek_r1_distil_separate_thoughts_and_response(response: str, xml_tag: str = "think") -> tuple[str, str]:
+def deepseek_r1_distil_separate_thoughts_and_response(
+    response: str, xml_tag: str = "think"
+) -> tuple[str, str]:
     """
     Parse DeepSeek R1 responses containing <think> blocks and separate thoughts from final response.
-    
+
     Args:
         response: Raw model response string
         xml_tag: XML tag to look for (default: 'think')
-        
+
     Returns:
         tuple: (thoughts, response) where:
             - thoughts: concatenated content from all <think> blocks
@@ -165,28 +171,43 @@ def deepseek_r1_distil_separate_thoughts_and_response(response: str, xml_tag: st
     import re
     from io import StringIO
     import logging
-    
+
     thoughts = []
     cleaned_response = response
-    
+
     try:
         # Find all think blocks using regex (more fault-tolerant than XML parsing)
-        pattern = re.compile(rf'<{xml_tag}>(.*?)</{xml_tag}>', re.DOTALL)
+        pattern = re.compile(rf"<{xml_tag}>(.*?)</{xml_tag}>", re.DOTALL)
         matches = pattern.findall(response)
-        
+
         if matches:
             # Extract and clean thoughts
             thoughts = [m.strip() for m in matches]
-            
+
             # Remove think blocks from response
-            cleaned_response = pattern.sub('', response).strip()
-            
+            cleaned_response = pattern.sub("", response).strip()
+
             # Remove any remaining XML tags if they exist
-            cleaned_response = re.sub(r'<\/?[a-zA-Z]+>', '', cleaned_response).strip()
-            
-        return '\n\n'.join(thoughts), cleaned_response
-        
+            cleaned_response = re.sub(r"<\/?[a-zA-Z]+>", "", cleaned_response).strip()
+
+        return "\n\n".join(thoughts), cleaned_response
+
     except Exception as e:
         logging.error(f"Error parsing DeepSeek R1 response: {str(e)}")
         # Fallback - return empty thoughts and full response
-        return '', response.strip()
+        return "", response.strip()
+
+
+def parse_reasoning_effort(model: str) -> tuple[str, Optional[str]]:
+    """
+    Parse a model string to extract reasoning effort.
+    If the model contains ":low", ":medium" or ":high" (case‐insensitive),
+    returns (base_model, effort) where effort is the lowercase string.
+    Otherwise returns (model, None).
+    """
+    if ":" in model:
+        base_model, effort_candidate = model.rsplit(":", 1)
+        effort_candidate = effort_candidate.lower().strip()
+        if effort_candidate in {"low", "medium", "high"}:
+            return base_model, effort_candidate
+    return model, None

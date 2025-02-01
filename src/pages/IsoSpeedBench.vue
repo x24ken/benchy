@@ -33,24 +33,32 @@
         style="display: none"
       />
 
+      <!-- UPLOADED SHOW DATA -->
       <template v-if="store.isLoading">
         <div class="base-prompt-collapsible">
           <button @click="togglePrompt" class="collapse-button">
-            {{ showPrompt ? "Hide Base Prompt" : "Show Base Prompt" }}
+            {{
+              showUploadedTempPrompt ? "Hide Base Prompt" : "Show Base Prompt"
+            }}
           </button>
-          <div v-if="showPrompt" class="benchmark-prompt">
-            <pre>{{ inMemoryBenchmarkReport.base_prompt }}</pre>
+          <div v-if="showUploadedTempPrompt" class="benchmark-prompt">
+            <pre>{{ tempUploadedBenchmark?.base_prompt }}</pre>
           </div>
         </div>
-        <div class="prompt-iterations" v-if="inMemoryBenchmarkReport.prompt_iterations">
+        <div class="prompt-iterations" v-if="tempUploadedBenchmark?.prompts">
           <h3>Prompt Iterations</h3>
           <ul>
-            <li v-for="(iteration, idx) in inMemoryBenchmarkReport.prompt_iterations" :key="idx">
-              <pre>{{ iteration | json }}</pre>
+            <li
+              v-for="(iteration, idx) in tempUploadedBenchmark.prompts"
+              :key="idx"
+            >
+              <pre>{{ iteration }}</pre>
             </li>
           </ul>
         </div>
       </template>
+
+      <!-- DEFAULT -->
       <template v-else>
         <button @click="useSampleData" class="sample-data-button">
           Or use sample data
@@ -62,15 +70,16 @@
           <p>Drag & Drop a YAML or JSON file into the file drop area.</p>
           <p>
             You can find YAML benchmark configuration files in
-            'server/benchmark_data/*.yaml' to run against your own machine. Study
-            this file to see how to structure your own.
+            'server/benchmark_data/*.yaml' to run against your own machine.
+            Study this file to see how to structure your own.
           </p>
           <p>
-            Or you can find JSON benchmark result files in 'server/reports/*.json'
-            to see how existing/your models performed.
+            Or you can find JSON benchmark result files in
+            'server/reports/*.json' to see how existing/your models performed.
           </p>
           <p>
-            Or click the "Or use sample data" button to use a pre-defined dataset.
+            Or click the "Or use sample data" button to use a pre-defined
+            dataset.
           </p>
           <p></p>
         </div>
@@ -159,6 +168,9 @@ import {
   startBenchmark,
   inMemoryBenchmarkReport,
 } from "../stores/isoSpeedBenchStore";
+import YAML from "yamljs";
+import { ExecEvalBenchmarkFile } from "../types";
+const tempUploadedBenchmark = ref<ExecEvalBenchmarkFile | null>(null);
 
 const fileInputRef = ref<HTMLInputElement | null>(null);
 
@@ -197,6 +209,8 @@ function processFile(file: File) {
     }
 
     if (file.name.endsWith(".yaml") || file.name.endsWith(".yml")) {
+      tempUploadedBenchmark.value = YAML.parse(content);
+      console.log(`tempUploadedBenchmark.value`, tempUploadedBenchmark.value);
       try {
         store.isLoading = true;
         const response = await fetch("/iso-speed-bench", {
@@ -206,7 +220,7 @@ function processFile(file: File) {
           },
           body: content,
         });
-        store.benchmarkReport = await response.json();
+        const responseText = await response.text();
       } catch (error) {
         console.error("Error running benchmark:", error);
         alert("Error processing YAML file");
@@ -222,6 +236,7 @@ import IsoSpeedBenchRow from "../components/iso_speed_bench/IsoSpeedBenchRow.vue
 const showSettings = ref(false);
 const { settings } = store;
 const showPrompt = ref(false);
+const showUploadedTempPrompt = ref(false);
 function togglePrompt() {
   showPrompt.value = !showPrompt.value;
 }

@@ -161,7 +161,8 @@ class ExecEvalBenchmarkModelReport(BaseModel):
 
 class ExecEvalPromptIteration(BaseModel):
     dynamic_variables: dict
-    expectation: any
+    expectation: str
+
 
 class ExecEvalBenchmarkReport(BaseModel):
     benchmark_name: str

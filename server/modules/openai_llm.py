@@ -3,7 +3,7 @@ import os
 import json
 from modules.tools import openai_tools_list
 from modules.data_types import SimpleToolCall, ToolsAndPrompts
-from utils import parse_markdown_backticks, timeit
+from utils import parse_markdown_backticks, timeit, parse_reasoning_effort
 from modules.data_types import (
     PromptResponse,
     ModelAlias,
@@ -18,6 +18,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 openai_client: openai.OpenAI = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+# reasoning_effort_enabled_models = [
+#     "o3-mini",
+#     "o1",
+# ]
 
 
 def get_openai_cost(model: str, input_tokens: int, output_tokens: int) -> float:
@@ -50,8 +55,9 @@ def tool_prompt(prompt: str, model: str, force_tools: list[str]) -> ToolCallResp
     Run a chat model forcing specific tool calls.
     Now supports JSON structured output variants.
     """
+    base_model, reasoning_effort = parse_reasoning_effort(model)
     with timeit() as t:
-        if model == "o1-mini-json":
+        if base_model == "o1-mini-json":
             # Manual JSON parsing for o1-mini
             completion = openai_client.chat.completions.create(
                 model="o1-mini",
@@ -73,10 +79,10 @@ def tool_prompt(prompt: str, model: str, force_tools: list[str]) -> ToolCallResp
                 print(f"Failed to parse JSON response: {e}")
                 tool_calls = []
 
-        elif "-json" in model:
+        elif "-json" in base_model:
             # Use structured output for JSON variants
             completion = openai_client.beta.chat.completions.parse(
-                model=model.replace("-json", ""),
+                model=base_model.replace("-json", ""),
                 messages=[{"role": "user", "content": prompt}],
                 response_format=ToolsAndPrompts,
             )
@@ -95,7 +101,7 @@ def tool_prompt(prompt: str, model: str, force_tools: list[str]) -> ToolCallResp
         else:
             # Original implementation for function calling
             completion = openai_client.chat.completions.create(
-                model=model,
+                model=base_model,
                 messages=[{"role": "user", "content": prompt}],
                 tools=openai_tools_list,
                 tool_choice="required",
@@ -123,13 +129,22 @@ def bench_prompt(prompt: str, model: str) -> BenchPromptResponse:
     """
     Send a prompt to OpenAI and get detailed benchmarking response.
     """
+    base_model, reasoning_effort = parse_reasoning_effort(model)
     try:
         with timeit() as t:
-            completion = openai_client.chat.completions.create(
-                model=model,
-                messages=[{"role": "user", "content": prompt}],
-                stream=False,
-            )
+            if reasoning_effort:
+                completion = openai_client.chat.completions.create(
+                    model=base_model,
+                    reasoning_effort=reasoning_effort,
+                    messages=[{"role": "user", "content": prompt}],
+                    stream=False,
+                )
+            else:
+                completion = openai_client.chat.completions.create(
+                    model=base_model,
+                    messages=[{"role": "user", "content": prompt}],
+                    stream=False,
+                )
             elapsed_ms = t()
 
         return BenchPromptResponse(
@@ -163,6 +178,7 @@ def predictive_prompt(prompt: str, prediction: str, model: str) -> PromptRespons
     Returns:
         PromptResponse: The response including text, runtime, and cost.
     """
+    base_model, reasoning_effort = parse_reasoning_effort(model)
     # Prepare the API call parameters outside the timing block
     messages = [{"role": "user", "content": prompt}]
     prediction_param = {"type": "content", "content": prediction}
@@ -170,7 +186,8 @@ def predictive_prompt(prompt: str, prediction: str, model: str) -> PromptRespons
     # Only time the actual API call
     with timeit() as t:
         completion = openai_client.chat.completions.create(
-            model=model,
+            model=base_model,
+            reasoning_effort=reasoning_effort,
             messages=messages,
             prediction=prediction_param,
         )
@@ -191,16 +208,24 @@ def text_prompt(prompt: str, model: str) -> PromptResponse:
     """
     Send a prompt to OpenAI and get a response.
     """
+    base_model, reasoning_effort = parse_reasoning_effort(model)
     try:
         with timeit() as t:
-            completion = openai_client.chat.completions.create(
-                model=model,
-                messages=[{"role": "user", "content": prompt}],
-            )
+            if reasoning_effort:
+                completion = openai_client.chat.completions.create(
+                    model=base_model,
+                    reasoning_effort=reasoning_effort,
+                    messages=[{"role": "user", "content": prompt}],
+                )
+            else:
+                completion = openai_client.chat.completions.create(
+                    model=base_model,
+                    messages=[{"role": "user", "content": prompt}],
+                )
 
             input_tokens = completion.usage.prompt_tokens
             output_tokens = completion.usage.completion_tokens
-            cost = get_openai_cost(model, input_tokens, output_tokens)
+            cost = get_openai_cost(base_model, input_tokens, output_tokens)
 
         return PromptResponse(
             response=completion.choices[0].message.content,
