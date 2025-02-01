@@ -24,13 +24,14 @@ base_prompt: |
   </function-arguments>
 evaluator: "execute_python_code_with_string_output"
 models: 
-  - "llama3.2:1b"
-  - "llama3.2:latest" 
-  - "ollama~qwen2.5-coder:14b"
-  - "ollama~falcon3:10b"
-  - "ollama~vanilj/Phi-4:latest"
+  - "ollama~mistral-small:latest" 
   - "anthropic~claude-3-5-sonnet-latest"
-  - "deepseek~deepseek-chat"
+  - "openai~gpt-4o-mini"
+  - "openai~gpt-4o"
+  - "openai~o1-mini"
+  - "openai~o3-mini"
+  - "openai~o1"
+  - "openai~o1-preview"
 prompts:
   - dynamic_variables:
       function: "def add(a, b): int - add two numbers"

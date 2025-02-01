@@ -24,7 +24,7 @@ base_prompt: |
   </function-arguments>
 evaluator: "execute_python_code_with_string_output"
 models: 
-  - "ollama:mistral-small:latest" 
+  - "ollama~mistral-small:latest" 
   - "anthropic~claude-3-5-sonnet-latest"
   - "openai~gpt-4o-mini"
   - "openai~gpt-4o"
