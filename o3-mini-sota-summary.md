@@ -26,4 +26,4 @@
 ## One Line Summary
 - **o3-mini is o1, but 0 to 15% better, at an 8th of the price, with all the capabilities of o1 built to help you accomplish coding, math, reasoning, planning and large context tasks.**
 - **o1 is the previous SOTA model, but o3-mini is 8x cheaper and 15% better.**
-- **deepseek-r1 is a close second, that boasts an incredible 16x price reduction over o1 and 8x reduction over o3-mini. deepseek-r1's limitation lie in its 64k context window and 8k max output tokens. It also underperforms o3-mini in high reasoning effort.**
+- **deepseek-r1 is a close second, that boasts an incredible 16x price reduction over o1 and 8x reduction over o3-mini. deepseek-r1's limitation lie in its 64k context window and 8k max output tokens. It also underperforms o3-mini in high reasoning effort. The deepseek api has also been completely hammered and is effectively unusable.**
