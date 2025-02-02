@@ -84,6 +84,9 @@
   ollama pull deepseek-r1:14b
   ollama pull deepseek-r1:32b
   ollama pull deepseek-r1:70b
+
+  # Pull mistral-small 3
+  ollama pull mistral-small:latest
   ```
 
 ### Client Setup
