@@ -5,7 +5,9 @@
 > 
 > Enter BENCHY. A chill, live benchmark tool that lets you see the performance, price, and speed of LLMs in a side by side comparison for SPECIFIC use cases.
 >
-> Watch the latest development [video here](https://youtu.be/UgSGtBZnwEo)
+> Watch the latest development [video here](https://youtu.be/K5xs669ANQo)
+
+<img src="./images/o3-mini.png" alt="deepseek-r1" style="max-width: 800px;">
 
 <img src="./images/deepseek-r1.png" alt="deepseek-r1" style="max-width: 800px;">
 
@@ -26,6 +28,7 @@
   - Watch the walk through [video here](https://youtu.be/y_ywOVQyafE)
 - [Iso Speed Bench](https://youtu.be/OwUm-4I22QI)
   - Goal: Create a unified, config file based, multi-llm provider, yes/no evaluation based benchmark for high quality insights and iteration.
+  - Watch o3-mini vibe check, comparison, and benchmark [video here](https://youtu.be/K5xs669ANQo)
   - Watch the M4 Unboxing and benchmark [video here](https://youtu.be/OwUm-4I22QI)
   - Front end: [src/pages/IsoSpeedBench.vue](src/pages/IsoSpeedBench.vue)
 - [Long Tool Calling](https://youtu.be/ZlljCLhq814)
