@@ -1,1 +1,0 @@
-aider --model deepseek/deepseek-reasoner --no-detect-urls --no-auto-commit
