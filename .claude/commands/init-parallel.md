@@ -8,10 +8,13 @@ NUMBER_OF_PARALLEL_WORKTREES: $ARGUMENTS
 
 - create a new dir `trees/`
 - for i in NUMBER_OF_PARALLEL_WORKTREES
-  - run `git worktree -b <FEATURE_NAME>-<i> ./trees/<FEATURE_NAME>-<i>`
-  - run `cp server/.env ./trees/<FEATURE_NAME>-<i>/server/.env`
-  - run `cd server`, `uv sync`
-  - run `cd ../client`, `bun i`
-  - run `cd ../`, `./start.sh`
-  - run `cd trees/<FEATURE_NAME>-<i>`, `git ls-files` to validate
-- Run `git worktree list` to verify all trees were created properly
+  - RUN `git worktree add -b <FEATURE_NAME>-<i> ./trees/<FEATURE_NAME>-<i>`
+  - RUN `cp server/.env ./trees/<FEATURE_NAME>-<i>/server/.env`
+  - RUN `cd ./trees/<FEATURE_NAME>-<i>/server`, `uv sync`
+  - RUN `cd ../client`, `bun i`
+  - UPDATE `server/server.py`: `app.run(debug=True, port=5000+(i))`
+  - UPDATE `client/vite.config.ts`: 
+    - `port: 5173+(i),`
+    - `proxy target: 'http://127.0.0.1:500'+(i)`
+  - RUN `cd trees/<FEATURE_NAME>-<i>`, `git ls-files` to validate
+- RUN `git worktree list` to verify all trees were created properly
