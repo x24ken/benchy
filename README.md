@@ -7,6 +7,42 @@
 >
 > Watch the latest development [video here](https://youtu.be/K5xs669ANQo)
 
+## Project Structure
+
+This project is organized as a full-stack application with clear separation between frontend and backend:
+
+```
+benchy/
+├── client/                 # Frontend Vue.js application
+│   ├── src/               # Vue source code
+│   ├── public/            # Static assets
+│   ├── package.json       # Frontend dependencies
+│   ├── vite.config.ts     # Vite configuration
+│   └── ...               # Other frontend config files
+├── server/                # Backend Python server
+│   ├── modules/           # Python modules
+│   ├── benchmark_data/    # Benchmark configurations
+│   ├── reports/          # Benchmark results
+│   ├── tests/            # Python tests
+│   ├── pyproject.toml    # Python dependencies
+│   └── server.py         # Main server file
+├── ai_docs/              # AI documentation
+├── images/               # Project images
+├── specs/                # Project specifications
+├── .env                  # Environment variables (root)
+└── start.sh              # Convenience script to start both services
+```
+
+### Quick Start
+```bash
+# Start both frontend and backend together
+./start.sh
+```
+
+This will start:
+- Frontend dev server at `http://localhost:5173` (or next available port)
+- Backend API server at `http://localhost:8000`
+
 <img src="./images/o3-mini.png" alt="deepseek-r1" style="max-width: 800px;">
 
 <img src="./images/deepseek-r1.png" alt="deepseek-r1" style="max-width: 800px;">
@@ -23,40 +59,52 @@
 - [Thought Bench](https://youtu.be/UgSGtBZnwEo)
   - Goal: Compare multiple reasoning models (Deepseek R1, Gemini 2.0 Flash Thinking, OpenAI o1, ,etc) thoughts side by side in parallel.
   - Watch the walk through [video here](https://youtu.be/UgSGtBZnwEo)
-  - Front end: [src/pages/ThoughtBench.vue](src/pages/ThoughtBench.vue)
+  - Front end: [client/src/pages/ThoughtBench.vue](client/src/pages/ThoughtBench.vue)
 - [BIG AI Coding Updates to Benchy](https://youtu.be/y_ywOVQyafE)
   - Watch the walk through [video here](https://youtu.be/y_ywOVQyafE)
 - [Iso Speed Bench](https://youtu.be/OwUm-4I22QI)
   - Goal: Create a unified, config file based, multi-llm provider, yes/no evaluation based benchmark for high quality insights and iteration.
   - Watch o3-mini vibe check, comparison, and benchmark [video here](https://youtu.be/K5xs669ANQo)
   - Watch the M4 Unboxing and benchmark [video here](https://youtu.be/OwUm-4I22QI)
-  - Front end: [src/pages/IsoSpeedBench.vue](src/pages/IsoSpeedBench.vue)
+  - Front end: [client/src/pages/IsoSpeedBench.vue](client/src/pages/IsoSpeedBench.vue)
 - [Long Tool Calling](https://youtu.be/ZlljCLhq814)
   - Goal: Understand the best LLMs and techniques for LONG chains of tool calls / function calls (15+).
   - Watch the walk through [video here](https://youtu.be/ZlljCLhq814)
-  - Front end: [src/pages/AppMultiToolCall.vue](src/pages/AppMultiToolCall.vue)
+  - Front end: [client/src/pages/AppMultiToolCall.vue](client/src/pages/AppMultiToolCall.vue)
 - [Multi Autocomplete](https://youtu.be/1ObiaSiA8BQ)
   - Goal: Understand [claude 3.5 haiku](https://www.anthropic.com/claude/haiku) & GPT-4o [predictive outputs](https://platform.openai.com/docs/guides/predicted-outputs) compared to existing models. 
   - Watch the walk through [video here](https://youtu.be/1ObiaSiA8BQ)
-  - Front end: [src/pages/AppMultiAutocomplete.vue](src/pages/AppMultiAutocomplete.vue)
+  - Front end: [client/src/pages/AppMultiAutocomplete.vue](client/src/pages/AppMultiAutocomplete.vue)
 ## Important Files
-- `.env` - Environment variables for API keys
-- `server/.env` - Environment variables for API keys
-- `package.json` - Front end dependencies
-- `server/pyproject.toml` - Server dependencies
-- `src/store/*` - Stores all front end state and prompt
-- `src/api/*` - API layer for all requests
-- `src/pages/*` - Front end per app pages
-- `src/components/*` - Front end components
-- `server/server.py` - Server routes
-- `server/modules/llm_models.py` - All LLM models
-- `server/modules/openai_llm.py` - OpenAI LLM
-- `server/modules/anthropic_llm.py` - Anthropic LLM
-- `server/modules/gemini_llm.py` - Gemini LLM
-- `server/modules/ollama_llm.py` - Ollama LLM
-- `server/modules/deepseek_llm.py` - Deepseek LLM
-- `server/benchmark_data/*` - Benchmark data
-- `server/reports/*` - Benchmark results
+
+### Frontend (client/)
+- `client/package.json` - Frontend dependencies and scripts
+- `client/src/stores/*` - Stores all frontend state and prompts
+- `client/src/apis/*` - API layer for all requests
+- `client/src/pages/*` - Frontend per app pages
+- `client/src/components/*` - Vue components
+- `client/vite.config.ts` - Vite build configuration
+- `client/uno.config.ts` - UnoCSS configuration
+
+### Backend (server/)
+- `server/server.py` - Main server routes and API endpoints
+- `server/pyproject.toml` - Python dependencies
+- `server/modules/llm_models.py` - All LLM model definitions
+- `server/modules/openai_llm.py` - OpenAI integration
+- `server/modules/anthropic_llm.py` - Anthropic integration
+- `server/modules/gemini_llm.py` - Google Gemini integration
+- `server/modules/ollama_llm.py` - Ollama integration
+- `server/modules/deepseek_llm.py` - Deepseek integration
+- `server/benchmark_data/*` - Benchmark configuration files
+- `server/reports/*` - Generated benchmark results
+
+### Configuration
+- `.env` - Root environment variables for API keys
+- `server/.env` - Server-specific environment variables
+- `start.sh` - Convenience script to start both services
+- `.claude/` - Claude Code configuration and commands
+  - `.claude/settings.local.json` - Claude Code permissions and settings
+  - `.claude/commands/prime.md` - Custom Claude commands for project context
 
 ## Setup
 
@@ -89,8 +137,11 @@
   ollama pull mistral-small:latest
   ```
 
-### Client Setup
+### Frontend Setup (client/)
 ```bash
+# Navigate to client directory
+cd client
+
 # Install dependencies using bun (recommended)
 bun install
 
@@ -104,19 +155,19 @@ yarn install
 bun dev  # or npm run dev / yarn dev
 ```
 
-### Server Setup
+### Backend Setup (server/)
 ```bash
-# Move into server directory
+# Navigate to server directory
 cd server
 
 # Create and activate virtual environment using uv
 uv sync
 
 # Set up environment variables
-cp .env.sample .env (client)
-cp server/.env.sample server/.env (server)
+cp ../.env.sample ../.env  # Root .env file
+cp .env.sample .env        # Server .env file
 
-# Set EVERY .env key with your API keys and settings
+# Set EVERY .env key with your API keys and settings in both files
 ANTHROPIC_API_KEY=
 OPENAI_API_KEY=
 GEMINI_API_KEY=
@@ -129,6 +180,32 @@ uv run python server.py
 # Run tests
 uv run pytest (**beware will hit APIs and cost money**)
 ```
+
+### Development Workflow
+```bash
+# Start both services at once (recommended)
+./start.sh
+
+# Or start them separately in different terminals:
+# Terminal 1: Frontend
+cd client && bun dev
+
+# Terminal 2: Backend  
+cd server && uv run python server.py
+```
+
+### Claude Code Integration
+
+This project includes Claude Code configuration for enhanced development experience:
+
+- **Custom Commands**: Use the `/prime` command in Claude Code to quickly load project context
+- **Permissions**: Pre-configured permissions for common development tasks (mkdir, mv, ls)
+- **Project Context**: The `.claude/commands/prime.md` file automatically reads key project files and shows the directory structure
+
+To use with Claude Code:
+1. Open the project in Claude Code
+2. Type `/prime` to load the project context
+3. Claude will have immediate understanding of the codebase structure and key files
 
 ## Resources
 - https://github.com/simonw/llm?tab=readme-ov-file
