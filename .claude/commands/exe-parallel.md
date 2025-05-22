@@ -8,7 +8,7 @@ NUMBER_OF_PARALLEL_WORKTREES: $ARGUMENTS
 RUN `eza server --tree --git-ignore`
 RUN `eza client --tree --git-ignore`
 RUN `eza trees --tree --level 3`
-Read: PLAN_TO_EXECUTE
+READ: PLAN_TO_EXECUTE
 
 Create NUMBER_OF_PARALLEL_WORKTREES new subagents that run in parallel using Batch -> [Task, Task, ...] in their own version of this git repo.
 
