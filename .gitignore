@@ -234,7 +234,7 @@ director_log.txt
 
 uv.lock
 
-specs/
+specs/*.yml
 
 server/reports_legacy/
 
