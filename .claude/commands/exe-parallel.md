@@ -10,14 +10,16 @@ RUN `eza client --tree --git-ignore`
 RUN `eza trees --tree --level 3`
 READ: PLAN_TO_EXECUTE
 
-Create NUMBER_OF_PARALLEL_WORKTREES new subagents that run in parallel using Batch -> [Task, Task, ...] in their own version of this git repo.
+## Instructions
 
-The first agent will run in trees/...-1/
-The second agent will run in trees/...-2/
+We're going to create NUMBER_OF_PARALLEL_WORKTREES new subagents that run in parallel using Batch -> [Task, Task, ...] in their own version of this git repo.
+
+The first agent will run in trees/<predefined_feature_name>-1/
+The second agent will run in trees/<predefined_feature_name>-2/
 ...
-The NUMBER_OF_PARALLEL_WORKTREES'th agent will run in trees/...NUMBER_OF_PARALLEL_WORKTREES/
+The last agent will run in trees/<predefined_feature_name>-<NUMBER_OF_PARALLEL_WORKTREES>/
 
-Each agent will independently implement the engineering plan in PLAN_TO_EXECUTE
+Each agent will independently implement the engineering plan detailed in PLAN_TO_EXECUTE
 
 When prompting the subagent, have them report their final changes made in a comprehensive `RESULTS.md` file at the root of their respective workspace.
 
