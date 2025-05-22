@@ -14,3 +14,4 @@ NUMBER_OF_PARALLEL_WORKTREES: $ARGUMENTS
   - run `cd ../client`, `bun i`
   - run `cd ../`, `./start.sh`
   - run `cd trees/<FEATURE_NAME>-<i>`, `git ls-files` to validate
+- Run `git worktree list` to verify all trees were created properly
