@@ -5,49 +5,49 @@ function loadDefaultState() {
     return {
         dataColumns: [
             {
-                model: "openai:o3-mini:low",
+                model: "openai:o4-mini",
                 totalCorrect: 0,
                 responses: [],
                 state: "idle" as ThoughtBenchColumnState
             },
             {
-                model: "openai:o3-mini:medium",
+                model: "openai:o3",
                 totalCorrect: 0,
                 responses: [],
                 state: "idle" as ThoughtBenchColumnState
             },
             {
-                model: "openai:o3-mini:high",
+                model: "anthropic:claude-3-7-sonnet-latest",
                 totalCorrect: 0,
                 responses: [],
                 state: "idle" as ThoughtBenchColumnState
             },
             {
-                model: "openai:o1-mini",
+                model: "gemini:gemini-2.5-flash-preview-05-20",
                 totalCorrect: 0,
                 responses: [],
                 state: "idle" as ThoughtBenchColumnState
             },
             {
-                model: "openai:o1",
+                model: "gemini:gemini-2.5-pro-preview-05-06",
                 totalCorrect: 0,
                 responses: [],
                 state: "idle" as ThoughtBenchColumnState
             },
             {
-                model: "deepseek:deepseek-reasoner",
+                model: "ollama:qwen3:14b",
                 totalCorrect: 0,
                 responses: [],
                 state: "idle" as ThoughtBenchColumnState
             },
             {
-                model: "gemini:gemini-2.0-flash-thinking-exp-01-21",
+                model: "ollama:gemma3:4b",
                 totalCorrect: 0,
                 responses: [],
                 state: "idle" as ThoughtBenchColumnState
             },
             {
-                model: "ollama:deepseek-r1:32b",
+                model: "ollama:devstral",
                 totalCorrect: 0,
                 responses: [],
                 state: "idle" as ThoughtBenchColumnState
