@@ -1,1 +1,0 @@
-aider --model o1 --yes-always --no-detect-urls --no-auto-commit
