@@ -18,13 +18,17 @@ base_prompt: |
   <statement>{{statement}}</statement>
 evaluator: "execute_python_code_with_num_output"
 models:
-  - "llama3.2:1b"
+  # - "llama3.2:1b"
   # - "llama3.2:latest"
-  # - "qwen2.5-coder:14b"
-  - "falcon3:10b"
-  # - "vanilj/Phi-4:latest"
+  - "qwen2.5-coder:14b"
+  - "gemma3:27b"
+  - "gemma3:12b"
   - "anthropic~claude-3-5-sonnet-latest"
-  - "deepseek~deepseek-chat"
+  - "anthropic~claude-3-5-haiku-latest"
+  - "anthropic~claude-3-7-sonnet-latest"
+  # - "falcon3:10b"
+  # - "vanilj/Phi-4:latest"
+  # - "deepseek~deepseek-chat"
 prompts:
   - dynamic_variables:
       statement: "add 5 and 5"
