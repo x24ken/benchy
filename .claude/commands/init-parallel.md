@@ -9,11 +9,12 @@ NUMBER_OF_PARALLEL_WORKTREES: $ARGUMENTS
 - create a new dir `trees/`
 - for i in NUMBER_OF_PARALLEL_WORKTREES
   - RUN `git worktree add -b <FEATURE_NAME>-<i> ./trees/<FEATURE_NAME>-<i>`
-  - RUN `cp server/.env ./trees/<FEATURE_NAME>-<i>/server/.env`
+  - RUN `cp ./server/.env ./trees/<FEATURE_NAME>-<i>/server/.env`
   - RUN `cd ./trees/<FEATURE_NAME>-<i>/server`, `uv sync`
   - RUN `cd ../client`, `bun i`
-  - UPDATE `server/server.py`: `app.run(debug=True, port=5000+(i))`
-  - UPDATE `client/vite.config.ts`: 
+  - UPDATE `./trees/<FEATURE_NAME>-<i>/server/server.py`: 
+    - `app.run(debug=True, port=5000+(i))`
+  - UPDATE `./trees/<FEATURE_NAME>-<i>/client/vite.config.ts`: 
     - `port: 5173+(i),`
     - `proxy target: 'http://127.0.0.1:500'+(i)`
   - RUN `cd trees/<FEATURE_NAME>-<i>`, `git ls-files` to validate
