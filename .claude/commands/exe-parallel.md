@@ -12,12 +12,15 @@ READ: PLAN_TO_EXECUTE
 
 ## Instructions
 
-We're going to create NUMBER_OF_PARALLEL_WORKTREES new subagents that run in parallel using Batch -> [Task, Task, ...] in their own version of this git repo.
+We're going to create NUMBER_OF_PARALLEL_WORKTREES new subagents that use the Batch and Task tools to create N versions of the same feature in parallel.
+This enables use to concurrently build the same feature in parallel so we can test and validate each subagent's changes in isolation then pick the best changes.
 
 The first agent will run in trees/<predefined_feature_name>-1/
 The second agent will run in trees/<predefined_feature_name>-2/
 ...
 The last agent will run in trees/<predefined_feature_name>-<NUMBER_OF_PARALLEL_WORKTREES>/
+
+The code in trees/<predefined_feature_name>-<i>/ will be identical to the code in the current branch. It will be setup and ready for you to build the feature end to end.
 
 Each agent will independently implement the engineering plan detailed in PLAN_TO_EXECUTE
 

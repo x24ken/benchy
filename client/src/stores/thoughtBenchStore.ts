@@ -5,6 +5,18 @@ function loadDefaultState() {
     return {
         dataColumns: [
             {
+                model: "anthropic:claude-sonnet-4-0",
+                totalCorrect: 0,
+                responses: [],
+                state: "idle" as ThoughtBenchColumnState
+            },
+            {
+                model: "anthropic:claude-opus-4-0",
+                totalCorrect: 0,
+                responses: [],
+                state: "idle" as ThoughtBenchColumnState
+            },
+            {
                 model: "openai:o4-mini",
                 totalCorrect: 0,
                 responses: [],
