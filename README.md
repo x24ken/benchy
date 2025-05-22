@@ -57,7 +57,8 @@ This will start:
 
 ## Benchy Micro Apps
 - [Thought Bench](https://youtu.be/UgSGtBZnwEo)
-  - Goal: Compare multiple reasoning models (Deepseek R1, Gemini 2.0 Flash Thinking, OpenAI o1, ,etc) thoughts side by side in parallel.
+  - Goal: Compare multiple reasoning models side by side in parallel to analyze their thinking processes and responses
+  - Default models: OpenAI o4-mini/o3, Anthropic Claude 3.7 Sonnet, Gemini 2.5 Flash/Pro, Ollama Qwen3/Gemma3/Devstral
   - Watch the walk through [video here](https://youtu.be/UgSGtBZnwEo)
   - Front end: [client/src/pages/ThoughtBench.vue](client/src/pages/ThoughtBench.vue)
 - [BIG AI Coding Updates to Benchy](https://youtu.be/y_ywOVQyafE)
