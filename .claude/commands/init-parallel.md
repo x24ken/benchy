@@ -19,5 +19,5 @@ NUMBER_OF_PARALLEL_WORKTREES: $ARGUMENTS
     - `proxy target: 'http://127.0.0.1:500'+(i)`
   - RUN `cd trees/<FEATURE_NAME>-<i>`, `git ls-files` to validate
   - RUN `cat ./trees/<FEATURE_NAME>-<i>/server/server.py` to verify the port is set correctly for the current worktree
-  - RUN `cat ./trees/<FEATURE_NAME>-<i>/client/vite.config.ts` to verify the client + server proxy port is set correctly for the current worktree
+  - RUN `cat ./trees/<FEATURE_NAME>-<i>/client/vite.config.ts` to verify the client + server proxy ports are set correctly for the current worktree
 - RUN `git worktree list` to verify all trees were created properly
