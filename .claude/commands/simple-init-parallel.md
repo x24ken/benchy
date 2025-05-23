@@ -3,6 +3,7 @@
 Initialize three parallel git worktree directories for concurrent development.
 
 ## Variables
+
 FEATURE_NAME: $ARGUMENTS
 
 ## Execute these tasks
