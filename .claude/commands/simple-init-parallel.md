@@ -9,7 +9,9 @@ FEATURE_NAME: $ARGUMENTS
 
 CREATE new directory `trees/`
 
-> Execute these steps in parallel with the tool `Batch -> [Task, Task, Task]`
+> Execute these steps in parallel for concurrency
+>
+> Use absolute paths for all commands
 
 CREATE first worktree:
 - RUN `git worktree add -b FEATURE_NAME-1 ./trees/FEATURE_NAME-1`

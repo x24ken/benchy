@@ -12,7 +12,8 @@ READ: PLAN_TO_EXECUTE
 
 ## Instructions
 
-We're going to create NUMBER_OF_PARALLEL_WORKTREES new subagents that use the Batch and Task tools to create N versions of the same feature in parallel.
+We're going to create NUMBER_OF_PARALLEL_WORKTREES new subagents that use the Task tools to create N versions of the same feature in parallel.
+
 This enables use to concurrently build the same feature in parallel so we can test and validate each subagent's changes in isolation then pick the best changes.
 
 The first agent will run in trees/<predefined_feature_name>-1/
