@@ -5,9 +5,15 @@ Initialize three parallel git worktree directories for concurrent development.
 ## Variables
 FEATURE_NAME: $ARGUMENTS
 
-## Execute these steps in order
+## Execute these tasks
+
+> Task 1
 
 CREATE new directory `trees/`
+
+> Task 2
+>
+> Execute these steps in parallel with the tool `Batch -> [Task, Task, Task]`
 
 CREATE first worktree:
 - RUN `git worktree add -b FEATURE_NAME-1 ./trees/FEATURE_NAME-1`
