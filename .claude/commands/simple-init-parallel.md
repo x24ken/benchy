@@ -7,12 +7,8 @@ FEATURE_NAME: $ARGUMENTS
 
 ## Execute these tasks
 
-> Task 1
-
 CREATE new directory `trees/`
 
-> Task 2
->
 > Execute these steps in parallel with the tool `Batch -> [Task, Task, Task]`
 
 CREATE first worktree:
