@@ -24,6 +24,4 @@ The code in trees/<predefined_feature_name>-<i>/ will be identical to the code i
 
 Each agent will independently implement the engineering plan detailed in PLAN_TO_EXECUTE
 
-When prompting the subagent, have them report their final changes made in a comprehensive `RESULTS.md` file at the root of their respective workspace.
-
-Be sure each subagent first pulls and merges changes from our current branch - pass the branch into each subagent prompt.
+When the subagent complets it's work, have the subagent to report their final changes made in a comprehensive `RESULTS.md` file at the root of their respective workspace.
