@@ -230,3 +230,66 @@ To use with Claude Code:
 - mlx: https://huggingface.co/mlx-community
 - ollama docs: https://github.com/ollama/ollama/blob/main/docs/api.md#examples
 - deepseek docs: https://platform.deepseek.com/usage
+
+## Multi-Agent Git Worktree
+
+### Why Run in Parallel
+
+LLMs are non-deterministic probabilistic machines - every run produces slightly different results. This "bug" is actually a feature that we can leverage to see multiple versions of the future and choose the best outcome.
+
+By running multiple AI agents in parallel on separate git worktrees, you can:
+
+#### #1
+Scale your compute to get more work done
+
+#### #2
+Hedge against model failures on complex tasks
+
+#### #3
+Get different perspectives on the same problem
+
+#### #4
+Review and pick the best implementation
+
+
+### How It Works
+
+Git worktrees allow you to duplicate your entire codebase into a new branch and directory:
+
+```bash
+# Create a directory for worktrees
+mkdir trees
+
+# Create three parallel worktrees for UI improvements
+git worktree add -b ui-revamp-1 trees/ui-revamp-1
+git worktree add -b ui-revamp-2 trees/ui-revamp-2
+git worktree add -b ui-revamp-3 trees/ui-revamp-3
+
+# Copy environment variables to each worktree
+cp .env trees/ui-revamp-1/
+cp .env trees/ui-revamp-2/
+cp .env trees/ui-revamp-3/
+```
+
+Then run separate AI agents (like Claude Code) on each worktree with the same plan/prompt. Each agent works in isolation, producing different variations.
+
+### When to Use This Technique
+
+1. **Multiple Satisfactory Outcomes**: Perfect for UI work where many versions could be acceptable
+2. **Complex Tasks with Failure Risk**: If one agent might fail, run three and pick the winner
+3. **When You Have a Clear Plan**: The plan is the prompt - detailed planning enables parallel execution
+
+### Key Principles
+
+- **Non-determinism is a feature**: Different versions give you options
+- **The plan is the prompt**: Great planning = great prompting
+- **Scale compute = scale impact**: Use more tokens to see more possibilities
+- **Pick and merge**: Choose the best version or combine elements from multiple
+
+This advanced technique requires burning significant tokens (dollars per run) but enables you to:
+- Work on multiple timelines simultaneously
+- Get different perspectives on the same problem
+- Dramatically increase development velocity
+- See multiple versions of the future, literally
+
+As AI models improve, this parallel approach will become increasingly powerful for leveraging their capabilities at scale.

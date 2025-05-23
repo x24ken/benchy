@@ -5,6 +5,7 @@ PLAN_TO_EXECUTE: $ARGUMENTS
 NUMBER_OF_PARALLEL_WORKTREES: $ARGUMENTS
 
 ## Run these commands top to bottom
+NAVIGATE to the root of the project
 RUN `eza server --tree --git-ignore`
 RUN `eza client --tree --git-ignore`
 RUN `eza trees --tree --level 3`
@@ -12,7 +13,7 @@ READ: PLAN_TO_EXECUTE
 
 ## Instructions
 
-We're going to create NUMBER_OF_PARALLEL_WORKTREES new subagents that use the Task tools to create N versions of the same feature in parallel.
+We're going to create NUMBER_OF_PARALLEL_WORKTREES new subagents that use the Task tool to create N versions of the same feature in parallel.
 
 This enables use to concurrently build the same feature in parallel so we can test and validate each subagent's changes in isolation then pick the best changes.
 
@@ -25,4 +26,6 @@ The code in trees/<predefined_feature_name>-<i>/ will be identical to the code i
 
 Each agent will independently implement the engineering plan detailed in PLAN_TO_EXECUTE
 
-When the subagent complets it's work, have the subagent to report their final changes made in a comprehensive `RESULTS.md` file at the root of their respective workspace.
+When the subagent completes it's work, have the subagent to report their final changes made in a comprehensive `RESULTS.md` file at the root of their respective workspace.
+
+Make sure agents don't run start.sh or any other script that would start the server or client - focus on the code changes only.
