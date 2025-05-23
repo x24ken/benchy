@@ -13,12 +13,8 @@ NUMBER_OF_PARALLEL_WORKTREES: $ARGUMENTS
   - RUN `cp ./server/.env ./trees/FEATURE_NAME-i/server/.env`
   - RUN `cd ./trees/FEATURE_NAME-i/server`, `uv sync`
   - RUN `cd ../client`, `bun i`
-  - UPDATE `./trees/FEATURE_NAME-i/server/server.py`: 
-    - `app.run(debug=True, port=5000+(i))`
   - UPDATE `./trees/FEATURE_NAME-i/client/vite.config.ts`: 
     - `port: 5173+(i),`
-    - `proxy target: 'http://127.0.0.1:500'+(i)`
   - RUN `cd trees/FEATURE_NAME-i`, `git ls-files` to validate
-  - RUN `cat ./trees/FEATURE_NAME-i/server/server.py` to verify the port is set correctly for the current worktree
-  - RUN `cat ./trees/FEATURE_NAME-i/client/vite.config.ts` to verify the client + server proxy ports are set correctly for the current worktree
+  - RUN `cat ./trees/FEATURE_NAME-i/client/vite.config.ts` to verify the client port is set correctly
 - RUN `git worktree list` to verify all trees were created properly
