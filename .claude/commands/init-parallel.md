@@ -15,6 +15,6 @@ NUMBER_OF_PARALLEL_WORKTREES: $ARGUMENTS
   - RUN `cd ../client`, `bun i`
   - UPDATE `./trees/FEATURE_NAME-i/client/vite.config.ts`: 
     - `port: 5173+(i),`
-  - RUN `cd trees/FEATURE_NAME-i`, `git ls-files` to validate
   - RUN `cat ./trees/FEATURE_NAME-i/client/vite.config.ts` to verify the client port is set correctly
+  - RUN `cd trees/FEATURE_NAME-i`, `git ls-files` to validate
 - RUN `git worktree list` to verify all trees were created properly
