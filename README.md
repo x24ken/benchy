@@ -76,6 +76,7 @@ This will start:
   - Goal: Understand [claude 3.5 haiku](https://www.anthropic.com/claude/haiku) & GPT-4o [predictive outputs](https://platform.openai.com/docs/guides/predicted-outputs) compared to existing models. 
   - Watch the walk through [video here](https://youtu.be/1ObiaSiA8BQ)
   - Front end: [client/src/pages/AppMultiAutocomplete.vue](client/src/pages/AppMultiAutocomplete.vue)
+
 ## Important Files
 
 ### Frontend (client/)
@@ -235,21 +236,20 @@ To use with Claude Code:
 
 ### Why Run in Parallel
 
-LLMs are non-deterministic probabilistic machines - every run produces slightly different results. This "bug" is actually a feature that we can leverage to see multiple versions of the future and choose the best outcome.
+LLMs are non-deterministic probabilistic machines - every run produces different results. 
+
+This is a feature, not a bug. We can leverage it to see **multiple versions of the future** and **choose the best outcome**.
 
 By running multiple AI agents in parallel on separate git worktrees, you can:
 
 #### #1
-Scale your compute to get more work done
+Hedge against model failures on complex tasks with multiple outcomes (startups/big tech tech does this all the time)
 
 #### #2
-Hedge against model failures on complex tasks
+Get different perspectives on the same problem - choose the best implementation
 
 #### #3
-Get different perspectives on the same problem
-
-#### #4
-Review and pick the best implementation
+Isolate and delegate your engineering work to 2-N agents
 
 
 ### How It Works
@@ -261,14 +261,14 @@ Git worktrees allow you to duplicate your entire codebase into a new branch and 
 mkdir trees
 
 # Create three parallel worktrees for UI improvements
-git worktree add -b ui-revamp-1 trees/ui-revamp-1
-git worktree add -b ui-revamp-2 trees/ui-revamp-2
-git worktree add -b ui-revamp-3 trees/ui-revamp-3
+git worktree add -b ui_revamp-1 trees/ui_revamp-1
+git worktree add -b ui_revamp-2 trees/ui_revamp-2
+git worktree add -b ui_revamp-3 trees/ui_revamp-3
 
 # Copy environment variables to each worktree
-cp .env trees/ui-revamp-1/
-cp .env trees/ui-revamp-2/
-cp .env trees/ui-revamp-3/
+cp .env trees/ui_revamp-1/
+cp .env trees/ui_revamp-2/
+cp .env trees/ui_revamp-3/
 ```
 
 Then run separate AI agents (like Claude Code) on each worktree with the same plan/prompt. Each agent works in isolation, producing different variations.
@@ -279,7 +279,7 @@ Then run separate AI agents (like Claude Code) on each worktree with the same pl
 2. **Complex Tasks with Failure Risk**: If one agent might fail, run three and pick the winner
 3. **When You Have a Clear Plan**: The plan is the prompt - detailed planning enables parallel execution
 
-### Key Principles
+### Big Ideas
 
 - **Non-determinism is a feature**: Different versions give you options
 - **The plan is the prompt**: Great planning = great prompting
