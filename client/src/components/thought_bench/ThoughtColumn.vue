@@ -165,8 +165,9 @@ const modelTextColor = computed(() => {
   border-radius: 0.5rem;
   padding: 0.75rem;
   transition: all 0.3s ease;
-  flex-shrink: 0;
+  flex: 0 0 auto;
   position: relative;
+  min-width: 0;
 }
 
 .thought-column::before {
