@@ -15,9 +15,15 @@ This project is organized as a full-stack application with clear separation betw
 benchy/
 ├── client/                 # Frontend Vue.js application
 │   ├── src/               # Vue source code
+│   │   ├── apis/          # API layer for all requests
+│   │   ├── components/    # Vue components
+│   │   ├── pages/         # Frontend per app pages
+│   │   ├── stores/        # Frontend state and prompts
+│   │   └── ...           # Other source files
 │   ├── public/            # Static assets
 │   ├── package.json       # Frontend dependencies
 │   ├── vite.config.ts     # Vite configuration
+│   ├── uno.config.ts      # UnoCSS configuration
 │   └── ...               # Other frontend config files
 ├── server/                # Backend Python server
 │   ├── modules/           # Python modules
@@ -25,12 +31,16 @@ benchy/
 │   ├── reports/          # Benchmark results
 │   ├── tests/            # Python tests
 │   ├── pyproject.toml    # Python dependencies
-│   └── server.py         # Main server file
+│   ├── server.py         # Main server file
+│   ├── .env              # Server environment variables
+│   └── ...               # Other server files
 ├── ai_docs/              # AI documentation
 ├── images/               # Project images
 ├── specs/                # Project specifications
-├── .env                  # Environment variables (root)
-└── start.sh              # Convenience script to start both services
+├── trees/                # Git worktrees directory
+├── .env                  # Root environment variables
+├── start.sh              # Convenience script to start both services
+└── ...                   # Other project files
 ```
 
 ### Quick Start
@@ -58,7 +68,7 @@ This will start:
 ## Benchy Micro Apps
 - [Thought Bench](https://youtu.be/UgSGtBZnwEo)
   - Goal: Compare multiple reasoning models side by side in parallel to analyze their thinking processes and responses
-  - Default models: OpenAI o4-mini/o3, Anthropic Claude 3.7 Sonnet, Gemini 2.5 Flash/Pro, Ollama Qwen3/Gemma3/Devstral
+  - Default models: Anthropic Claude 4.0 Sonnet/Opus, OpenAI o4-mini/o3, Anthropic Claude 3.7 Sonnet, Gemini 2.5 Flash/Pro, Ollama Qwen3/Gemma3/Devstral
   - Watch the walk through [video here](https://youtu.be/UgSGtBZnwEo)
   - Front end: [client/src/pages/ThoughtBench.vue](client/src/pages/ThoughtBench.vue)
 - [BIG AI Coding Updates to Benchy](https://youtu.be/y_ywOVQyafE)
@@ -137,6 +147,21 @@ This will start:
 
   # Pull mistral-small 3
   ollama pull mistral-small:latest
+
+  # Pull Phi-4 model
+  ollama pull phi4:latest
+
+  # Pull Falcon 3 10B model
+  ollama pull falcon3:10b
+
+  # Pull Qwen 3 14B model
+  ollama pull qwen3:14b
+
+  # Pull Gemma 3 4B model
+  ollama pull gemma3:4b
+
+  # Pull Devstral model
+  ollama pull devstral
   ```
 
 ### Frontend Setup (client/)
@@ -296,4 +321,5 @@ As AI models improve, this parallel approach will become increasingly powerful f
 
 ## Master AI Coding 
 Learn to code with AI with foundational [Principles of AI Coding](https://agenticengineer.com/principled-ai-coding?y=benchy)
+
 Follow the [IndyDevDan youtube channel](https://www.youtube.com/@indydevdan) for more AI coding tips and tricks.
