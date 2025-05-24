@@ -6,7 +6,7 @@ import UnoCSS from 'unocss/vite'
 export default defineConfig({
   plugins: [vue(), UnoCSS()],
   server: {
-    port: 5174,
+    port: 5173,
     proxy: {
       '/prompt': {
         target: 'http://127.0.0.1:5000',
