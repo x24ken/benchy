@@ -31,7 +31,7 @@ document.title = "BENCHY";
 </script>
 
 <template>
-  <div class="app-container" :class="{ 'home-gradient': !currentView }">
+  <div class="app-container" :class="{ 'home-gradient': !currentView, 'thought-bench': currentPath === '#/thought-prompt' }">
     <div class="home-container" v-if="!currentView">
       <h1 class="title">BENCHY</h1>
       <p class="subtitle">Interactive benchmarks you can <b>feel</b></p>
@@ -108,6 +108,13 @@ document.title = "BENCHY";
 
 .home-gradient {
   animation: slow-gradient 15s ease-in-out infinite alternate;
+}
+
+/* Override dark theme for non-thought-bench apps */
+.app-container:not(.home-gradient):not(.thought-bench) {
+  background-color: white !important;
+  color: #1a1a1a !important;
+  color-scheme: light !important;
 }
 
 @keyframes slow-gradient {

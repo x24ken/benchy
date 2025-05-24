@@ -102,7 +102,7 @@
                 @click="removeModel(model.model)"
                 title="Remove model"
               >
-                🗑️
+                ❌
               </span>
             </div>
           </div>
