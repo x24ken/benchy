@@ -5,7 +5,7 @@
 > 
 > Enter BENCHY. A chill, live benchmark tool that lets you see the performance, price, and speed of LLMs in a side by side comparison for SPECIFIC use cases.
 >
-> Watch the latest development [video here](https://youtu.be/K5xs669ANQo)
+> Watch the latest development [video here](https://youtu.be/f8RnRuaxee8)
 
 ## Project Structure
 
@@ -293,3 +293,7 @@ This advanced technique requires burning significant tokens (dollars per run) bu
 - See multiple versions of the future, literally
 
 As AI models improve, this parallel approach will become increasingly powerful for leveraging their capabilities at scale.
+
+## Master AI Coding 
+Learn to code with AI with foundational [Principles of AI Coding](https://agenticengineer.com/principled-ai-coding?y=benchy)
+Follow the [IndyDevDan youtube channel](https://www.youtube.com/@indydevdan) for more AI coding tips and tricks.
