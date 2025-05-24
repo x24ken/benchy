@@ -82,6 +82,7 @@
             class="model-pill"
             :style="{
               backgroundColor: stringToColor(model.model),
+              color: getContrastTextColor(stringToColor(model.model)),
               borderColor: isSoloed(model.model) ? '#0e4491' : 'transparent',
             }"
           >
@@ -132,7 +133,7 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import { stringToColor } from "../utils";
+import { stringToColor, getContrastTextColor } from "../utils";
 import { store, resetState } from "../stores/thoughtBenchStore";
 
 // Add reset handler

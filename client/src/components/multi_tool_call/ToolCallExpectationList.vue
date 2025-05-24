@@ -22,7 +22,10 @@
           v-for="(tool, index) in store.expectedToolCalls"
           :key="index"
           class="tool-tag"
-          :style="{ backgroundColor: stringToColor(tool) }"
+          :style="{ 
+            backgroundColor: stringToColor(tool),
+            color: getContrastTextColor(stringToColor(tool))
+          }"
         >
           {{ getToolEmoji(tool) }} {{ tool }}
           <button @click="removeToolCall(index)" class="remove-tag">×</button>
@@ -35,7 +38,7 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { store } from "../../stores/toolCallStore";
-import { allTools } from "../../utils";
+import { allTools, stringToColor, getContrastTextColor } from "../../utils";
 import ToolCallExpectationRandomizer from "./ToolCallExpectationRandomizer.vue";
 
 function getToolEmoji(toolName: string): string {
@@ -47,24 +50,7 @@ function getToolEmoji(toolName: string): string {
   };
   return emojiMap[toolName] || "🔧"; // Default emoji if no mapping exists
 }
-function stringToColor(str: string): string {
-  // Generate hash from string
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    hash = str.charCodeAt(i) + ((hash << 5) - hash);
-  }
-
-  // Convert to HSL to ensure visually distinct colors
-  const h = Math.abs(hash) % 360; // Hue: 0-360
-  const s = 50 + (Math.abs(hash) % 40); // Saturation: 50-90%
-  const l = 20 + (Math.abs(hash) % 25); // Lightness: 20-45%
-
-  // Add secondary hue rotation for more variation
-  const h2 = (h + 137) % 360; // Golden angle rotation
-  const finalHue = hash % 2 === 0 ? h : h2;
-
-  return `hsl(${finalHue}, ${s}%, ${l}%)`;
-}
+// Using imported stringToColor from utils
 
 const selectedTool = ref("");
 

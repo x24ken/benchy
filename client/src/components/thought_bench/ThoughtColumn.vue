@@ -21,7 +21,8 @@
             margin: 0,
             width: '100%',
             lineHeight: 2,
-            backgroundColor: stringToColor(columnData.model),
+            backgroundColor: modelBackgroundColor,
+            color: modelTextColor,
           }"
         >
           {{ columnData.model }}
@@ -104,7 +105,7 @@ import type { ThoughtBenchColumnData } from "../../types";
 import { copyToClipboard } from "../../utils";
 import VueMarkdown from "vue-markdown-render";
 import { computed } from "vue";
-import { stringToColor } from "../../utils";
+import { stringToColor, getContrastTextColor } from "../../utils";
 import anthropicLogo from "../../assets/anthropic.svg";
 import ollamaLogo from "../../assets/ollama.svg";
 import openaiLogo from "../../assets/openai.svg";
@@ -146,6 +147,14 @@ const getProviderLogo = computed(() => {
     default:
       return null;
   }
+});
+
+const modelBackgroundColor = computed(() => {
+  return stringToColor(props.columnData.model);
+});
+
+const modelTextColor = computed(() => {
+  return getContrastTextColor(modelBackgroundColor.value);
 });
 </script>
 
@@ -239,10 +248,10 @@ const getProviderLogo = computed(() => {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: #e0e6eb;
   padding: 0.25rem 0.5rem;
   border-radius: 0.25rem;
   transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .stats {
